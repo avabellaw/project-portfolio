@@ -13,7 +13,9 @@
 
 # Packages
 
-python-dotenv - Allows you to set enviroment variables in root .env.py
+* python-dotenv 
+  * Allows you to set enviroment variables in root .env.py
+* flask_restful
 
 # Design
 
