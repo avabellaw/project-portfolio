@@ -1,12 +1,16 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask
+from flask_restful import Api, Resource
 
 app = Flask(__name__)
+api = Api(app)
 
 
-@app.route('/test')
-def test():
-    return jsonify({'message': 'Hello react'})
+class HelloWorld(Resource):
+    def get(self):
+        return {'message': 'world'}
 
+
+api.add_resource(HelloWorld, '/api')
 
 if __name__ == '__main__':
     app.run(debug=True)
