@@ -49,22 +49,19 @@
 - Set up Python/Flask backend
 - Configure database
 - Create basic project structure
-- Set up development environment
-- Configure environment variables
 
-## Sprint 2: Core Frontend
-- Implement landing page
-- Build project card components
-- Create responsive navigation for porfolio
-- Add basic styling and animations
-- Set up React Router
-
-## Sprint 3: Backend Development
+## Sprint 2: Backend Development
 - Create Flask models for projects
 - Set up REST API endpoints
 - Implement authentication system
 - Create admin dashboard structure
 - Configure CORS and security settings
+
+## Sprint 3: Core Frontend
+- Create landing page structure
+- Build project card components
+- Create responsive navigation for porfolio
+- Add basic styling
 
 ## Sprint 4: Project Management Features
 - Implement CRUD operations for projects
@@ -73,13 +70,19 @@
 - Add project category management
 - Implement project ordering feature
 
-## Sprint 5: Polish & Testing
+## Sprint 5: Frontend
+- Style landing page
+- Set up React Router for project details
+- Create project details page
+- Style project details page
+
+## Sprint 6: Polish & Testing
 - Add loading states/tranisitons and error handling
 - Finish documentation
 - Performance optimization
 - Bug fixes and refinements
 
-## Sprint 6: Deployment & Launch
+## Sprint 7: Deployment & Launch
 - Set up production environment
 - Final manual testing
 - Finalize documentation
