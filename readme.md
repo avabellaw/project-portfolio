@@ -1,4 +1,6 @@
-# Languages and frameworks
+# Technology stack
+
+## Languages and frameworks
 
 * Flask
   * I chose Flask for speed as I only need what the microframework offers
@@ -11,11 +13,12 @@
 * CSS3
 * JavaScript
 
-# Packages
+## Packages and extensions
 
 * python-dotenv 
   * Allows you to set enviroment variables in root .env.py
 * flask_restful
+* Thunder client - To test restful endpoints
 
 # Design
 
