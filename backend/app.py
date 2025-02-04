@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 
 import os
 
-from backend.models import db
-from backend.models.project import Project as ProjectModel, \
+from models import db
+from models.project import Project as ProjectModel, \
     ProjectColourScheme as ColourSchemeModel
 
 from request_parsers import project_parser
