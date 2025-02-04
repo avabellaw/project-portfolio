@@ -26,6 +26,22 @@ def create_superuser():
         print(f"Superuser '{user.username}' created successfully!")
 
 
+def verify_superuser(username, password):
+    '''Verify superuser'''
+
+    bcrypt = Bcrypt()
+
+    with app.app_context():
+        user = User.query.filter_by(username=username).first()
+
+        if user:
+            print(f"Superuser '{user.username}' found!")
+        else:
+            return False
+
+        return bcrypt.check_password_hash(user.password, password)
+
+
 def create_all_tables():
     '''Create all tables in new database'''
     with app.app_context():
