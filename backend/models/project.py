@@ -1,6 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from . import db
 
 
 class Project(db.Model):
@@ -71,3 +69,4 @@ class ProjectSkill(db.Model):
 
     def __str__(self):
         return self.name
+
