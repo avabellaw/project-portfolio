@@ -45,7 +45,7 @@ class SkillTag(db.Model):
     '''Skill Tag model'''
     __tablename__ = 'skill_tags'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(12))
+    name = db.Column(db.String(12), unique=True)
 
     def __str__(self):
         return self.name
@@ -62,6 +62,11 @@ class ProjectTag(db.Model):
                                 backref='project_tags',  # lazy='select'
                                 lazy='joined',
                                 uselist=False)
+
+    __table_args__ = (
+        db.UniqueConstraint('project_id', 'skill_tag_id',
+                            name='unique_project_skill'),
+    )
 
     def __str__(self):
         return self.name
