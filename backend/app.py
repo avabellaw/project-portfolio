@@ -5,8 +5,10 @@ from dotenv import load_dotenv
 
 import os
 
-from models import db, Project as ProjectModel
+from models import db, Project as ProjectModel, \
+    ProjectColourScheme as ColourSchemeModel
 
+from request_parsers import project_parser
 
 app = Flask(__name__)
 
@@ -48,6 +50,27 @@ class Projects(Resource):
     def get(self):
         return ProjectModel.query.all()
 
+    @marshal_with(project_fields)
+    def post(self):
+        args = project_parser.parse_args()
+        project = ProjectModel(title=args['title'],
+                               description=args['description'],
+                               live_url=args['live_url'],
+                               github_url=args['github_url'],
+                               image_url='TEMPORARY IMAGE URL')
+        db.session.add(project)
+        db.session.flush()
+
+        colour_scheme = ColourSchemeModel(
+            project_id=project.id,
+            primary_colour=args['primary_colour'],
+            secondary_colour=args['secondary_colour'],
+            text_colour=args['text_colour']
+            )
+        db.session.add(colour_scheme)
+        db.session.commit()
+        return project, 201
+
 
 class Project(Resource):
     @marshal_with(project_fields)
@@ -63,6 +86,7 @@ class ProjectSkills(Resource):
 
 
 api.add_resource(Projects, '/api/projects')
+api.add_resource(Project, '/api/projects/<int:project_id>')
 
 if __name__ == '__main__':
     app.run(debug=eval(os.environ.get('DEBUG', False)))
