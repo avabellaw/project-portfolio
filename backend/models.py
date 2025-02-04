@@ -20,10 +20,10 @@ class Project(db.Model):
                                     lazy='joined',
                                     cascade='all, delete-orphan')
 
-    project_skill_ags = db.relationship('ProjectSkill',
-                                        backref=db.backref('project',
-                                                           lazy='joined'),
-                                        cascade='all, delete-orphan')
+    project_skills = db.relationship('ProjectSkill',
+                                     backref=db.backref('project',
+                                                        lazy='joined'),
+                                     cascade='all, delete-orphan')
 
     def __str__(self):
         return self.title

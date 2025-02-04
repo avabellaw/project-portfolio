@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Api, Resource, marshal_with, fields
+from flask_restful import Api, Resource, marshal_with, fields, abort
 
 from dotenv import load_dotenv
 
@@ -66,7 +66,7 @@ class Projects(Resource):
             primary_colour=args['primary_colour'],
             secondary_colour=args['secondary_colour'],
             text_colour=args['text_colour']
-            )
+        )
         db.session.add(colour_scheme)
         db.session.commit()
         return project, 201
@@ -75,14 +75,23 @@ class Projects(Resource):
 class Project(Resource):
     @marshal_with(project_fields)
     def get(self, project_id):
-        return ProjectModel.query.get(project_id)
+        project = ProjectModel.query.get(project_id)
+        if not project:
+            abort(404, message='Project not found')
+
+        return project
 
 
 class ProjectSkills(Resource):
     @marshal_with(skill_fields)
     def get(self, project_id):
         project = ProjectModel.query.get(project_id)
-        return project.project_tags
+        if not project:
+            abort(404, message='Project not found')
+        skills = project.project_skills
+        if not skills:
+            abort(404, message='No skills found for this project')
+        return skills
 
 
 api.add_resource(Projects, '/api/projects')
