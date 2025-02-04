@@ -8,6 +8,7 @@ class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50))
+    description = db.Column(db.String(150))
     live_url = db.Column(db.String(255))
     github_url = db.Column(db.String(255))
     image_url = db.Column(db.String(255))
