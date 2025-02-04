@@ -37,7 +37,7 @@ project_fields = {
     'colour_scheme': fields.Nested(colour_scheme_fields)
 }
 
-skill_tag_fields = {
+skill_fields = {
     'name': fields.String
 }
 
@@ -55,11 +55,11 @@ class Project(Resource):
         return ProjectModel.query.get(project_id)
 
 
-class ProjectTags(Resource):
-    @marshal_with(skill_tag_fields)
+class ProjectSkills(Resource):
+    @marshal_with(skill_fields)
     def get(self, project_id):
         project = ProjectModel.query.get(project_id)
-        return [tag.name for tag in project.project_tags]
+        return project.project_tags
 
 
 api.add_resource(Projects, '/api/projects')

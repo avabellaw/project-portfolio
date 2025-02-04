@@ -19,10 +19,10 @@ class Project(db.Model):
                                     lazy='joined',
                                     cascade='all, delete-orphan')
 
-    project_tags = db.relationship('ProjectTag',
-                                   backref=db.backref('project',
-                                                      lazy='joined'),
-                                   cascade='all, delete-orphan')
+    project_skill_ags = db.relationship('ProjectSkill',
+                                        backref=db.backref('project',
+                                                           lazy='joined'),
+                                        cascade='all, delete-orphan')
 
     def __str__(self):
         return self.title
@@ -41,9 +41,9 @@ class ProjectColourScheme(db.Model):
         return f'{self.project_id} - {self.colour_scheme_id}'
 
 
-class SkillTag(db.Model):
+class Skill(db.Model):
     '''Skill Tag model'''
-    __tablename__ = 'skill_tags'
+    __tablename__ = 'skills'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(12), unique=True)
 
@@ -51,20 +51,20 @@ class SkillTag(db.Model):
         return self.name
 
 
-class ProjectTag(db.Model):
+class ProjectSkill(db.Model):
     '''Links projects to skills'''
-    __tablename__ = 'project_tags'
+    __tablename__ = 'project_skills'
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
-    skill_tag_id = db.Column(db.Integer, db.ForeignKey('skill_tags.id'))
+    skill_id = db.Column(db.Integer, db.ForeignKey('skills.id'))
 
-    skill_tag = db.relationship('SkillTag',
-                                backref='project_tags',  # lazy='select'
-                                lazy='joined',
-                                uselist=False)
+    skill = db.relationship('Skill',
+                            backref='project_skills',  # lazy='select'
+                            lazy='joined',
+                            uselist=False)
 
     __table_args__ = (
-        db.UniqueConstraint('project_id', 'skill_tag_id',
+        db.UniqueConstraint('project_id', 'skill_id',
                             name='unique_project_skill'),
     )
 
