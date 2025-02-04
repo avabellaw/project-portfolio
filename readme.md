@@ -86,3 +86,51 @@
 - Set up production environment
 - Final manual testing
 - Finalize documentation
+
+## Enitity relationship diagram
+
+[View ERD on lucidchart](https://lucid.app/lucidchart/fc35cf54-f85c-4fa3-a637-8f530bfa80d1/edit?viewport_loc=-617%2C-101%2C2399%2C1058%2C0_0&invitationId=inv_0e8624ce-216d-4796-a3dd-6dde92d8ba15)
+
+### ERD explained
+
+#### Project
+
+Contains the columns for each project.
+
+* id - primary key
+* title 
+* description
+* live_url - Link to the live project
+* github_url
+* image_url - Link to where the image is stored.
+
+#### Project colour scheme
+
+Contains the project's colour scheme for frontend styling.
+Colours stored as hex values.
+Has a one-to-one relationship with a project.
+
+Foreign key is in the 
+
+* id - primary key
+* project_id - foreign key
+* primary_colour
+* secondary_colour
+* text_colour
+
+#### Skill tags
+
+Contains each skill tags name.
+
+* id - primary key
+* name - UNIQUE
+
+### Project_tag
+
+Links a project with skills, creating a one-to-many relationship.
+
+* id - primary key for indexing
+* project_id - foreign key
+* skill_tag_id - foreign key
+
+project_id + skill_tag_id has unique contraint
