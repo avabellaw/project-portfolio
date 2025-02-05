@@ -21,6 +21,7 @@ class Project(db.Model):
     project_skills = db.relationship('ProjectSkill',
                                      backref=db.backref('project',
                                                         lazy='joined'),
+                                     lazy='joined',
                                      cascade='all, delete-orphan')
 
     def __str__(self):
@@ -69,4 +70,3 @@ class ProjectSkill(db.Model):
 
     def __str__(self):
         return self.name
-
