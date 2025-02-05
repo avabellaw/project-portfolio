@@ -124,6 +124,7 @@ class Skills(Resource):
 
             return skill, 201
         except IntegrityError:
+            # Violates unique constraint
             abort(400, message='Skill already exists')
 
 
@@ -154,22 +155,61 @@ class Skill(Resource):
         return '', 204
 
 
-class ProjectSkills(Resource):
-    @marshal_with(skill_fields)
-    def get(self, project_id):
+class ProjectsBySkill(Resource):
+    '''Endpoint to get projects by skill'''
+
+    @marshal_with(project_fields)
+    def get(self, skill_id):
+        '''Get projects by skill'''
+
+        skill = SkillModel.query.get(skill_id)
+        if not skill:
+            abort(404, message='Skill not found')
+
+        project_skills = skill.project_skills
+
+        return [ps.project for ps in project_skills]
+
+
+class ProjectSkill(Resource):
+    '''Manage skills on a project'''
+
+    @marshal_with(project_fields)
+    def post(self, project_id, skill_id):
+        '''Add a skill to a project'''
         project = ProjectModel.query.get(project_id)
+
         if not project:
             abort(404, message='Project not found')
-        skills = project.project_skills
-        if not skills:
-            abort(404, message='No skills found for this project')
-        return skills
+
+        skill = SkillModel.query.get(skill_id)
+        if not skill:
+            abort(404, message='Skill not found')
+
+        project_name = project.title
+        skill_name = skill.name
+
+        try:
+            project_skill = ProjectSkillModel(project_id=project.id,
+                                              skill_id=skill.id)
+            db.session.add(project_skill)
+            db.session.commit()
+            return project, 201
+        except IntegrityError:
+            # Violates unique constraint
+            abort(400,
+                  message=f"'{skill_name}' already a skill for \
+                      project '{project_name}'")
 
 
 api.add_resource(Projects, '/api/projects')
-api.add_resource(Project, '/api/projects/<int:project_id>')
+api.add_resource(Project, '/api/project/<int:project_id>')
 api.add_resource(Skills, '/api/skills')
-api.add_resource(Skill, '/api/skills/<int:skill_id>')
+api.add_resource(Skill, '/api/skill/<int:skill_id>')
+api.add_resource(ProjectsBySkill, '/api/projects-by-skill/<int:skill_id>')
+api.add_resource(
+    ProjectSkill, '/api/project/<int:project_id>/skill/<int:skill_id>')
+
 
 if __name__ == '__main__':
     app.run(debug=eval(os.environ.get('DEBUG', False)))
