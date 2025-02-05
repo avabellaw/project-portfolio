@@ -67,6 +67,36 @@ class Project(Resource):
 
         return project
 
+    @marshal_with(project_fields)
+    def put(self, project_id):
+        '''Update a project'''
+        project = db.session.get(ProjectModel, project_id)
+        if not project:
+            abort(404, message='Project not found')
+        args = project_parser.parse_args()
+        project.title = args['title']
+        project.description = args['description']
+        project.live_url = args['live_url']
+        project.github_url = args['github_url']
+        project.image_url = 'TEMPORARY IMAGE URL'
+
+        colour_scheme = project.colour_scheme
+        colour_scheme.primary_colour = args['primary_colour']
+        colour_scheme.secondary_colour = args['secondary_colour']
+        colour_scheme.text_colour = args['text_colour']
+        db.session.commit()
+
+        return project
+
+    def delete(self, project_id):
+        '''Delete a project'''
+        project = db.session.get(ProjectModel, project_id)
+        if not project:
+            abort(404, message='Project not found')
+        db.session.delete(project)
+        db.session.commit()
+        return '', 204
+
 
 class Skills(Resource):
     @marshal_with(skill_fields)
