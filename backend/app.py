@@ -34,6 +34,7 @@ colour_scheme_fields = {
 }
 
 project_fields = {
+    'id': fields.Integer,
     'title': fields.String,
     'description': fields.String,
     'live_url': fields.String,
@@ -43,6 +44,7 @@ project_fields = {
 }
 
 skill_fields = {
+    'id': fields.Integer,
     'name': fields.String
 }
 
@@ -117,6 +119,24 @@ class Skill(Resource):
             abort(404, message='Skill not found')
         return skill
 
+    @marshal_with(skill_fields)
+    def put(self, skill_id):
+        skill = SkillModel.query.get(skill_id)
+        if not skill:
+            abort(404, message='Skill not found')
+        args = skill_parser.parse_args()
+        skill.name = args['name']
+        db.session.commit()
+        return skill
+
+    def delete(self, skill_id):
+        skill = SkillModel.query.get(skill_id)
+        if not skill:
+            abort(404, message='Skill not found')
+        db.session.delete(skill)
+        db.session.commit()
+        return '', 204
+
 
 class ProjectSkills(Resource):
     @marshal_with(skill_fields)
@@ -133,6 +153,7 @@ class ProjectSkills(Resource):
 api.add_resource(Projects, '/api/projects')
 api.add_resource(Project, '/api/projects/<int:project_id>')
 api.add_resource(Skills, '/api/skills')
+api.add_resource(Skill, '/api/skills/<int:skill_id>')
 
 if __name__ == '__main__':
     app.run(debug=eval(os.environ.get('DEBUG', False)))
