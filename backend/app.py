@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Api, Resource, marshal_with, fields, abort
+from sqlalchemy.exc import IntegrityError
 
 from dotenv import load_dotenv
 
@@ -7,9 +8,10 @@ import os
 
 from models import db
 from models.project import Project as ProjectModel, \
-    ProjectColourScheme as ColourSchemeModel
+    ProjectColourScheme as ColourSchemeModel, Skill as SkillModel, \
+    ProjectSkill as ProjectSkillModel
 
-from request_parsers import project_parser
+from request_parsers import project_parser, skill_parser
 
 app = Flask(__name__)
 
@@ -49,10 +51,12 @@ skill_fields = {
 class Projects(Resource):
     @marshal_with(project_fields)
     def get(self):
+        '''Get all projects'''
         return ProjectModel.query.all()
 
     @marshal_with(project_fields)
     def post(self):
+        '''Create a new project'''
         args = project_parser.parse_args()
         project = ProjectModel(title=args['title'],
                                description=args['description'],
@@ -76,11 +80,42 @@ class Projects(Resource):
 class Project(Resource):
     @marshal_with(project_fields)
     def get(self, project_id):
+        '''Get project by ID'''
         project = ProjectModel.query.get(project_id)
         if not project:
             abort(404, message='Project not found')
 
         return project
+
+
+class Skills(Resource):
+    @marshal_with(skill_fields)
+    def get(self):
+        '''Get all skills'''
+        return SkillModel.query.all()
+
+    @marshal_with(skill_fields)
+    def post(self):
+        '''Create a new skill'''
+        args = skill_parser.parse_args()
+        try:
+            skill = SkillModel(name=args['name'])
+
+            db.session.add(skill)
+            db.session.commit()
+
+            return skill, 201
+        except IntegrityError:
+            abort(400, message='Skill already exists')
+
+
+class Skill(Resource):
+    @marshal_with(skill_fields)
+    def get(self, skill_id):
+        skill = SkillModel.query.get(skill_id)
+        if not skill:
+            abort(404, message='Skill not found')
+        return skill
 
 
 class ProjectSkills(Resource):
@@ -97,6 +132,7 @@ class ProjectSkills(Resource):
 
 api.add_resource(Projects, '/api/projects')
 api.add_resource(Project, '/api/projects/<int:project_id>')
+api.add_resource(Skills, '/api/skills')
 
 if __name__ == '__main__':
     app.run(debug=eval(os.environ.get('DEBUG', False)))

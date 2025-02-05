@@ -2,7 +2,8 @@
 from flask_restful import reqparse
 
 
-# Request parsers
+# Project parser
+
 project_parser = reqparse.RequestParser()
 project_parser.add_argument('title', type=str, required=True,
                             help='Project title is required')
@@ -21,3 +22,8 @@ project_parser.add_argument('text_colour', type=str, required=True,
 # project_parser.add_argument('image',
 #                             type=werkzeug.datastructures.FileStorage,
 #                             location='files')
+
+# Skill parser
+
+skill_parser = reqparse.RequestParser()
+skill_parser.add_argument('name', type=str, required=True)
