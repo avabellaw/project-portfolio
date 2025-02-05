@@ -83,7 +83,7 @@ class Projects(Resource):
 
         if args['skills']:
             for skill_id in args['skills']:
-                skill = SkillModel.query.get(skill_id)
+                skill = db.session.get(SkillModel, skill_id)
                 if skill:
                     project_skill = ProjectSkillModel(project_id=project.id,
                                                       skill_id=skill.id)
@@ -99,7 +99,7 @@ class Project(Resource):
     @marshal_with(project_fields)
     def get(self, project_id):
         '''Get project by ID'''
-        project = ProjectModel.query.get(project_id)
+        project = db.session.get(ProjectModel, project_id)
         if not project:
             abort(404, message='Project not found')
 
@@ -131,14 +131,14 @@ class Skills(Resource):
 class Skill(Resource):
     @marshal_with(skill_fields)
     def get(self, skill_id):
-        skill = SkillModel.query.get(skill_id)
+        skill = db.session.get(SkillModel, skill_id)
         if not skill:
             abort(404, message='Skill not found')
         return skill
 
     @marshal_with(skill_fields)
     def put(self, skill_id):
-        skill = SkillModel.query.get(skill_id)
+        skill = db.session.get(SkillModel, skill_id)
         if not skill:
             abort(404, message='Skill not found')
         args = skill_parser.parse_args()
@@ -147,7 +147,7 @@ class Skill(Resource):
         return skill
 
     def delete(self, skill_id):
-        skill = SkillModel.query.get(skill_id)
+        skill = db.session.get(SkillModel, skill_id)
         if not skill:
             abort(404, message='Skill not found')
         db.session.delete(skill)
@@ -162,7 +162,7 @@ class ProjectsBySkill(Resource):
     def get(self, skill_id):
         '''Get projects by skill'''
 
-        skill = SkillModel.query.get(skill_id)
+        skill = db.session.get(SkillModel, skill_id)
         if not skill:
             abort(404, message='Skill not found')
 
@@ -172,17 +172,17 @@ class ProjectsBySkill(Resource):
 
 
 class ProjectSkill(Resource):
-    '''Manage skills on a project'''
+    '''Add or delete skills on a project'''
 
     @marshal_with(project_fields)
     def post(self, project_id, skill_id):
         '''Add a skill to a project'''
-        project = ProjectModel.query.get(project_id)
+        project = db.session.get(ProjectModel, project_id)
 
         if not project:
             abort(404, message='Project not found')
 
-        skill = SkillModel.query.get(skill_id)
+        skill = db.session.get(SkillModel, skill_id)
         if not skill:
             abort(404, message='Skill not found')
 
@@ -198,8 +198,8 @@ class ProjectSkill(Resource):
         except IntegrityError:
             # Violates unique constraint
             abort(400,
-                  message=f"'{skill_name}' already a skill for \
-                      project '{project_name}'")
+                  message=f"'{skill_name}' already a skill "
+                  f"for project '{project_name}'")
 
 
 api.add_resource(Projects, '/api/projects')
