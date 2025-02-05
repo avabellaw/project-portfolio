@@ -217,9 +217,9 @@ class ProjectSkill(Resource):
 
 
 api.add_resource(Projects, '/api/projects')
-api.add_resource(Project, '/api/project/<int:project_id>')
+api.add_resource(Project, '/api/projects/<int:project_id>')
 api.add_resource(Skills, '/api/skills')
-api.add_resource(Skill, '/api/skill/<int:skill_id>')
+api.add_resource(Skill, '/api/skills/<int:skill_id>')
 api.add_resource(ProjectsBySkill, '/api/projects-by-skill/<int:skill_id>')
 api.add_resource(
-    ProjectSkill, '/api/project/<int:project_id>/skill/<int:skill_id>')
+    ProjectSkill, '/api/projects/<int:project_id>/skill/<int:skill_id>')
