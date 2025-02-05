@@ -201,6 +201,28 @@ class ProjectSkill(Resource):
                   message=f"'{skill_name}' already a skill "
                   f"for project '{project_name}'")
 
+    @marshal_with(project_fields)
+    def delete(self, project_id, skill_id):
+        '''Delete a skill from a project'''
+        project = db.session.get(ProjectModel, project_id)
+
+        if not project:
+            abort(404, message='Project not found')
+
+        skill = db.session.get(SkillModel, skill_id)
+        if not skill:
+            abort(404, message='Skill not found')
+
+        project_skill = db.session.query(ProjectSkillModel).filter_by(
+            project_id=project.id, skill_id=skill.id).first()
+
+        if not project_skill:
+            abort(404, message='Skill not found for project')
+
+        db.session.delete(project_skill)
+        db.session.commit()
+        return '', 204
+
 
 api.add_resource(Projects, '/api/projects')
 api.add_resource(Project, '/api/project/<int:project_id>')
