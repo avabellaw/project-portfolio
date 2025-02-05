@@ -33,6 +33,15 @@ colour_scheme_fields = {
     'text_colour': fields.String
 }
 
+skill_fields = {
+    'id': fields.Integer,
+    'name': fields.String
+}
+
+project_skill_fields = {
+    'skill': fields.Nested(skill_fields)
+}
+
 project_fields = {
     'id': fields.Integer,
     'title': fields.String,
@@ -40,12 +49,8 @@ project_fields = {
     'live_url': fields.String,
     'github_url': fields.String,
     'image_url': fields.String,
-    'colour_scheme': fields.Nested(colour_scheme_fields)
-}
-
-skill_fields = {
-    'id': fields.Integer,
-    'name': fields.String
+    'colour_scheme': fields.Nested(colour_scheme_fields),
+    'project_skills': fields.List(fields.Nested(project_skill_fields))
 }
 
 
@@ -75,6 +80,17 @@ class Projects(Resource):
             text_colour=args['text_colour']
         )
         db.session.add(colour_scheme)
+
+        if args['skills']:
+            for skill_id in args['skills']:
+                skill = SkillModel.query.get(skill_id)
+                if skill:
+                    project_skill = ProjectSkillModel(project_id=project.id,
+                                                      skill_id=skill.id)
+                    db.session.add(project_skill)
+                else:
+                    abort(404, message=f'Skill ID:{skill_id} not found')
+
         db.session.commit()
         return project, 201
 

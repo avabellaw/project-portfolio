@@ -19,6 +19,8 @@ project_parser.add_argument('secondary_colour', type=str, required=True,
                             help='Secondary colour is required')
 project_parser.add_argument('text_colour', type=str, required=True,
                             help='Text colour is required')
+project_parser.add_argument('skills', type=int, action='append',
+                            required=False)
 # project_parser.add_argument('image',
 #                             type=werkzeug.datastructures.FileStorage,
 #                             location='files')
