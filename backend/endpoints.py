@@ -5,8 +5,9 @@ from sqlalchemy.exc import IntegrityError
 from models import db
 
 from models.project import Project as ProjectModel, \
-    ProjectColourScheme as ColourSchemeModel, Skill as SkillModel, \
+    ProjectColourScheme as ColourSchemeModel, \
     ProjectSkill as ProjectSkillModel
+from models.skill import Skill as SkillModel
 
 from request_parsers import project_parser, skill_parser
 

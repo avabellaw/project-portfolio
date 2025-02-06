@@ -19,8 +19,7 @@ class Project(db.Model):
                                     cascade='all, delete-orphan')
 
     project_skills = db.relationship('ProjectSkill',
-                                     backref=db.backref('project',
-                                                        lazy='joined'),
+                                     backref='project',
                                      lazy='joined',
                                      cascade='all, delete-orphan')
 
@@ -41,27 +40,12 @@ class ProjectColourScheme(db.Model):
         return f'{self.project_id} - {self.colour_scheme_id}'
 
 
-class Skill(db.Model):
-    '''Skill Tag model'''
-    __tablename__ = 'skills'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(12), unique=True)
-
-    def __str__(self):
-        return self.name
-
-
 class ProjectSkill(db.Model):
     '''Links projects to skills'''
     __tablename__ = 'project_skills'
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
     skill_id = db.Column(db.Integer, db.ForeignKey('skills.id'))
-
-    skill = db.relationship('Skill',
-                            backref='project_skills',  # lazy='select'
-                            lazy='joined',
-                            uselist=False)
 
     __table_args__ = (
         db.UniqueConstraint('project_id', 'skill_id',
