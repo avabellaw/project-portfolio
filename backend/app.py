@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 import os
 
 from models import db
-from models.project import Project
 from admin_cms import admin
 from endpoints import api
 
@@ -22,7 +21,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
     api_key=os.getenv('CLOUDINARY_API_KEY'),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET')
+    api_secret=os.getenv('CLOUDINARY_API_SECRET'),
 )
 
 
