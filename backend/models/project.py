@@ -5,11 +5,11 @@ class Project(db.Model):
     '''Project model'''
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50))
-    description = db.Column(db.String(150))
-    live_url = db.Column(db.String(255))
-    github_url = db.Column(db.String(255))
-    image_url = db.Column(db.String(255))
+    title = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(150), nullable=False)
+    live_url = db.Column(db.String(255), nullable=False)
+    github_url = db.Column(db.String(255), nullable=False)
+    image_url = db.Column(db.String(255), nullable=False)
 
     colour_scheme = db.relationship('ProjectColourScheme',
                                     backref=db.backref('project',
@@ -32,9 +32,9 @@ class ProjectColourScheme(db.Model):
     __tablename__ = 'project_colour_schemes'
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
-    primary_colour = db.Column(db.String(6))
-    secondary_colour = db.Column(db.String(6))
-    text_colour = db.Column(db.String(6))
+    primary_colour = db.Column(db.String(6), nullable=False)
+    secondary_colour = db.Column(db.String(6), nullable=False)
+    text_colour = db.Column(db.String(6), nullable=False)
 
     def __str__(self):
         return f'{self.project_id} - {self.id}'
