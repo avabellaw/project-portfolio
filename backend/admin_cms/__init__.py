@@ -7,7 +7,9 @@ from models import db
 from models.project import Project
 from models.skill import Skill
 
-admin = Admin(name='Porfolio Panel', template_mode='bootstrap3')
+admin = Admin(name='Porfolio Panel',
+              template_mode='bootstrap3',
+              base_template='admin/base-custom.html')
 
 
 admin.add_view(ProjectView(Project, db.session))

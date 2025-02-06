@@ -1,0 +1,11 @@
+label[for="skills"] + div {
+    display: flex;
+    column-gap: 1em;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+label[for="skills"] + div input[type="checkbox"] {
+    position: unset;
+    margin-right: 0.5em;
+}
