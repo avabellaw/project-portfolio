@@ -18,10 +18,10 @@ class Project(db.Model):
                                     lazy='joined',
                                     cascade='all, delete-orphan')
 
-    project_skills = db.relationship('ProjectSkill',
-                                     backref='project',
-                                     lazy='joined',
-                                     cascade='all, delete-orphan')
+    skills = db.relationship('Skill',
+                             secondary='project_skills',
+                             backref='projects',
+                             lazy='joined')
 
     def __str__(self):
         return self.title
@@ -37,7 +37,7 @@ class ProjectColourScheme(db.Model):
     text_colour = db.Column(db.String(6))
 
     def __str__(self):
-        return f'{self.project_id} - {self.colour_scheme_id}'
+        return f'{self.project_id} - {self.id}'
 
 
 class ProjectSkill(db.Model):

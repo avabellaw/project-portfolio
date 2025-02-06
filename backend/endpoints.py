@@ -223,4 +223,4 @@ api.add_resource(Skills, '/api/skills')
 api.add_resource(Skill, '/api/skills/<int:skill_id>')
 api.add_resource(ProjectsBySkill, '/api/projects-by-skill/<int:skill_id>')
 api.add_resource(
-    ProjectSkill, '/api/projects/<int:project_id>/skill/<int:skill_id>')
+    ProjectSkill, '/api/projects/<int:project_id>/skills/<int:skill_id>')
