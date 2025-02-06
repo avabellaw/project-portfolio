@@ -37,7 +37,8 @@ class ProjectColourScheme(db.Model):
     text_colour = db.Column(db.String(6), nullable=False)
 
     def __str__(self):
-        return f'{self.project_id} - {self.id}'
+        return f'Project #{self.project_id}: {self.primary_colour},'
+        f'{self.secondary_colour}, {self.text_colour}'
 
 
 class ProjectSkill(db.Model):
