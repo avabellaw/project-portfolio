@@ -1,14 +1,17 @@
-from flask import Flask
-
+from dotenv import load_dotenv
 import cloudinary
 
-from dotenv import load_dotenv
+from flask import Flask, render_template, request, redirect, url_for
+from flask_login import LoginManager, login_user, logout_user
+import superuser
 
 import os
 
-from models import db
-from admin_cms import admin
 from endpoints import api
+from admin_cms import admin
+from models.user import User
+from models import db
+
 
 app = Flask(__name__)
 
@@ -17,6 +20,9 @@ load_dotenv()  # Load environment variables from .env file
 # Configurations
 app.secret_key = os.environ.get('SECRET_KEY')
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+
+login_manager = LoginManager()
+login_manager.login_view = 'admin/login'
 
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
@@ -28,6 +34,40 @@ cloudinary.config(
 db.init_app(app)  # Initialize SQLAlchemy in models.py
 api.init_app(app)  # Initialize Flask-RESTful in endpoints.py
 admin.init_app(app)  # Initialize Flask-Admin
+login_manager.init_app(app)  # Initlize Flask-Login manager
+
+
+# User authentication
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def login():
+    validation_error = None
+
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            # User admin can check, enhanced security
+            print('User not found')
+        if superuser.verify_superuser(username, password):
+            login_user(user)
+            return redirect(url_for('admin.index'))
+        else:
+            validation_error = 'Invalid credentials'
+    return render_template('admin/login.html',
+                           validation_error=validation_error)
+
+
+@app.route('/admin/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':

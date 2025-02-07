@@ -1,0 +1,21 @@
+body {
+    padding: 15% 30%;
+}
+
+h2 {
+    margin-bottom: 1em;
+}
+
+button[type="submit"] {
+    margin-top: 1em;
+    width: 80%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+div.alert.alert-danger {
+    padding: .4rem 1.25rem;
+}
