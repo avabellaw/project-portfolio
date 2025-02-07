@@ -5,11 +5,11 @@ class Project(db.Model):
     '''Project model'''
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50))
-    description = db.Column(db.String(150))
-    live_url = db.Column(db.String(255))
-    github_url = db.Column(db.String(255))
-    image_url = db.Column(db.String(255))
+    title = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(150), nullable=False)
+    live_url = db.Column(db.String(255), nullable=False)
+    github_url = db.Column(db.String(255), nullable=False)
+    image_url = db.Column(db.String(255), nullable=False)
 
     colour_scheme = db.relationship('ProjectColourScheme',
                                     backref=db.backref('project',
@@ -18,11 +18,10 @@ class Project(db.Model):
                                     lazy='joined',
                                     cascade='all, delete-orphan')
 
-    project_skills = db.relationship('ProjectSkill',
-                                     backref=db.backref('project',
-                                                        lazy='joined'),
-                                     lazy='joined',
-                                     cascade='all, delete-orphan')
+    skills = db.relationship('Skill',
+                             secondary='project_skills',
+                             backref='projects',
+                             lazy='joined')
 
     def __str__(self):
         return self.title
@@ -33,22 +32,13 @@ class ProjectColourScheme(db.Model):
     __tablename__ = 'project_colour_schemes'
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
-    primary_colour = db.Column(db.String(6))
-    secondary_colour = db.Column(db.String(6))
-    text_colour = db.Column(db.String(6))
+    primary_colour = db.Column(db.String(6), nullable=False)
+    secondary_colour = db.Column(db.String(6), nullable=False)
+    text_colour = db.Column(db.String(6), nullable=False)
 
     def __str__(self):
-        return f'{self.project_id} - {self.colour_scheme_id}'
-
-
-class Skill(db.Model):
-    '''Skill Tag model'''
-    __tablename__ = 'skills'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(12), unique=True)
-
-    def __str__(self):
-        return self.name
+        return f'Project #{self.project_id}: {self.primary_colour},'
+        f'{self.secondary_colour}, {self.text_colour}'
 
 
 class ProjectSkill(db.Model):
@@ -57,11 +47,6 @@ class ProjectSkill(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
     skill_id = db.Column(db.Integer, db.ForeignKey('skills.id'))
-
-    skill = db.relationship('Skill',
-                            backref='project_skills',  # lazy='select'
-                            lazy='joined',
-                            uselist=False)
 
     __table_args__ = (
         db.UniqueConstraint('project_id', 'skill_id',
