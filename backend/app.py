@@ -20,9 +20,10 @@ load_dotenv()  # Load environment variables from .env file
 # Configurations
 app.secret_key = os.environ.get('SECRET_KEY')
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+LOGIN_URL = 'admin/login'
 
 login_manager = LoginManager()
-login_manager.login_view = 'admin/login'
+login_manager.login_view = LOGIN_URL
 
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
