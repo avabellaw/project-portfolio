@@ -44,7 +44,7 @@ admin = Admin(name='Porfolio Panel',
               base_template='admin/base-custom.html',
               index_view=AdminIndexView(name='Home'))
 
-admin.add_link(MenuLink(name='Logout', url='logout'))
+admin.add_link(MenuLink(name='Logout', url='/admin/logout'))
 
 admin.add_view(ProjectView(Project, db.session))
 admin.add_view(SkillView(Skill, db.session))
