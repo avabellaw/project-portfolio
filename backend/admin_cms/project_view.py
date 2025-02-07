@@ -8,7 +8,7 @@ from flask_admin.contrib.sqla.fields import CheckboxListField
 from wtforms.validators import DataRequired
 
 from io import BytesIO
-from cloudinary.uploader import upload
+from cloudinary import uploader
 
 import os
 
@@ -72,8 +72,22 @@ class ProjectView(ModelView):
         'skills'
     ]
 
+    def delete_img_from_cloudinary(self, image_url):
+        '''Deletes image from Cloudinary'''
+        public_id = image_url.split('/')[-1].split('.')[0]  # Get public ID
+        # Add folder to public ID
+        public_id = f"{os.environ.get('CLOUDINARY_FOLDER')}/{public_id}"
+        uploader.destroy(public_id,
+                         invalidate=True)  # Deletes img and CDN cache
+
+    def on_model_delete(self, model):
+        '''ModelView on modal delet override'''
+        self.delete_img_from_cloudinary(model.image_url)
+
     def on_model_change(self, form, model, is_created):
         if form.image.data:
-            result = upload(BytesIO(form.image.data),
-                            folder=os.environ.get('CLOUDINARY_FOLDER'))
+            result = uploader.upload(BytesIO(form.image.data),
+                                     folder=os.environ.get('CLOUDINARY_FOLDER'))
+            if model.image_url:
+                self.delete_img_from_cloudinary(model.image_url)
             model.image_url = result['secure_url']
