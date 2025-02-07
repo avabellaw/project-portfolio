@@ -36,15 +36,27 @@ class ProjectView(ModelView):
             get_label='name',
         ),
         'image': CloudinaryUploadField(
-            'Image',
-            validators=[DataRequired(message='Image required')]),
+            'Image',)
     }
+
+    form_widget_args = {
+        'image_url': {
+            'readonly': True
+        }
+    }
+
+    def create_form(self, obj=None):
+        form = super(ProjectView, self).create_form(obj)
+        form.image.validators = [DataRequired(message='Image required')]
+        form.image_url.data = 'No image'
+        return form
 
     form_columns = [
         'title',
         'description',
         'live_url',
         'github_url',
+        'image_url',
         'image',
         'skills',
         'colour_scheme'
