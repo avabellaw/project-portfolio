@@ -56,8 +56,8 @@
 ## Sprint 2: Backend Development
 - Create Flask models for projects
 - Set up REST API endpoints
-- Implement authentication system
 - Create admin dashboard structure
+- Add admin login
 - Configure CORS and security settings
 
 ## Sprint 3: Core Frontend
