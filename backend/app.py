@@ -3,7 +3,7 @@ import cloudinary
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user
-import superuser
+from flask_bcrypt import Bcrypt
 
 import os
 
@@ -36,13 +36,14 @@ db.init_app(app)  # Initialize SQLAlchemy in models.py
 api.init_app(app)  # Initialize Flask-RESTful in endpoints.py
 admin.init_app(app)  # Initialize Flask-Admin
 login_manager.init_app(app)  # Initlize Flask-Login manager
+bcrypt = Bcrypt()  # Initialize Flask-Bcrypt
 
 
 # User authentication
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
 
 
 @app.route('/admin/login', methods=['GET', 'POST'])
@@ -56,7 +57,7 @@ def login():
         if not user:
             # User admin can check, enhanced security
             print('User not found')
-        if superuser.verify_superuser(username, password):
+        if bcrypt.check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('admin.index'))
         else:
