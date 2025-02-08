@@ -137,3 +137,9 @@ Links a project with skills, creating a one-to-many relationship.
 * skill_tag_id - foreign key
 
 project_id + skill_tag_id has unique contraint
+
+# Complete CRUD Endpoints for Flask API
+
+React only needs to get project information. Out of interest, I created endpoints for full CRUD functionality. 
+
+[View additional endpoints](docs/additional-endpoints.md)
