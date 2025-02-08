@@ -60,18 +60,18 @@
 - Add admin login
 - Configure CORS and security settings
 
-## Sprint 3: Core Frontend
-- Create landing page structure
-- Build project card components
-- Create responsive navigation for porfolio
-- Add basic styling
-
-## Sprint 4: Project Management Features
+## Sprint 3: Project Management Features
 - Implement CRUD operations for projects
 - Add image upload functionality
-- Create project skill filtering system
-- Add project category management
+- Add project skill management
 - Implement project ordering feature
+
+## Sprint 4: Core Frontend
+- Create landing page structure
+- Build project card components
+- Create responsive navigation for portfolio cards
+- Add basic styling
+- Create project skill filtering system
 
 ## Sprint 5: Frontend
 - Style landing page
