@@ -1,4 +1,7 @@
 from . import db
+from sqlalchemy import event
+from cloudinary import uploader
+import os
 
 
 class Project(db.Model):
@@ -23,8 +26,22 @@ class Project(db.Model):
                              backref='projects',
                              lazy='joined')
 
+    def delete_cloudinary_image(self):
+        # Get public ID
+        public_id = self.image_url.split('/')[-1].split('.')[0]
+        # Add folder to public ID
+        public_id = f"{os.environ.get('CLOUDINARY_FOLDER')}/{public_id}"
+        uploader.destroy(public_id,
+                         invalidate=True)  # Deletes img and CDN cache
+
     def __str__(self):
         return self.title
+
+
+@event.listens_for(Project, 'before_delete')
+def delete_cloudinary_image(mapper, connection, target):
+    '''Delete Cloudinary image before deleting project'''
+    target.delete_cloudinary_image()
 
 
 class ProjectColourScheme(db.Model):
