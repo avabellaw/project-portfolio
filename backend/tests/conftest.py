@@ -1,11 +1,16 @@
 import pytest
 
 from models.project import Project
+
 from app import app as flask_app, db
 
 
+# Database url set in __init__.py to in memory sqlite database
+
 @pytest.fixture()
 def app():
+    flask_app.config['TESTING'] = True
+
     with flask_app.app_context():
         yield flask_app
 
@@ -13,12 +18,7 @@ def app():
 @pytest.fixture()
 def client(app):
     with app.test_client() as client:
-        app.config['TESTING'] = True
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-
         db.create_all()
-
-        # Create test project
 
         add_test_data()
 

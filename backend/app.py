@@ -3,6 +3,7 @@ import cloudinary
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user
+from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 
 import os
@@ -15,7 +16,17 @@ from models import db
 
 app = Flask(__name__)
 
+# Allowed hosts
+
+origins = {
+    str(os.environ.get('ALLOWED_HOST_REACT')): ['GET'],
+    str(os.environ.get('ALLOWED_HOST_API')): ['GET', 'PUT', 'POST', 'DELETE'],
+}
+
+CORS(app, origins=origins)
+
 load_dotenv()  # Load environment variables from .env file
+
 
 # Configurations
 app.secret_key = os.environ.get('SECRET_KEY')
@@ -30,7 +41,6 @@ cloudinary.config(
     api_key=os.getenv('CLOUDINARY_API_KEY'),
     api_secret=os.getenv('CLOUDINARY_API_SECRET'),
 )
-
 
 db.init_app(app)  # Initialize SQLAlchemy in models.py
 api.init_app(app)  # Initialize Flask-RESTful in endpoints.py
