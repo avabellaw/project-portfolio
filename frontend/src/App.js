@@ -1,23 +1,25 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from 'react-router-dom';
+
+import Home from './components/home/Home'
+
+import Layout from './components/layout/Layout'
 
 function App() {
-    const [data, setData] = useState("");
-
-    useEffect(() => {
-        fetch("/hello")
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data);
-                console.log(data.message);
-            })    
-    }, []);
 
     return (
-        <div>
-            <h1>React App</h1>
-            <p>{data.message}</p>
-        </div>
+        <BrowserRouter>
+            <Layout>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                </Routes>
+            </Layout>
+        </BrowserRouter>
     );
 }
 

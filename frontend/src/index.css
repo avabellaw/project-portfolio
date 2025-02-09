@@ -1,0 +1,16 @@
+html {
+    display: flex;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+#root {
+    height: 100%;
+    box-sizing: border-box;
+}
