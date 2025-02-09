@@ -18,27 +18,22 @@ const ProjectView = ({ projects }) => {
         <>
             <ProjectNav />
 
-            {projects.length > 0 ? (
-                
-                <>
-                    {/* {index > 0 && (
-                        <ProjectCard 
-                            project={projects[index - 1]}  
-                        />
-                    )} */}
+            
+            <>
+                {/* {index > 0 && (
+                    <ProjectCard 
+                        project={projects[index - 1]}  
+                    />
+                )} */}
 
-                    <ProjectCard project={projects[index]} />
+                <ProjectCard project={projects[index]} />
 {/* 
-                    {index < projects.length - 1 && (
-                        <ProjectCard 
-                            project={projects[index + 1]}    
-                    />    
-                    )} */}
-                </>
-
-            ) : (
-                <p>No projects available</p>
-            )}
+                {index < projects.length - 1 && (
+                    <ProjectCard 
+                        project={projects[index + 1]}    
+                />    
+                )} */}
+            </>
         </>
     )
 }
