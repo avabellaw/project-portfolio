@@ -11,10 +11,6 @@ skill_fields = {
     'name': fields.String
 }
 
-project_skill_fields = {
-    'skill': fields.Nested(skill_fields)
-}
-
 project_fields = {
     'id': fields.Integer,
     'title': fields.String,
@@ -23,5 +19,5 @@ project_fields = {
     'github_url': fields.String,
     'image_url': fields.String,
     'colour_scheme': fields.Nested(colour_scheme_fields),
-    'project_skills': fields.List(fields.Nested(project_skill_fields))
+    'skills': fields.List(fields.Nested(skill_fields))
 }
