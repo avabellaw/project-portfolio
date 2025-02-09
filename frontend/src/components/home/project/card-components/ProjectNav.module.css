@@ -1,6 +1,23 @@
 #nav-container {
-    height: 1em;
     width: 100%;
-    background-color: red;
+    background-color: var(--secondary-colour);
     margin: 1em 0;
+    border-radius: 7px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-evenly;
+
+    padding: 0.6em;
+    column-gap: 0.6em;
+}
+
+.project-nav-button {
+    height: 0.35em;
+    flex-grow: 1;
+    background-color: var(--highlight-colour);
+    border: none;
+}
+
+.project-nav-button[aria-current="false"] {
+    opacity: .5;
 }

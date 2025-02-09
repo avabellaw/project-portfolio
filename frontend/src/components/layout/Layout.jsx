@@ -9,7 +9,8 @@ const Layout = ({ children }) => {
     const [colours, setColours] = useState({
         primary: 'white',
         secondary: 'gray',
-        text: 'black'
+        text: 'black',
+        highlight: 'gold'
     })
 
     return (
@@ -18,7 +19,8 @@ const Layout = ({ children }) => {
             style={{
                 "--primary-colour": colours.primary,
                 "--secondary-colour": colours.secondary,
-                "--text-colour": colours.text
+                "--text-colour": colours.text,
+                "--highlight-colour": colours.highlight
             }}
         >
             <Header />

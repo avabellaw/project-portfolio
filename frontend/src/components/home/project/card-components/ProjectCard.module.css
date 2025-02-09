@@ -8,3 +8,7 @@
     width: 12em;
     background-color: red;
 }
+
+a {
+    text-transform: uppercase;
+}

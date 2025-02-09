@@ -1,7 +1,6 @@
 import styles from './ProjectCard.module.css';
 
 const ProjectCard = ({ project }) => {
-    console.log(project)
     return (
         <>
             <div className={styles['card-img']}></div>

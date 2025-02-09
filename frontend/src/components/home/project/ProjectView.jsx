@@ -16,7 +16,7 @@ const ProjectView = ({ projects }) => {
 
     return (
         <>
-            <ProjectNav />
+            <ProjectNav setIndex={setIndex} currentIndex={index} projectCount={projects.length} />
 
             
             <>
