@@ -1,4 +1,8 @@
-#mainContainer {
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+#main-container {
     background-color: var(--primary-colour);
     color: var(--text-colour);
 }
