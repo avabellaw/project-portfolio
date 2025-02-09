@@ -1,0 +1,10 @@
+.project-card {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.card-img {
+    height: 10em;
+    width: 12em;
+    background-color: red;
+}
