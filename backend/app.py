@@ -14,18 +14,18 @@ from models.user import User
 from models import db
 
 
+load_dotenv()  # Load environment variables from .env file
+
 app = Flask(__name__)
 
 # Allowed hosts
 
-origins = {
-    str(os.environ.get('ALLOWED_HOST_REACT')): ['GET'],
-    str(os.environ.get('ALLOWED_HOST_API')): ['GET', 'PUT', 'POST', 'DELETE'],
+resources = {
+    r"/api/*": {"origins": str(os.environ.get('ALLOWED_HOSTS_REACT'))},
+    r"/admin/*": {"origins": str(os.environ.get('ALLOWED_HOSTS_API'))},
 }
 
-CORS(app, origins=origins)
-
-load_dotenv()  # Load environment variables from .env file
+CORS(app, resources=resources)
 
 
 # Configurations
