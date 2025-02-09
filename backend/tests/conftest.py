@@ -3,9 +3,12 @@ import pytest
 from models.project import Project
 
 from app import app as flask_app, db
+from models.user import User
 
+from flask_bcrypt import Bcrypt
 
 # Database url set in __init__.py to in memory sqlite database
+
 
 @pytest.fixture()
 def app():
@@ -19,6 +22,11 @@ def app():
 def client(app):
     with app.test_client() as client:
         db.create_all()
+
+        b = Bcrypt()
+        password = b.generate_password_hash('password123').decode('utf-8')
+        db.session.add(User(username='admin', password=password))
+        db.session.commit()
 
         add_test_data()
 
