@@ -1,0 +1,4 @@
+#mainContainer {
+    background-color: var(--primary-colour);
+    color: var(--text-colour);
+}
