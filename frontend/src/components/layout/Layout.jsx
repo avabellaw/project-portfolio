@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
         >
             <Header />
 
-            <main className="main-content">
+            <main id={styles['main-content']}>
                 {children}
             </main>
         </div>
