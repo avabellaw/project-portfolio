@@ -1,7 +1,9 @@
+import Filter from './SkillFilter';
+
 function Home(){
     return (
         <>
-            <h1>Home, world !</h1>
+            <Filter />
         </>
     )
 }

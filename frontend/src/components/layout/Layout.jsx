@@ -1,6 +1,8 @@
 import { useState } from 'react'
+
 import '../../index.css'
 import styles from './Layout.module.css'
+
 import Header from './header/Header'
 
 const Layout = ({ children }) => {
