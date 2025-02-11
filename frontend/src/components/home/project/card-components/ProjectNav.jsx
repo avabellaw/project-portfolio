@@ -5,12 +5,11 @@ const Nav = ({ setIndex, currentIndex, projects }) => {
         <nav id={styles['nav-container']}>
             <div id={styles['nav-link-names']}>
                 <ul>
-                    {projects.map((project) => (
+                    {projects.map((project, i) => (
                         <li
                             key={project.title}
-                            onClick={() => setIndex(project.id)}
-                            aria-label={`View project ${project.title + 1}`}
-                            aria-current={currentIndex === project.id ? 'true' : 'false'}
+                            onClick={() => setIndex(i)}
+                            aria-label={`View project ${project.title}`}
                         >
                             {project.title}
                         </li>
@@ -19,13 +18,13 @@ const Nav = ({ setIndex, currentIndex, projects }) => {
             </div>
 
             <div id={styles['nav-indicator']} >
-                {projects.map((project) => (
+                {projects.map((project, i) => (
                     <button
-                        key={project.id}
-                        onClick={() => setIndex(project.id)}
+                        key={i}
+                        onClick={() => setIndex(i)}
                         className={styles['project-nav-button']}
-                        aria-label={`View project ${project.title + 1}`}
-                        aria-current={currentIndex === project.id ? 'true' : 'false'}
+                        aria-label={`View project ${project.title}`}
+                        aria-current={currentIndex === i ? 'true' : 'false'}
                     >
 
                     </button>
