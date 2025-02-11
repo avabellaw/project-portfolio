@@ -28,7 +28,6 @@
 
 #nav-container {
     display: flex;
-    flex-basis: 25%;
 }
 
 #nav-link-names {
@@ -46,6 +45,10 @@
 
     #nav-link-names {
         display: flex;
+    }
+
+    #nav-container {
+        flex-basis: 25%;
     }
     
 }

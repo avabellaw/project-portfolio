@@ -2,6 +2,7 @@ import { useState, useEffect, use } from "react";
 
 import ProjectCard from "./card-components/ProjectCard";
 import ProjectNav from "./card-components/ProjectNav";
+import Filter from './SkillFilter';
 
 import styles from "./ProjectView.module.css";
 
@@ -18,6 +19,7 @@ const ProjectView = ({ projects }) => {
 
     return (
         <div id={styles["project-view"]}>
+            <Filter />
             <ProjectNav setIndex={setIndex} currentIndex={index} projects={projects} />
 
             

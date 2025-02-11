@@ -1,6 +1,8 @@
+import styles from './SkillFilter.module.css'
+
 const Filter = () => {
     return (
-        <div className="skillFilter">
+        <div id={styles['skill-filter']}>
             <p>Skill filter</p>
         </div>
     )

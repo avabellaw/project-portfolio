@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Filter from './SkillFilter';
 import ProjectView from './project/ProjectView';
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -29,7 +28,6 @@ function Home(){
 
     return (
         <>
-            <Filter />
             <ProjectView projects={projects}/>
         </>
     )
