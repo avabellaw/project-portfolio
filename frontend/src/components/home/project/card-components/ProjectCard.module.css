@@ -4,12 +4,21 @@
     flex-basis: 75%;
     display: flex;
     flex-direction: column;
+
+    height: 40vh;
 }
 
 .card-img {
     height: 10em;
     width: 12em;
     background-color: red;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .project-card a {
@@ -24,6 +33,10 @@
 
     .project-card {
         flex-direction: row;
+    }
+
+    .project-card > * {
+        width: 50%;
     }
     
 }

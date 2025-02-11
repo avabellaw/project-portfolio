@@ -41,7 +41,6 @@
         width: unset;
         flex-direction: column;
         row-gap: 0.6em;
-        height: 100%;
         width: fit-content;
     }
 
