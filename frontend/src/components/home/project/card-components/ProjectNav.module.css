@@ -1,4 +1,6 @@
 #nav-indicator {
+    --nav-indicator-height:1.6em;
+
     width: 100%;
     flex-shrink: 1;
     background-color: var(--secondary-colour);
@@ -7,8 +9,9 @@
     box-sizing: border-box;
     display: flex;
     justify-content: space-evenly;
-
-    padding: 0.6em;
+    align-items: center;
+    height: var(--nav-indicator-height);
+    padding: 0 0.6em;
     column-gap: 0.6em;
 }
 
@@ -17,13 +20,25 @@
     flex-grow: 1;
     background-color: var(--highlight-colour);
     border: none;
+    position: relative;
 }
 
 .project-nav-button[aria-current="false"] {
     opacity: .5;
-    padding: 1px;
-    width: 0;
-    height: 0;
+}
+
+.project-nav-button::before {
+    /* Increases size of button's click hitbox */
+    content: "";
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: var(--nav-indicator-height);
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 #nav-container {
