@@ -1,5 +1,6 @@
-#nav-container {
+#nav-indicator {
     width: 100%;
+    flex-shrink: 1;
     background-color: var(--secondary-colour);
     margin: 1em 0;
     border-radius: 7px;
@@ -20,4 +21,32 @@
 
 .project-nav-button[aria-current="false"] {
     opacity: .5;
+    padding: 1px;
+    width: 0;
+    height: 0;
+}
+
+#nav-container {
+    display: flex;
+    flex-basis: 25%;
+}
+
+#nav-link-names {
+    flex-grow: 1;
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    #nav-indicator {
+        width: unset;
+        flex-direction: column;
+        row-gap: 0.6em;
+        height: 100%;
+        width: fit-content;
+    }
+
+    #nav-link-names {
+        display: flex;
+    }
+    
 }

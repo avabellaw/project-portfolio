@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 
 import ProjectCard from "./card-components/ProjectCard";
 import ProjectNav from "./card-components/ProjectNav";
+
+import styles from "./ProjectView.module.css";
 
 const ProjectView = ({ projects }) => {
     const [index, setIndex] = useState(0)
@@ -15,8 +17,8 @@ const ProjectView = ({ projects }) => {
     }
 
     return (
-        <>
-            <ProjectNav setIndex={setIndex} currentIndex={index} projectCount={projects.length} />
+        <div id={styles["project-view"]}>
+            <ProjectNav setIndex={setIndex} currentIndex={index} projects={projects} />
 
             
             <>
@@ -34,7 +36,7 @@ const ProjectView = ({ projects }) => {
                 />    
                 )} */}
             </>
-        </>
+        </div>
     )
 }
 

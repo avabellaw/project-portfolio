@@ -1,6 +1,9 @@
 .project-card {
     width: 100%;
     flex-grow: 1;
+    flex-basis: 75%;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-img {
@@ -12,4 +15,15 @@
 .project-card a {
     text-transform: uppercase;
     display: block;
+}
+
+@media screen and (min-width: 768px) {
+    .card-img {
+        order: 2;
+    }
+
+    .project-card {
+        flex-direction: row;
+    }
+    
 }
