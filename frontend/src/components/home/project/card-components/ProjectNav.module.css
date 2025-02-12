@@ -1,5 +1,5 @@
 #nav-indicator {
-    --nav-indicator-height:1.6em;
+    --nav-indicator-padding:0.6em;
 
     width: 100%;
     flex-shrink: 1;
@@ -10,8 +10,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    height: var(--nav-indicator-height);
-    padding: 0 0.6em;
+    padding: var(--nav-indicator-padding);
     column-gap: 0.6em;
 }
 
@@ -21,6 +20,7 @@
     background-color: var(--highlight-colour);
     border: none;
     position: relative;
+    padding: 0;
 }
 
 .project-nav-button[aria-current="false"] {
@@ -36,7 +36,8 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    height: var(--nav-indicator-height);
+    height: 100%;
+    padding: var(--nav-indicator-padding) 0;
     pointer-events: auto;
     cursor: pointer;
 }
@@ -52,10 +53,24 @@
 
 @media screen and (min-width: 768px) {
     #nav-indicator {
-        width: unset;
+        height: 100%;
         flex-direction: column;
         row-gap: 0.6em;
-        width: fit-content;
+        width: var(--nav-indicator-padding);
+    }
+
+    .project-nav-button {
+        width: 0.35em;
+    }
+
+    .project-nav-button::before {
+        width: 100%;
+        height: 100%;
+        top:0;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0 var(--nav-indicator-padding);
+        box-sizing: border-box;
     }
 
     #nav-link-names {
