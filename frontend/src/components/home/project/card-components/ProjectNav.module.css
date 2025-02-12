@@ -2,6 +2,7 @@
     --nav-indicator-padding:0.6em;
 
     width: 100%;
+
     flex-shrink: 1;
     background-color: var(--secondary-colour);
     margin: 1em 0;
@@ -51,7 +52,7 @@
     display: none;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 950px) {
     #nav-indicator {
         height: 100%;
         flex-direction: column;
