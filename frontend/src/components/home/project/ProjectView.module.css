@@ -14,11 +14,21 @@
     display: flex
 }
 
+@media screen and (min-width: 768px) {
+    #project-view {
+        justify-content: center;
+    }
+
+    #project-card-container {
+        flex-basis: auto;
+    }
+}
+
 @media screen and (min-width: 950px) {
     #project-view {
         flex-direction: row;
         height: unset;
         flex-grow: 0;
     }
-    
+
 }
