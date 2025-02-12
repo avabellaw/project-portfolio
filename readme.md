@@ -71,16 +71,14 @@
 - Build project card components
 - Create responsive navigation for portfolio cards
 - Add basic styling
-- Create project skill filtering system
 
 ## Sprint 5: Frontend
-- Style landing page
-- Set up React Router for project details
-- Create project details page
-- Style project details page
+- Create project skill filtering system
+- Complete landing page styles
+- Style project transitions
+- Add loading states and error handling
 
 ## Sprint 6: Polish & Testing
-- Add loading states/tranisitons and error handling
 - Finish documentation
 - Performance optimization
 - Bug fixes and refinements
@@ -89,6 +87,14 @@
 - Set up production environment
 - Final manual testing
 - Finalize documentation
+
+Future sprints:
+
+# Sprint 8: Add project details
+- Create develop branch
+- Set up React Router for project details
+- Create project details page
+- Style project details page
 
 ## Enitity relationship diagram
 
