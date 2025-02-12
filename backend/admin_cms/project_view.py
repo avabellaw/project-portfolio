@@ -2,6 +2,7 @@ from .model_view_override import ModelView
 
 from models.project import ProjectColourScheme
 from flask_admin.contrib.sqla.form import InlineOneToOneModelConverter
+from flask_admin.model.form import InlineFormAdmin
 from flask_admin.form import FileUploadField
 from models.skill import Skill
 from flask_admin.contrib.sqla.fields import CheckboxListField
@@ -21,13 +22,20 @@ class CloudinaryUploadField(FileUploadField):
                 self.data = file_data.read()
 
 
-class ProjectView(ModelView):
-    can_delete = True
-    can_create = True
-    can_edit = True
+class ColourSchemeInlineView(InlineFormAdmin):
+    '''Controls how colour scheme is shown in project view'''
+    form_columns = ['primary_colour', 'secondary_colour',
+                    'text_colour', 'text_highlight_colour']
+    form_widget_args = {
+        'project_id': {'disabled': True}
+    }
+    max_entries = 1
+    min_entries = 1
     inline_converter = InlineOneToOneModelConverter
 
-    inline_models = (ProjectColourScheme,)
+
+class ProjectView(ModelView):
+    inline_models = (ColourSchemeInlineView(ProjectColourScheme),)
 
     form_extra_fields = {
         'skills': CheckboxListField(
