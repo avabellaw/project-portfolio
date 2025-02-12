@@ -36,7 +36,12 @@ h2 {
     font-weight: 700;
     font-size: 0.9em;
     text-decoration: underline;
+    text-underline-offset: 0.18em;
     letter-spacing: 0.05em;
+}
+
+.card-links>a {
+    color: var(--text-colour);
 }
 
 .card-content {
@@ -68,7 +73,7 @@ h2 {
     padding: 0.5em 0.7em;
     background-color: var(--secondary-colour);
     color: var(--highlight-colour);
-    --darker-highlight-colour: hsl(from var(--highlight-colour) h s calc(l - 15));
+    --darker-highlight-colour: hsl(from var(--highlight-colour) h s calc(l - 25));
     border: 2px solid var(--darker-highlight-colour);
     border-radius: 2em;
     font-size: 0.75em;
