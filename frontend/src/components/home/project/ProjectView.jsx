@@ -21,21 +21,23 @@ const ProjectView = ({ projects }) => {
             <ProjectNav setIndex={setIndex} currentIndex={index} projects={projects} />
 
 
-            <>
-                {/* {index > 0 && (
+            <div id={styles["project-card-container"]}>
+                {index > 0 && (
                     <ProjectCard 
                         project={projects[index - 1]}  
+                        preview={'prev'}
                     />
-                )} */}
+                )}
 
                 <ProjectCard project={projects[index]} />
-                {/* 
+                
                 {index < projects.length - 1 && (
                     <ProjectCard 
-                        project={projects[index + 1]}    
+                        project={projects[index + 1]} 
+                        preview={'next'}   
                 />    
-                )} */}
-            </>
+                )}
+            </div>
         </div>
     )
 }

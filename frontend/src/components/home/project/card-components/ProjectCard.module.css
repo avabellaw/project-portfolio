@@ -14,8 +14,26 @@ h2 {
     flex: 1 1 500px;
 }
 
+.project-card.next, .project-card.prev {
+    opacity: 0.5;
+    position: absolute;
+    --offset: 120%;
+}
+
+.project-card.next > .card-content,
+.project-card.prev > .card-content {
+    visibility: hidden;
+}
+
+.project-card.next {
+    top: var(--offset);
+}
+
+.project-card.prev {
+    bottom: var(--offset);
+}
+
 .card-img {
-    background-color: red;
     height: 100%;
     overflow: hidden;
     aspect-ratio: 1/1;

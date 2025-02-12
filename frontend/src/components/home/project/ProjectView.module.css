@@ -6,6 +6,11 @@
     height: 100%;
 }
 
+#project-card-container {
+    position: relative;
+    width: 100%;
+}
+
 @media screen and (min-width: 950px) {
     #project-view {
         flex-direction: row;
