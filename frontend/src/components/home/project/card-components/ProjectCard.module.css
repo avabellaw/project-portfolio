@@ -1,19 +1,24 @@
+h2 {
+    font-size: 1.4em;
+}
+
 .project-card {
     width: 100%;
     flex-grow: 1;
-    flex-basis: 75%;
     display: flex;
     flex-direction: column;
 
-    height: 40vh;
-    max-height: 50vh;
+    /* max-height: 50vh; */
     align-items: center;
+    flex: 1 1 500px;
 }
 
 .card-img {
     background-color: red;
     height: 100%;
     overflow: hidden;
+    aspect-ratio: 1/1;
+    max-height: 250px;
 }
 
 .card-img>img {
@@ -29,7 +34,7 @@
     row-gap: 0.25em;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1.1em;
+    font-size: 0.9em;
     text-decoration: underline;
     letter-spacing: 0.05em;
 }
@@ -44,6 +49,10 @@
     box-sizing: border-box;
     text-align: center;
     max-width: 100%;
+}
+
+.card-content > :first-child, .card-content > :last-child {
+    margin: 1rem 0;
 }
 
 .skill-tags {
@@ -62,17 +71,20 @@
     --darker-highlight-colour: hsl(from var(--highlight-colour) h s calc(l - 15));
     border: 2px solid var(--darker-highlight-colour);
     border-radius: 2em;
-    font-size: 0.85em;
+    font-size: 0.75em;
     font-weight: 500;
 }
 
 @media screen and (min-width: 768px) {
     .card-img {
         order: 2;
+        max-height: unset;
     }
 
     .project-card {
         flex-direction: row;
+        flex-basis: 75%;
+        height: 45vh;
     }
 
     .project-card>* {

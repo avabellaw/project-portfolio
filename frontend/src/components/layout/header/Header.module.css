@@ -4,13 +4,13 @@
     font-size: 1em;
     width: fit-content;
     padding: 0.2em;
-    position: absolute;
 }
 
 a {
     text-decoration: none;
     width: fit-content;
     display: inline-block;
+    margin-bottom: 1em;
 }
 
 #name {
@@ -25,4 +25,10 @@ a {
     color: var(--secondary-colour);
     font-size: 0.94em;
     font-weight: 600;
+}
+
+@media screen and (min-width: 768px) {
+    #header-container {
+        position: absolute;
+    }
 }

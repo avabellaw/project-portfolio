@@ -1,4 +1,6 @@
-#skill-filter {
-    position: absolute;
-    transform: translateY(-100%);
+@media screen and (min-width: 950px) {
+    #skill-filter {
+        position: absolute;
+        transform: translateY(-100%);
+    }
 }
