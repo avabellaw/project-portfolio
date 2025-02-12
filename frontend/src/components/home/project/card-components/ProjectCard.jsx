@@ -13,8 +13,8 @@ const ProjectCard = ({ project }) => {
 
                 <p>{project.description}</p>
 
-                <a href={project.live_url} target="_blank">View Live Project</a>
-                <a href={project.github} target="_blank">View Github</a>
+                <a href={project.live_url} target="_blank" rel="noreferrer">View Live Project</a>
+                <a href={project.github} target="_blank" rel="noreferrer">View Github</a>
 
                 <div className={styles['skill-tags']}>
                     {project.skills.map(skill => (
