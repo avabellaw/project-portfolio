@@ -7,9 +7,15 @@ import Filter from './SkillFilter';
 import styles from "./ProjectView.module.css";
 import { ColourSchemeContext } from "../../layout/ColourSchemeContext";
 
-const ProjectView = ({ projects }) => {
+import rfdc from 'rfdc';
+
+const ProjectView = ({ projects, setProjects }) => {
     const [index, setIndex] = useState(0)
     const { setColours } = useContext(ColourSchemeContext);
+    const [ ALL_PROJECTS] = useState(() => {
+        const clone = rfdc();
+        return clone(projects);
+    });
 
     useEffect(() => {
         setColours(projects[index].colour_scheme);
@@ -17,7 +23,7 @@ const ProjectView = ({ projects }) => {
 
     return (
         <div id={styles["project-view"]}>
-            <Filter />
+            <Filter setProjects={setProjects} ALL_PROJECTS={ALL_PROJECTS} />
             <ProjectNav setIndex={setIndex} currentIndex={index} projects={projects} />
 
 

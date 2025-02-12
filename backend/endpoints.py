@@ -57,9 +57,7 @@ class ProjectsBySkill(Resource):
         if not skill:
             abort(404, message='Skill not found')
 
-        project_skills = skill.project_skills
-
-        return [ps.project for ps in project_skills]
+        return skill.projects
 
 
 api.add_resource(Projects, '/api/projects')

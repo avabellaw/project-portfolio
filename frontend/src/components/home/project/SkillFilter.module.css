@@ -4,3 +4,7 @@
         transform: translateY(-100%);
     }
 }
+
+.no-projects {
+    color: rgb(146, 0, 0);
+}

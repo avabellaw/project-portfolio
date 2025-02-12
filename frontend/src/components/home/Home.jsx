@@ -28,7 +28,7 @@ function Home(){
 
     return (
         <>
-            <ProjectView projects={projects}/>
+            <ProjectView projects={projects} setProjects={setProjects}/>
         </>
     )
 }
