@@ -4,7 +4,7 @@ colour_scheme_fields = {
     'primary_colour': fields.String,
     'secondary_colour': fields.String,
     'text_colour': fields.String,
-    'text_highlight_colour': fields.String
+    'highlight_colour': fields.String
 }
 
 skill_fields = {

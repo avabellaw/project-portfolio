@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
         document.documentElement.style.setProperty('--primary-colour', colours.primary_colour)
         document.documentElement.style.setProperty('--secondary-colour', colours.secondary_colour)
         document.documentElement.style.setProperty('--text-colour', colours.text_colour)
-        document.documentElement.style.setProperty('--highlight-colour', colours.text_highlight_colour)
+        document.documentElement.style.setProperty('--highlight-colour', colours.highlight_colour)
     }, [colours])
 
     return (

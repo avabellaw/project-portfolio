@@ -24,11 +24,6 @@ class CloudinaryUploadField(FileUploadField):
 
 class ColourSchemeInlineView(InlineFormAdmin):
     '''Controls how colour scheme is shown in project view'''
-    form_columns = ['primary_colour', 'secondary_colour',
-                    'text_colour', 'text_highlight_colour']
-    form_widget_args = {
-        'project_id': {'disabled': True}
-    }
     max_entries = 1
     min_entries = 1
     inline_converter = InlineOneToOneModelConverter

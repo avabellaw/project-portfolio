@@ -53,7 +53,7 @@ class ProjectColourScheme(db.Model):
     primary_colour = db.Column(db.String(7), nullable=False)
     secondary_colour = db.Column(db.String(7), nullable=False)
     text_colour = db.Column(db.String(7), nullable=False)
-    text_highlight_colour = db.Column(db.String(7), nullable=False)
+    highlight_colour = db.Column(db.String(7), nullable=False)
 
     project = db.relationship('Project',
                               back_populates='colour_scheme',
@@ -62,7 +62,7 @@ class ProjectColourScheme(db.Model):
     def __str__(self):
         return f'Project #{self.project_id}: {self.primary_colour},'\
             f'{self.secondary_colour}, {self.text_colour},'\
-            f'{self.text_highlight_colour}'
+            f'{self.highlight_colour}'
 
 
 class ProjectSkill(db.Model):
