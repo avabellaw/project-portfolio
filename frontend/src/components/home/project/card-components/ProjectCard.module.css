@@ -25,10 +25,11 @@
 .card-content {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
     padding: 0.5em;
+    box-sizing: border-box;
     text-align: center;
     max-width: 100%;
 }
