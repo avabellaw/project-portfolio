@@ -4,7 +4,7 @@ const ProjectCard = ({ project }) => {
     return (
         <div className={styles['project-card']}>
             <div className={styles['card-img']}>
-                <img src={project.image_url} alt={`Project: ${project.title}`}/>
+                <img src={project.image_url} alt={`Project: ${project.title}`} />
             </div>
 
             <div className={styles['card-content']}>
@@ -13,8 +13,10 @@ const ProjectCard = ({ project }) => {
 
                 <p>{project.description}</p>
 
-                <a href={project.live_url} target="_blank" rel="noreferrer">View Live Project</a>
-                <a href={project.github} target="_blank" rel="noreferrer">View Github</a>
+                <div className={styles['card-links']}>
+                    <a href={project.live_url} target="_blank" rel="noreferrer">View Live Project</a>
+                    <a href={project.github_url} target="_blank" rel="noreferrer">View Github</a>
+                </div>
 
                 <div className={styles['skill-tags']}>
                     {project.skills.map(skill => (

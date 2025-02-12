@@ -22,6 +22,18 @@
     object-fit: cover;
 }
 
+.card-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.25em;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.1em;
+    text-decoration: underline;
+    letter-spacing: 0.05em;
+}
+
 .card-content {
     display: flex;
     flex-direction: column;
@@ -32,11 +44,6 @@
     box-sizing: border-box;
     text-align: center;
     max-width: 100%;
-}
-
-.project-card a {
-    text-transform: uppercase;
-    display: block;
 }
 
 .skill-tags {
