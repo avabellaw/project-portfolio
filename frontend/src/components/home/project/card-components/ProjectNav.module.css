@@ -1,6 +1,8 @@
-#nav-indicator {
+nav {
     --nav-indicator-padding:0.6em;
+}
 
+#nav-indicator {
     width: 100%;
 
     flex-shrink: 1;
@@ -24,7 +26,8 @@
     padding: 0;
 }
 
-.project-nav-button[aria-current="false"] {
+.project-nav-button[aria-current="false"],
+#nav-link-names > *:not([data-current="true"]) {
     opacity: .5;
 }
 
@@ -54,7 +57,6 @@
 
 @media screen and (min-width: 950px) {
     #nav-indicator {
-        height: 100%;
         flex-direction: column;
         row-gap: 0.6em;
         width: var(--nav-indicator-padding);
@@ -76,6 +78,22 @@
 
     #nav-link-names {
         display: flex;
+        flex-direction: column;
+
+        padding: var(--nav-indicator-padding);
+        margin: 1em;
+    }
+
+    #nav-link-names > * {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #nav-link-names > *:hover {
+        cursor: pointer;
+        transform: scale(1.1);
     }
 
     #nav-container {

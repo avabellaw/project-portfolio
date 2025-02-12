@@ -4,17 +4,15 @@ const Nav = ({ setIndex, currentIndex, projects }) => {
     return (
         <nav id={styles['nav-container']}>
             <div id={styles['nav-link-names']}>
-                <ul>
-                    {projects.map((project, i) => (
-                        <li
-                            key={project.title}
-                            onClick={() => setIndex(i)}
-                            aria-label={`View project ${project.title}`}
-                        >
-                            {project.title}
-                        </li>
-                    ))}
-                </ul>
+                {projects.map((project, i) => (
+                    <span
+                        key={project.title}
+                        onClick={() => setIndex(i)}
+                        data-current={currentIndex === i ? 'true' : 'false'}
+                    >
+                        {project.title}
+                    </span>
+                ))}
             </div>
 
             <div id={styles['nav-indicator']} >
