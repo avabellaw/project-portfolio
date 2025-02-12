@@ -48,14 +48,17 @@ class ProjectColourScheme(db.Model):
     '''Project Colour Scheme model (HEX values)'''
     __tablename__ = 'project_colour_schemes'
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'),
+                           unique=True)
     primary_colour = db.Column(db.String(6), nullable=False)
     secondary_colour = db.Column(db.String(6), nullable=False)
     text_colour = db.Column(db.String(6), nullable=False)
+    text_highlight_colour = db.Column(db.String(6), nullable=False)
 
     def __str__(self):
-        return f'Project #{self.project_id}: {self.primary_colour},'
-        f'{self.secondary_colour}, {self.text_colour}'
+        return f'Project #{self.project_id}: {self.primary_colour},'\
+            f'{self.secondary_colour}, {self.text_colour},'\
+            f'{self.text_highlight_colour}'
 
 
 class ProjectSkill(db.Model):
