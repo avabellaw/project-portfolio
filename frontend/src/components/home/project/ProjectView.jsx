@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 
 import ProjectCard from "./card-components/ProjectCard";
 import ProjectNav from "./card-components/ProjectNav";
@@ -17,9 +17,18 @@ const ProjectView = ({ projects, setProjects }) => {
         return clone(projects);
     });
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    const handleResize = useCallback(() => {
+        setIsMobile(window.innerWidth < 768);
+    }, []);
+
     useEffect(() => {
         setColours(projects[index].colour_scheme);
-    }, [index, projects, setColours]);
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [index, projects, setColours, handleResize]);
 
     return (
         <div id={styles["project-view"]}>
@@ -28,7 +37,7 @@ const ProjectView = ({ projects, setProjects }) => {
 
 
             <div id={styles["project-card-container"]}>
-                {index > 0 && (
+                {!isMobile && index > 0 && (
                     <ProjectCard 
                         project={projects[index - 1]}  
                         preview={'prev'}
@@ -37,7 +46,7 @@ const ProjectView = ({ projects, setProjects }) => {
 
                 <ProjectCard project={projects[index]} />
                 
-                {index < projects.length - 1 && (
+                {!isMobile && index < projects.length - 1 && (
                     <ProjectCard 
                         project={projects[index + 1]} 
                         preview={'next'}   

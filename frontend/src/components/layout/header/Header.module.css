@@ -28,7 +28,7 @@ a {
 }
 
 @media screen and (min-width: 768px) {
-    #header-container {
+    #header-link {
         position: absolute;
     }
 }
