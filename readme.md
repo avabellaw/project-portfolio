@@ -19,6 +19,8 @@
   * Allows you to set enviroment variables in root .env.py
 * flask_restful
 * Thunder client - To test restful endpoints
+* rfdc
+  * An npm library for deep cloning the projects array
 
 # Design
 
