@@ -9,14 +9,6 @@ import styles from "./ProjectView.module.css";
 const ProjectView = ({ projects }) => {
     const [index, setIndex] = useState(0)
 
-    const nextProject = () => {
-        setIndex(index + 1);
-    }
-
-    const previousProject = () => {
-        setIndex(index - 1);
-    }
-
     return (
         <div id={styles["project-view"]}>
             <Filter />
