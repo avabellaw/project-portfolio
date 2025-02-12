@@ -1,15 +1,16 @@
 nav {
     --nav-indicator-padding:0.6em;
+    color: var(--highlight-colour);
 }
 
 #nav-indicator {
     width: 100%;
 
     flex-shrink: 1;
-    background-color: var(--secondary-colour);
     margin: 1em;
     border-radius: 7px;
     box-sizing: border-box;
+    background-color: var(--secondary-colour);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -95,7 +96,7 @@ nav {
 
     #nav-link-names > *:hover {
         cursor: pointer;
-        transform: scale(1.1);
+        filter: brightness(1.15);
     }
 
     #nav-container {

@@ -1,5 +1,6 @@
 h2 {
     font-size: 1.4em;
+    color: var(--highlight-colour);
 }
 
 .project-card {
