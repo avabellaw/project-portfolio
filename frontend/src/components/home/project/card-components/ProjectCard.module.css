@@ -51,7 +51,8 @@
     padding: 0.5em 0.7em;
     background-color: var(--secondary-colour);
     color: var(--highlight-colour);
-    border: 1px solid var(--highlight-colour);
+    --darker-highlight-colour: hsl(from var(--highlight-colour) h s calc(l - 15));
+    border: 2px solid var(--darker-highlight-colour);
     border-radius: 2em;
     font-size: 0.85em;
     font-weight: 500;
