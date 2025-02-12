@@ -50,10 +50,10 @@ class ProjectColourScheme(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'),
                            unique=True)
-    primary_colour = db.Column(db.String(6), nullable=False)
-    secondary_colour = db.Column(db.String(6), nullable=False)
-    text_colour = db.Column(db.String(6), nullable=False)
-    text_highlight_colour = db.Column(db.String(6), nullable=False)
+    primary_colour = db.Column(db.String(7), nullable=False)
+    secondary_colour = db.Column(db.String(7), nullable=False)
+    text_colour = db.Column(db.String(7), nullable=False)
+    text_highlight_colour = db.Column(db.String(7), nullable=False)
 
     project = db.relationship('Project',
                               back_populates='colour_scheme',
