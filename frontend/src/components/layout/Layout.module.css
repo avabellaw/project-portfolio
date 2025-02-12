@@ -3,7 +3,6 @@ body {
 }
 
 #main-container {
-    background-color: var(--primary-colour);
     color: var(--text-colour);
     height: 100%;
     display: flex;

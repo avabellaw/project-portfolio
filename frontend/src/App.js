@@ -10,16 +10,20 @@ import Home from './components/home/Home'
 
 import Layout from './components/layout/Layout'
 
+import { ColourSchemeProvider } from './components/layout/ColourSchemeContext'
+
 function App() {
 
     return (
-        <BrowserRouter>
-            <Layout>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                </Routes>
-            </Layout>
-        </BrowserRouter>
+        <ColourSchemeProvider>
+            <BrowserRouter>
+                <Layout>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                    </Routes>
+                </Layout>
+            </BrowserRouter>
+        </ColourSchemeProvider>
     );
 }
 
