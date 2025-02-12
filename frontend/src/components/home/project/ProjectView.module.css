@@ -24,7 +24,7 @@
     }
 }
 
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 768px) {
     #project-view {
         flex-direction: row;
         height: unset;

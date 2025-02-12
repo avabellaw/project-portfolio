@@ -37,7 +37,7 @@ h2 {
     height: 100%;
     overflow: hidden;
     aspect-ratio: 1/1;
-    max-height: 30vh;
+    max-height: 40vh;
 }
 
 .card-img>img {
