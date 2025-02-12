@@ -15,11 +15,11 @@ class Project(db.Model):
     image_url = db.Column(db.String(255), nullable=False)
 
     colour_scheme = db.relationship('ProjectColourScheme',
-                                    backref=db.backref('project',
-                                                       lazy='joined',
-                                                       uselist=False),
+                                    back_populates='project',
+                                    uselist=False,
                                     lazy='joined',
-                                    cascade='all, delete-orphan')
+                                    cascade='all, delete-orphan',
+                                    single_parent=True)
 
     skills = db.relationship('Skill',
                              secondary='project_skills',
@@ -54,6 +54,10 @@ class ProjectColourScheme(db.Model):
     secondary_colour = db.Column(db.String(6), nullable=False)
     text_colour = db.Column(db.String(6), nullable=False)
     text_highlight_colour = db.Column(db.String(6), nullable=False)
+
+    project = db.relationship('Project',
+                              back_populates='colour_scheme',
+                              lazy='joined')
 
     def __str__(self):
         return f'Project #{self.project_id}: {self.primary_colour},'\
