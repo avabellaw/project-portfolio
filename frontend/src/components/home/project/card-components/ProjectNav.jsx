@@ -1,9 +1,14 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 
 import styles from './ProjectNav.module.css'
 
 const Nav = ({ setIndex, currentIndex, projects }) => {
+    const [scrollTimeout, setScrollTimeout] = useState(null);
+    const [disableScroll, setDisableScroll] = useState(false);
+
     const handleScroll = useCallback((event) => {
+        if (disableScroll) return;
+
         if (event.deltaY > 0) {
             // Scrolling down
             if (currentIndex === projects.length - 1) return;
@@ -13,13 +18,26 @@ const Nav = ({ setIndex, currentIndex, projects }) => {
             if (currentIndex === 0) return;
             setIndex(currentIndex - 1);
         }
-    }, [currentIndex, projects.length, setIndex]);
+
+        setDisableScroll(true);
+
+        const timeOut = setTimeout(() => {
+            setDisableScroll(false);
+            setScrollTimeout(null);
+        }, 1000)
+
+        setScrollTimeout(timeOut);
+        
+    }, [currentIndex, projects.length, setIndex, disableScroll, setDisableScroll]);
 
     useEffect(() => {
         // Passive event listener to improve scrolling performance, as not calling preventDefault
         window.addEventListener('wheel', handleScroll, { passive: true });
-        return () => window.removeEventListener('wheel', handleScroll);
-    }, [handleScroll]);
+        return () => {
+            window.removeEventListener('wheel', handleScroll)
+            clearTimeout(scrollTimeout);
+        };
+    }, [handleScroll, scrollTimeout]);
 
     return (
         <nav id={styles['nav-container']}>
