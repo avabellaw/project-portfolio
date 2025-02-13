@@ -14,11 +14,19 @@
 @media screen and (min-width: 768px) {
     #skill-filter-container {
         position: absolute;
-        transform: translateY(-200%);
-        width: 18%;
+        transform: translateY(-160%);
         left: 0;
         z-index: 111;
         color: var(--text-colour);
+        max-width: 50%;
+    }
+}
+
+@media screen and (min-width: 950px) {
+    #skill-filter-container {
+        min-width: fit-content;
+        width: 21%;
+        margin-left: 2%;
     }
 }
 

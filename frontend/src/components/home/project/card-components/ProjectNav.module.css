@@ -112,6 +112,7 @@ nav {
         filter: brightness(1.15);
     }
     #nav-container {
-        flex-basis: 25%;
+        flex-basis: 27%;
+        flex-shrink: 0.5;
     }
 }

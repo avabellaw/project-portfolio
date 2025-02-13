@@ -11,17 +11,12 @@
 #project-card-container {
     position: relative;
     width: 100%;
-    flex-basis: 80%;
     display: flex;
 }
 
 @media screen and (min-width: 768px) {
     #project-view {
         justify-content: center;
-    }
-
-    #project-card-container {
-        flex-basis: auto;
     }
 }
 
