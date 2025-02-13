@@ -1,0 +1,63 @@
+.skills-filter__control {
+    background-color: var(--secondary-colour) !important;
+    border-radius: 1em !important;
+    border-color: var(--text-colour);
+    color: var(--text-colour) !important;
+    padding: 0 0.6em;
+    cursor: pointer !important;
+}
+
+.skills-filter__control:hover {
+    border-color: var(--primary-colour);
+    background-color: var(--primary-colour);
+}
+
+div.skills-filter__input-container {
+    cursor: text !important;
+}
+
+.skills-filter__control--is-focused {
+    border-color: var(--highlight-colour);
+    box-shadow: 0 0 0 1px var(--highlight-colour) !important;
+}
+
+.skills-filter__input {
+    color: var(--text-colour) !important;
+}
+
+.skills-filter__placeholder {
+    color: var(--text-colour);
+}
+
+.skills-filter__single-value {
+    color: var(--text-colour) !important;
+}
+
+.skills-filter__menu {
+    background-color: var(--secondary-colour) !important;
+    color: var(--text-colour) !important;
+}
+
+.skills-filter__option {
+    background-color: var(--secondary-colour);
+    color: var(--text-colour) !important; 
+}
+
+.skills-filter__option:hover {
+    background-color: var(--secondary-colour) !important;
+    cursor: pointer;
+}
+
+.skills-filter__option--is-focused {
+    background-color: var(--secondary-colour) !important;
+    color: var(--text-colour) !important;
+    border: 2px double var(--highlight-colour);
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.skills-filter__option--is-selected {
+    background-color: var(--secondary-colour) !important;
+    border: 2px double var(--highlight-colour);
+    color: var(--text-colour) !important;
+}

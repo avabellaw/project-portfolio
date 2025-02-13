@@ -12,7 +12,7 @@ import rfdc from 'rfdc';
 const ProjectView = ({ projects, setProjects }) => {
     const [index, setIndex] = useState(0)
     const { setColours } = useContext(ColourSchemeContext);
-    const [ ALL_PROJECTS] = useState(() => {
+    const [ALL_PROJECTS] = useState(() => {
         const clone = rfdc();
         return clone(projects);
     });
@@ -38,19 +38,19 @@ const ProjectView = ({ projects, setProjects }) => {
 
             <div id={styles["project-card-container"]}>
                 {!isMobile && index > 0 && (
-                    <ProjectCard 
-                        project={projects[index - 1]}  
+                    <ProjectCard
+                        project={projects[index - 1]}
                         preview={'prev'}
                     />
                 )}
 
                 <ProjectCard project={projects[index]} />
-                
+
                 {!isMobile && index < projects.length - 1 && (
-                    <ProjectCard 
-                        project={projects[index + 1]} 
-                        preview={'next'}   
-                />    
+                    <ProjectCard
+                        project={projects[index + 1]}
+                        preview={'next'}
+                    />
                 )}
             </div>
         </div>
