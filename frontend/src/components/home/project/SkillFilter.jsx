@@ -81,6 +81,7 @@ const Filter = ({ ALL_PROJECTS, setProjects }) => {
         if (matchedSkill) {
             selectOption(matchedSkill.value);
             setInputValue(''); 
+            document.querySelector('.skills-filter__input').blur();
         }
     };
 
