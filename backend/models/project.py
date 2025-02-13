@@ -13,6 +13,7 @@ class Project(db.Model):
     live_url = db.Column(db.String(255), nullable=False)
     github_url = db.Column(db.String(255), nullable=False)
     image_url = db.Column(db.String(255), nullable=False)
+    view_order = db.Column(db.SmallInteger, nullable=False, unique=True)
 
     colour_scheme = db.relationship('ProjectColourScheme',
                                     back_populates='project',
@@ -42,6 +43,21 @@ class Project(db.Model):
 def delete_cloudinary_image(mapper, connection, target):
     '''Delete Cloudinary image before deleting project'''
     target.delete_cloudinary_image()
+
+
+@event.listens_for(Project, 'before_delete')
+def update_view_order(mapper, connection, target):
+    '''Update view order when deleting project'''
+    projects = Project.query.filter(
+        Project.view_order > target.view_order).all()
+    for project in projects:
+        project.view_order -= 1
+
+
+@event.listens_for(Project, 'before_insert')
+def set_view_order(mapper, connection, target):
+    '''Set view order to last when project created'''
+    target.view_order = Project.query.count() + 1
 
 
 class ProjectColourScheme(db.Model):
