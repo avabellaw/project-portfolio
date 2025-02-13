@@ -1,6 +1,14 @@
 #skill-filter-container {
-    width: 75%;
-    margin: auto;
+    width: 100%;
+}
+
+#skill-filter-container img {
+    mix-blend-mode: difference;
+    filter: invert(1);
+}
+
+#skill-filter-container > div:last-child {
+    flex-basis: 70%;
 }
 
 @media screen and (min-width: 768px) {

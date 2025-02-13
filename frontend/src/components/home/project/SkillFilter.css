@@ -3,8 +3,8 @@
     border-radius: 1em !important;
     border-color: var(--text-colour);
     color: var(--text-colour) !important;
-    padding: 0 0.6em;
-    cursor: pointer !important;
+    padding: 0 0.3em;
+    cursor: text !important;
 }
 
 .skills-filter__control:hover {
@@ -12,21 +12,30 @@
     background-color: var(--primary-colour);
 }
 
-div.skills-filter__input-container {
-    cursor: text !important;
-}
-
 .skills-filter__control--is-focused {
     border-color: var(--highlight-colour);
     box-shadow: 0 0 0 1px var(--highlight-colour) !important;
+    cursor: text !important;
 }
 
 .skills-filter__input {
     color: var(--text-colour) !important;
+    font-size: 1em !important;
 }
 
 .skills-filter__placeholder {
-    color: var(--text-colour);
+    color: var(--text-colour) !important;
+    opacity: 0.7;
+    cursor: text !important;
+}
+
+.skills-filter__placeholder * {
+    vertical-align: middle;
+}
+
+.skills-filter__placeholder img {
+    margin-right: 0.5em;
+    height: 1.2em;
 }
 
 .skills-filter__single-value {
@@ -34,8 +43,13 @@ div.skills-filter__input-container {
 }
 
 .skills-filter__menu {
+    flex-grow: 1;
     background-color: var(--secondary-colour) !important;
     color: var(--text-colour) !important;
+}
+
+.skills-filter__menu-list {
+    padding: 0 !important;
 }
 
 .skills-filter__option {
@@ -60,4 +74,8 @@ div.skills-filter__input-container {
     background-color: var(--secondary-colour) !important;
     border: 2px double var(--highlight-colour);
     color: var(--text-colour) !important;
+}
+
+.skills-filter__indicator {
+    cursor: pointer;
 }
