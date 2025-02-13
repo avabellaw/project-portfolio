@@ -21,6 +21,8 @@
 * Thunder client - To test restful endpoints
 * rfdc
   * An npm library for deep cloning the projects array
+* react-select
+  * For project filtering
 
 # Design
 
