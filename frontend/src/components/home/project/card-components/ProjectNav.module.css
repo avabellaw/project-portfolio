@@ -45,6 +45,7 @@ nav {
     padding: var(--nav-indicator-padding) 0;
     pointer-events: auto;
     cursor: pointer;
+    z-index: -1;
 }
 
 #nav-container {
