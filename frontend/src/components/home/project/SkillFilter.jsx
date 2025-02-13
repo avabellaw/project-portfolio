@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Select from 'react-select'
 
 import styles from './SkillFilter.module.css'
@@ -8,7 +8,8 @@ const Filter = ({ ALL_PROJECTS, setProjects }) => {
     const API_URL = process.env.REACT_APP_API_URL
 
     const [skills, setSkills] = useState();
-
+    const [selectedValue, setSelectedValue] = useState(null);
+    const [inputValue, setInputValue] = useState('');
 
 
     useEffect(() => {
@@ -24,32 +25,64 @@ const Filter = ({ ALL_PROJECTS, setProjects }) => {
     }, [])
 
 
+    const selectOption = (skillId) => {
+        const filteredProjects = ALL_PROJECTS.filter(project =>
+            project.skills.some(skill => skill.id === skillId)
+        );
+
+        if (filteredProjects.length === 0) {
+            // If no projects have the selected skill, show all projects
+            setProjects(ALL_PROJECTS);
+            setSelectedValue(null);
+            return;
+        }
+
+        setSelectedValue({ value: skillId, label: skills.find(skill => skill.value === parseInt(skillId)).label });
+        setProjects(filteredProjects);
+    }
+
     const handleChange = (option, actionMeta) => {
+        /**
+         * Handles react-select change event
+         */
         switch (actionMeta.action) {
             case 'select-option':
-                const filteredProjects = ALL_PROJECTS.filter(project =>
-                    project.skills.some(skill => skill.name === option.label)
-                );
-
-                if (filteredProjects.length === 0) {
-                    // If no projects have the selected skill, show all projects
-                    setProjects(ALL_PROJECTS);
-                    return;
-                }
-
-                setProjects(filteredProjects);
+                // Skill was selected
+                selectOption(option.value);
+                break;
+            case 'clear':
+                // Clear button was clicked
+                setSelectedValue(null);
+                setProjects(ALL_PROJECTS);
                 break;
             default:
-                setProjects(ALL_PROJECTS);
+                break;
         }
     };
 
     const formatPlaceholder = () => (
+        /**
+         * Adds the filter image icon to the placeholder
+         */
         <div id={styles['placeholder']}>
             <img src="/icons/sort.png" alt="Filter" />
             <span>Filter by skill</span>
         </div>
     );
+
+    const handleInputChanged = (input) => {
+        /**
+         * Checks if the input matches any of the skill labels.
+         * If it does, select the option.
+         * Otherwise, if not already, reset the selected value and show all projects.
+         */
+        setInputValue(input);
+        const matchedSkill = skills.find(skill => skill.label.toLowerCase() === input.toLowerCase());
+        if (matchedSkill) {
+            selectOption(matchedSkill.value);
+            setInputValue(''); 
+        }
+    };
 
     return (
         <div id={styles['skill-filter-container']}>
@@ -59,6 +92,9 @@ const Filter = ({ ALL_PROJECTS, setProjects }) => {
                 placeholder={formatPlaceholder()}
                 classNamePrefix="skills-filter"
                 isClearable={true}
+                onInputChange={handleInputChanged}
+                value={selectedValue}
+                inputValue={inputValue}
             />
         </div>
     )
