@@ -25,6 +25,8 @@ nav {
     border: none;
     position: relative;
     padding: 0;
+    transition: opacity 1s;
+    opacity: 1;
 }
 
 .project-nav-button[aria-current="false"],

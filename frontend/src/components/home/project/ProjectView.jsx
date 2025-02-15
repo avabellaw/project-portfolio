@@ -56,8 +56,8 @@ const ProjectView = ({ projects, setProjects }) => {
 
     const springConfig = {
         type: "spring",
-        stiffness: 100, // Lower value for smoother motion
-        damping: 25,    // Balanced damping for smooth settling
+        stiffness: 200, // Lower value for smoother motion
+        damping: 30,    // Balanced damping for smooth settling
         mass: 1        // Add mass for more natural physics
     };
 
