@@ -8,18 +8,13 @@ h2 {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-
-    /* max-height: 50vh; */
     align-items: center;
     flex: 1 1 500px;
 }
 
-/* .project-card.next, .project-card.prev {
-    opacity: 0.5;
-    position: absolute;
-    --offset: 120%;
-} */
-
+.project-card:not(.current) {
+    visibility: hidden;
+}
 
 .project-card.next > .card-content,
 .project-card.prev > .card-content {
@@ -101,6 +96,9 @@ h2 {
 }
 
 @media screen and (min-width: 768px) {
+    .project-card:not(.current) {
+        visibility: visible;
+    }
     .card-img {
         order: 2;
         max-height: unset;

@@ -19,7 +19,7 @@ const ProjectCard = ({ project, preview }) => {
                 variants={contentVariants}
                 initial="hidden"
                 animate={preview === 'current' ? "visible" : "hidden"}
-                transition={{ duration: 1 }}
+                transition={{ duration: 0.5 }}
             >
                 <div className={styles['card-content']}>
 

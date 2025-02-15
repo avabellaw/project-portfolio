@@ -68,26 +68,30 @@ const ProjectView = ({ projects, setProjects }) => {
 
             <div id={styles["project-card-container"]}>
 
-                {projects.map((project, i) => (
-                    <motion.div
-                        key={project.id}
-                        style={{
-                            position: 'absolute',
-                            width: '100%',
-                            visibility: isMobile || i < scrollY - 1 || i > scrollY + 1  ? 'hidden' : 'visible',
-                        }}
-                        animate={{
-                            y: `${(i - scrollY) * 120}%`,
-                            transition: springConfig,
-                        }}
-                        transition={{duration: 1}}
-                    >
-                        <ProjectCard
-                        project={project}
-                        preview={!isMobile && i !== scrollY ? i===scrollY+1 ? 'next' : 'prev' : 'current'} 
-                        />
-                    </motion.div>
-                ))}
+                {isMobile ? <ProjectCard project={projects[scrollY]} preview="current" /> :
+                    (
+                        projects.map((project, i) => (
+                            <motion.div
+                                key={project.id}
+                                style={{
+                                    position: 'absolute',
+                                    width: '100%',
+                                    visibility: i < scrollY - 1 || i > scrollY + 1 ? 'hidden' : 'visible',
+                                }}
+                                animate={{
+                                    y: !isMobile && `${(i - scrollY) * 120}%`,
+                                    transition: springConfig,
+                                }}
+                                transition={{ duration: 1 }}
+                            >
+                                <ProjectCard
+                                    project={project}
+                                    preview={i !== scrollY ? i === scrollY + 1 ? 'next' : 'prev' : 'current'}
+                                />
+                            </motion.div>
+                        ))
+                    )
+                }
 
             </div>
         </div>

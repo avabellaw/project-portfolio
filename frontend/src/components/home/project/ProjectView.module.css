@@ -19,14 +19,8 @@
 @media screen and (min-width: 768px) {
     #project-view {
         justify-content: center;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    #project-view {
         flex-direction: row;
         height: unset;
         flex-grow: 0;
     }
-
 }
