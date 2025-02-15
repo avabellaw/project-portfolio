@@ -54,6 +54,13 @@ const ProjectView = ({ projects, setProjects }) => {
         return () => window.removeEventListener('resize', handleResize);
     }, [scrollY, projects, setColours, handleResize]);
 
+    const springConfig = {
+        type: "spring",
+        stiffness: 100, // Lower value for smoother motion
+        damping: 25,    // Balanced damping for smooth settling
+        mass: 1        // Add mass for more natural physics
+    };
+
     return (
         <div id={styles["project-view"]}>
             <Filter setProjects={setProjects} ALL_PROJECTS={ALL_PROJECTS} />
@@ -67,22 +74,18 @@ const ProjectView = ({ projects, setProjects }) => {
                         style={{
                             position: 'absolute',
                             width: '100%',
+                            visibility: isMobile || i < scrollY - 1 || i > scrollY + 1  ? 'hidden' : 'visible',
                         }}
-
                         animate={{
-                            opacity: i === scrollY ? 1 : 0.5,
-                            y: i === scrollY ? 0 : (i < scrollY ? '-120%' : '120%'),
+                            y: `${(i - scrollY) * 120}%`,
+                            transition: springConfig,
                         }}
-
-                        transition={{
-                            duration: 1,
-                        }}
-
-                        initial={{
-                            opacity: 'hidden',
-                        }}
+                        transition={{duration: 1}}
                     >
-                        <ProjectCard project={project} />
+                        <ProjectCard
+                        project={project}
+                        preview={!isMobile && i !== scrollY ? i===scrollY+1 ? 'next' : 'prev' : 'current'} 
+                        />
                     </motion.div>
                 ))}
 
