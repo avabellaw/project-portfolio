@@ -12,6 +12,9 @@
     position: relative;
     width: 100%;
     display: flex;
+    flex-direction: column;
+    /* scroll-behavior: auto; */
+    height: 45vh;
 }
 
 @media screen and (min-width: 768px) {

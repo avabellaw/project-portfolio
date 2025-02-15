@@ -57,21 +57,11 @@ const ProjectView = ({ projects, setProjects }) => {
             <ProjectNav viewControls={viewControls} projects={projects} />
 
             <div id={styles["project-card-container"]}>
-                {!isMobile && index > 0 && (
-                    <ProjectCard
-                        project={projects[index - 1]}
-                        preview={'prev'}
-                    />
-                )}
+                
+                {projects.map((project) => (
+                    <ProjectCard project={project} />
+                ))}
 
-                <ProjectCard project={projects[index]} />
-
-                {!isMobile && index < projects.length - 1 && (
-                    <ProjectCard
-                        project={projects[index + 1]}
-                        preview={'next'}
-                    />
-                )}
             </div>
         </div>
     )
