@@ -18,7 +18,8 @@
         left: 0;
         z-index: 111;
         color: var(--text-colour);
-        max-width: 50%;
+        width: calc(50% - 3em);
+        margin: 0 1.5em;
     }
 }
 
