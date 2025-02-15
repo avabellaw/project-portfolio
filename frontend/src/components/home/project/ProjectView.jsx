@@ -54,20 +54,36 @@ const ProjectView = ({ projects, setProjects }) => {
         return () => window.removeEventListener('resize', handleResize);
     }, [scrollY, projects, setColours, handleResize]);
 
-    const cardVariants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { duration: 0.5 } },
-    };
-
     return (
         <div id={styles["project-view"]}>
             <Filter setProjects={setProjects} ALL_PROJECTS={ALL_PROJECTS} />
             <ProjectNav viewControls={viewControls} projects={projects} />
 
             <div id={styles["project-card-container"]}>
-                
-                {projects.map((project) => (
-                    <ProjectCard project={project} />
+
+                {projects.map((project, i) => (
+                    <motion.div
+                        key={project.id}
+                        style={{
+                            position: 'absolute',
+                            width: '100%',
+                        }}
+
+                        animate={{
+                            opacity: i === scrollY ? 1 : 0.5,
+                            y: i === scrollY ? 0 : (i < scrollY ? '-120%' : '120%'),
+                        }}
+
+                        transition={{
+                            duration: 1,
+                        }}
+
+                        initial={{
+                            opacity: 'hidden',
+                        }}
+                    >
+                        <ProjectCard project={project} />
+                    </motion.div>
                 ))}
 
             </div>
