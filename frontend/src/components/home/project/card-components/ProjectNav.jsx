@@ -2,7 +2,7 @@ import { useEffect, useCallback, useState } from 'react'
 
 import styles from './ProjectNav.module.css'
 
-const Nav = ({ setIndex, currentIndex, projects }) => {
+const Nav = ({ viewControls, projects }) => {
     const [scrollTimeout, setScrollTimeout] = useState(null);
     const [disableScroll, setDisableScroll] = useState(false);
 
@@ -11,12 +11,11 @@ const Nav = ({ setIndex, currentIndex, projects }) => {
 
         if (event.deltaY > 0) {
             // Scrolling down
-            if (currentIndex === projects.length - 1) return;
-            setIndex(Math.min(currentIndex + 1));
+            viewControls.nextProject();
         } else {
             // Scrolling up
-            if (currentIndex === 0) return;
-            setIndex(currentIndex - 1);
+            if (viewControls.index === 0) return;
+            viewControls.prevProject();
         }
 
         setDisableScroll(true);
@@ -28,7 +27,7 @@ const Nav = ({ setIndex, currentIndex, projects }) => {
 
         setScrollTimeout(timeOut);
         
-    }, [currentIndex, projects.length, setIndex, disableScroll, setDisableScroll]);
+    }, [viewControls, disableScroll, setDisableScroll]);
 
     useEffect(() => {
         // Passive event listener to improve scrolling performance, as not calling preventDefault
@@ -45,8 +44,8 @@ const Nav = ({ setIndex, currentIndex, projects }) => {
                 {projects.map((project, i) => (
                     <span
                         key={project.title}
-                        onClick={() => setIndex(i)}
-                        data-current={currentIndex === i ? 'true' : 'false'}
+                        onClick={() => viewControls.setIndex(i)}
+                        data-current={viewControls.getIndex() === i ? 'true' : 'false'}
                     >
                         {project.title}
                     </span>
@@ -57,12 +56,11 @@ const Nav = ({ setIndex, currentIndex, projects }) => {
                 {projects.map((project, i) => (
                     <button
                         key={i}
-                        onClick={() => setIndex(i)}
+                        onClick={() => viewControls.setIndex(i)}
                         className={styles['project-nav-button']}
                         aria-label={`View project ${project.title}`}
-                        aria-current={currentIndex === i ? 'true' : 'false'}
+                        aria-current={viewControls.getIndex() === i ? 'true' : 'false'}
                     >
-
                     </button>
                 ))}
             </div>
