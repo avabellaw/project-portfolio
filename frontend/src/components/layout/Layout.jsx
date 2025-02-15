@@ -5,9 +5,11 @@ import styles from './Layout.module.css'
 
 import Header from './header/Header'
 import { ColourSchemeContext } from './ColourSchemeContext'
+import { LoadingProvider, LoadingContext } from './LoadingProvider'
 
 const Layout = ({ children }) => {
     const { colours } = useContext(ColourSchemeContext)
+    const { loading } = useContext(LoadingContext);
 
     useEffect(() => {
         document.documentElement.style.setProperty('--primary-colour', colours.primary_colour)
@@ -20,7 +22,7 @@ const Layout = ({ children }) => {
         <div
             id={styles['main-container']}
         >
-            <Header />
+            {!loading && <Header />}
 
             <main id={styles['main-content']}>
                 {children}

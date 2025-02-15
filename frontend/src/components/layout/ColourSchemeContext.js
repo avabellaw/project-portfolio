@@ -7,7 +7,7 @@ const ColourSchemeProvider = ({ children }) => {
         primary_colour: 'white',
         secondary_colour: 'gray',
         text_colour: 'black',
-        highlight_colour: 'gold'
+        highlight_colour: 'gray'
     });
 
     return <ColourSchemeContext.Provider value={{ colours, setColours }}>{children}</ColourSchemeContext.Provider>;

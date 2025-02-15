@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import ProjectView from './project/ProjectView';
+
+import ClipLoader from "react-spinners/ClipLoader";
+
+import { LoadingContext } from '../layout/LoadingProvider';
 
 const API_URL = process.env.REACT_APP_API_URL
 
-function Home(){
+function Home() {
     const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const {loading, setLoading} = useContext(LoadingContext);
 
     useEffect(() => {
         fetch(`${API_URL}/projects`)
@@ -22,13 +26,17 @@ function Home(){
             });
     }, []); // Run when the component mounts
 
-    if (loading) return <p>Loading...</p>
+    if (loading) return <ClipLoader
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+    />
     if (error) return <p>Error: {error.message}</p>
     if (projects.length === 0) return <p>No projects found</p>
 
     return (
         <>
-            <ProjectView projects={projects} setProjects={setProjects}/>
+            <ProjectView projects={projects} setProjects={setProjects} />
         </>
     )
 }
