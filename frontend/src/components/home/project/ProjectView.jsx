@@ -10,8 +10,9 @@ import { ColourSchemeContext } from "../../layout/ColourSchemeContext";
 import rfdc from 'rfdc';
 
 const ProjectView = ({ projects, setProjects }) => {
-    const [index, setIndex] = useState(0)
     const { setColours } = useContext(ColourSchemeContext);
+
+    const [ scrollY, setScrollY ] = useState(0);
 
     const [ALL_PROJECTS] = useState(() => {
         // Clone the projects array for filtering
@@ -29,27 +30,27 @@ const ProjectView = ({ projects, setProjects }) => {
 
     const viewControls = useMemo(() => ({
         nextProject: () => {
-            setIndex((prevIndex) => Math.min(prevIndex + 1, projects.length - 1));
+            setScrollY((prevScroll) => Math.min(prevScroll + 1, projects.length - 1));
         },
         prevProject: () => {
-            setIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+            setScrollY((prevScroll) => Math.max(prevScroll - 1, 0));
         },
         setIndex: (i) => {
-            setIndex(i);
+            setScrollY(i);
         },
         getIndex: () => {
-            return index;
+            return scrollY;
         }
-    }), [index, setIndex, projects.length]);
+    }), [projects.length, setScrollY, scrollY]);
 
     useEffect(() => {
         // Set the colours scheme using context API
-        setColours(projects[index].colour_scheme);
+        setColours(projects[scrollY].colour_scheme);
 
         // Event listener for resizing the window
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [index, projects, setColours, handleResize]);
+    }, [scrollY, projects, setColours, handleResize]);
 
     return (
         <div id={styles["project-view"]}>
