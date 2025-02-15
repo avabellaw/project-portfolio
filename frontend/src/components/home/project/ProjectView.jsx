@@ -9,10 +9,12 @@ import { ColourSchemeContext } from "../../layout/ColourSchemeContext";
 
 import rfdc from 'rfdc';
 
+import { motion } from "motion/react";
+
 const ProjectView = ({ projects, setProjects }) => {
     const { setColours } = useContext(ColourSchemeContext);
 
-    const [ scrollY, setScrollY ] = useState(0);
+    const [scrollY, setScrollY] = useState(0);
 
     const [ALL_PROJECTS] = useState(() => {
         // Clone the projects array for filtering
@@ -51,6 +53,11 @@ const ProjectView = ({ projects, setProjects }) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [scrollY, projects, setColours, handleResize]);
+
+    const cardVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0.5 } },
+    };
 
     return (
         <div id={styles["project-view"]}>
