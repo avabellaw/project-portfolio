@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback, useMemo } from "react";
+import { useState, useEffect, useContext, useCallback, useMemo, use } from "react";
 
 import ProjectCard from "./card-components/ProjectCard";
 import ProjectNav from "./card-components/ProjectNav";
@@ -35,7 +35,7 @@ const ProjectView = ({ projects, setProjects }) => {
         // Clone the projects array for filtering
         const clone = rfdc();
         return clone(projects);
-    });
+    }, []);
 
     // Determine whether screen is under 768px
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -52,6 +52,12 @@ const ProjectView = ({ projects, setProjects }) => {
     }, [handleResize]);
 
     useEffect(() => {
+        // Reset the scroll position when projects change
+        setScrollY(0);
+    }, [projects]);
+
+    useEffect(() => {
+        if (projects.length === 0 || scrollY > projects.length-1) return;
         // Set the colours scheme using context API
         setColours(projects[scrollY].colour_scheme);
     }, [scrollY, projects, setColours]);
