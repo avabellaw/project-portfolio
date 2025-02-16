@@ -11,7 +11,7 @@ function Home() {
     const [projects, setProjects] = useState([]);
     const [error, setError] = useState(null);
 
-    const {loading, setLoading} = useContext(LoadingContext);
+    const { loading, setLoading } = useContext(LoadingContext);
 
     useEffect(() => {
         fetch(`${API_URL}/projects`)
@@ -31,7 +31,15 @@ function Home() {
         aria-label="Loading Spinner"
         data-testid="loader"
     />
-    if (error) return <p>Error: {error.message}</p>
+    if (error) return (
+        <>
+            <h2>Error, unable to collect projects.</h2>
+            <p>
+                I'm sorry, please try again later.
+            </p>
+        </>
+    )
+
     if (projects.length === 0) return <p>No projects found</p>
 
     return (
