@@ -3,7 +3,8 @@ import './App.css';
 import {
     BrowserRouter,
     Routes,
-    Route
+    Route,
+    Navigate
 } from 'react-router-dom';
 
 import Home from './components/home/Home'
@@ -22,6 +23,7 @@ function App() {
                     <Layout>
                         <Routes>
                             <Route path="/" element={<Home />} />
+                            <Route path="*" Component={() => <Navigate to="/" />} />
                         </Routes>
                     </Layout>
                 </LoadingProvider>
