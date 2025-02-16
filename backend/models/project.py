@@ -9,7 +9,7 @@ class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
-    description = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.String(400), nullable=False)
     live_url = db.Column(db.String(255), nullable=False)
     github_url = db.Column(db.String(255), nullable=False)
     image_url = db.Column(db.String(255), nullable=False)

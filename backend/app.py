@@ -12,11 +12,13 @@ from endpoints import api
 from admin_cms import admin
 from models.user import User
 from models import db
+from flask_migrate import Migrate 
 
 
 load_dotenv()  # Load environment variables from .env file
 
 app = Flask(__name__)
+migrate = Migrate(app, db)
 
 # Allowed hosts
 
@@ -45,6 +47,7 @@ cloudinary.config(
 db.init_app(app)  # Initialize SQLAlchemy in models.py
 api.init_app(app)  # Initialize Flask-RESTful in endpoints.py
 admin.init_app(app)  # Initialize Flask-Admin
+migrate.init_app(app, db)  # Initialize Flask-Migrate
 login_manager.init_app(app)  # Initlize Flask-Login manager
 bcrypt = Bcrypt()  # Initialize Flask-Bcrypt
 
