@@ -78,7 +78,6 @@ const ProjectView = ({ projects, setProjects }) => {
                                 style={{
                                     position: 'absolute',
                                     width: '100%',
-                                    visibility: i < scrollY - 1 || i > scrollY + 1 ? 'hidden' : 'visible',
                                 }}
                                 animate={{
                                     y: !isMobile && `${(i - scrollY) * 120}%`,
