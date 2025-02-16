@@ -70,7 +70,11 @@ const ProjectView = ({ projects, setProjects }) => {
 
             <div id={styles["project-card-container"]}>
 
-                {isMobile ? <ProjectCard project={projects[scrollY]} preview="current" /> :
+                {/* If mobile, only render one project card */}
+                {isMobile ? (
+                        <ProjectCard project={projects[scrollY]} preview="current" />
+                ) :
+                    // Else render all project cards, hides the ones not in view in css
                     (
                         projects.map((project, i) => (
                             <motion.div
