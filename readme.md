@@ -159,3 +159,4 @@ React only needs to get project information. Out of interest, I created endpoint
 ## Images
 
 * [Filter icon svg for skill filter placeholder text](https://www.svgrepo.com/svg/509927/filter)
+* [Favicon](https://www.flaticon.com/free-icon/portfolio_4100425?term=portfolio&page=3&position=65&origin=tag&related_id=4100425)
