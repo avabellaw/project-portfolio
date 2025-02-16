@@ -10,6 +10,9 @@ h2 {
     flex-direction: column;
     align-items: center;
     flex: 1 1 500px;
+
+    /* Preserves whitespace and new lines */
+    white-space: pre-wrap;
 }
 
 .project-card:not(.current) {

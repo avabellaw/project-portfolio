@@ -5,6 +5,7 @@ from flask_admin.contrib.sqla.fields import CheckboxListField
 from flask_admin.actions import action
 
 from wtforms.validators import DataRequired
+from wtforms import TextAreaField, ValidationError
 
 from io import BytesIO
 from cloudinary import uploader
@@ -33,12 +34,25 @@ class ColourSchemeInlineView(InlineFormAdmin):
     inline_converter = InlineOneToOneModelConverter
 
 
+def max_character_limit(limit):    
+    '''Custom wtforms validator to limit character count'''
+    def _max_character_limit(form, field):
+        length = len(field.data)
+        if length > limit:
+            raise ValidationError(
+                f'{length - limit} character(s) over the {limit} '
+                'character limit')
+
+    return _max_character_limit
+
+
 class ProjectView(ModelView):
     inline_models = (ColourSchemeInlineView(ProjectColourScheme),)
 
     actions = ['move_up', 'move_down']
 
     def get_query(self):
+        '''Displays projects in order of view_order on list view'''
         return self.session.query(self.model
                                   ).order_by(self.model.view_order.asc())
 
@@ -55,7 +69,19 @@ class ProjectView(ModelView):
     form_widget_args = {
         'image_url': {
             'readonly': True
+        },
+        'description': {
+            'rows': 5,
+            'maxLength': 400  # Doesnt include return/new line chars
         }
+    }
+
+    form_args = dict(
+        description=dict(validators=[max_character_limit(400)])
+    )
+
+    form_overrides = {
+        'description': TextAreaField,
     }
 
     def create_form(self, obj=None):

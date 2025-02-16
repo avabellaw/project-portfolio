@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback, useMemo } from "react";
+import { useState, useEffect, useContext, useCallback, useMemo, use } from "react";
 
 import ProjectCard from "./card-components/ProjectCard";
 import ProjectNav from "./card-components/ProjectNav";
@@ -16,20 +16,6 @@ const ProjectView = ({ projects, setProjects }) => {
 
     const [scrollY, setScrollY] = useState(0);
 
-    const [ALL_PROJECTS] = useState(() => {
-        // Clone the projects array for filtering
-        const clone = rfdc();
-        return clone(projects);
-    });
-
-    // Determine whether screen is under 768px
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-    const handleResize = useCallback(() => {
-        // Set the isMobile state based on the window width
-        setIsMobile(window.innerWidth < 768);
-    }, []);
-
     const viewControls = useMemo(() => ({
         nextProject: () => {
             setScrollY((prevScroll) => Math.min(prevScroll + 1, projects.length - 1));
@@ -45,14 +31,30 @@ const ProjectView = ({ projects, setProjects }) => {
         }
     }), [projects.length, setScrollY, scrollY]);
 
-    useEffect(() => {
-        // Set the colours scheme using context API
-        setColours(projects[scrollY].colour_scheme);
+    const [ALL_PROJECTS] = useState(() => {
+        // Clone the projects array for filtering
+        const clone = rfdc();
+        return clone(projects);
+    });
 
+    // Determine whether screen is under 768px
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    const handleResize = useCallback(() => {
+        // Set the isMobile state based on the window width
+        setIsMobile(window.innerWidth < 768);
+    }, []);
+
+    useEffect(() => {
         // Event listener for resizing the window
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [scrollY, projects, setColours, handleResize]);
+    }, [handleResize]);
+
+    useEffect(() => {
+        // Set the colours scheme using context API
+        setColours(projects[scrollY].colour_scheme);
+    }, [scrollY, projects, setColours]);
 
     const springConfig = {
         type: "spring",
