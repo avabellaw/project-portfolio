@@ -5,7 +5,7 @@ class Skill(db.Model):
     '''Skill Tag model'''
     __tablename__ = 'skills'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(12),
+    name = db.Column(db.String(20),
                      nullable=False)  # unqiue=True breaks flask-admin panel
 
     __table_args__ = (
