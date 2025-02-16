@@ -153,3 +153,9 @@ project_id + skill_tag_id has unique contraint
 React only needs to get project information. Out of interest, I created endpoints for full CRUD functionality. 
 
 [View additional endpoints](docs/additional-endpoints.md)
+
+# Credit
+
+## Images
+
+* [Filter icon svg for skill filter placeholder text](https://www.svgrepo.com/svg/509927/filter)
