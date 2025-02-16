@@ -1,10 +1,27 @@
 #skill-filter-container {
     width: 100%;
+
+    /* Set skill filter text and icon colour */
+    --filter-colour: var(--text-colour);
 }
 
-#skill-filter-container img {
-    mix-blend-mode: difference;
-    filter: invert(1);
+#skill-filter-container svg > path {
+    fill: var(--filter-colour);
+}
+
+#skill-filter-container svg {
+    margin-right: 0.25em;
+}
+
+#skill-filter-container span {
+    /* Setting height makes a small difference, needs inline-block */
+    display: inline-block; 
+    height: 1.1em; /* set to same height as svg width/height in html */
+
+}
+
+#skill-filter-container span {
+    color: var(--filter-colour);
 }
 
 #skill-filter-container > div:last-child {
