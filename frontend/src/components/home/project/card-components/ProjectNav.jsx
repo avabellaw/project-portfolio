@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState } from 'react'
 
-import styles from './ProjectNav.module.css'
+import styles from './ProjectNav.module.css';
 
 const Nav = ({ viewControls, projects }) => {
     const [scrollTimeout, setScrollTimeout] = useState(null);

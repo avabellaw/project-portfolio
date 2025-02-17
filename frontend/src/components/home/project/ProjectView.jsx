@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useSwipeable } from 'react-swipeable';
 
 import ProjectCard from "./card-components/ProjectCard";
 import ProjectNav from "./card-components/ProjectNav";
@@ -22,12 +23,20 @@ const ProjectView = ({ projects, setProjects }) => {
         mass: 1        // Add mass for more natural physics
     };
 
+    const handleTouchscreenSwipe = useSwipeable({
+        onSwipedLeft: viewControls.nextProject,
+        onSwipedRight: viewControls.prevProject,
+        preventDefaultTouchmoveEvent: true,
+        trackMouse: true
+    });
+
+
     return (
         <div id={styles["project-view"]}>
             <Filter selectedValue={skillFilter} filterProjectsBySkill={filterProjectsBySkill} />
             <ProjectNav viewControls={viewControls} projects={projects} />
 
-            <div id={styles["project-card-container"]}>
+            <div {...handleTouchscreenSwipe} id={styles["project-card-container"]}>
 
                 {/* If mobile, only render one project card */}
                 {isMobile ? (

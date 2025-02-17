@@ -1,5 +1,4 @@
 import styles from './ProjectCard.module.css';
-import { motion } from 'motion/react';
 
 const ProjectCard = ({ project, preview, filterProjectsBySkill }) => {
 
