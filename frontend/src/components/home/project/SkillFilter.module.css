@@ -3,6 +3,7 @@
 
     /* Set skill filter text and icon colour */
     --filter-colour: var(--text-colour);
+    margin-bottom: 0.5em;
 }
 
 #skill-filter-container svg > path {

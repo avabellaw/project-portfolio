@@ -130,7 +130,8 @@ h2 {
     .project-card {
         flex-direction: row;
         flex-basis: 75%;
-        height: 45vh;
+        /* Has to be set for project card container too */
+        height: var(--project-card-height);
     }
 
     .project-card>* {
