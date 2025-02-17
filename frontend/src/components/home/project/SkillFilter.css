@@ -1,7 +1,7 @@
 .skills-filter__control {
     background-color: var(--secondary-colour) !important;
     border-radius: 1em !important;
-    border-color: var(--text-colour);
+    border-color: var(--highlight-colour) !important;
     color: var(--text-colour) !important;
     padding: 0 0.3em;
     cursor: text !important;
@@ -13,9 +13,14 @@
 }
 
 .skills-filter__control--is-focused {
-    border-color: var(--highlight-colour);
+    border-color: var(--highlight-colour) !important;
     box-shadow: 0 0 0 1px var(--highlight-colour) !important;
     cursor: text !important;
+}
+
+.skills-filter__control:hover {
+    border-color: var(--highlight-colour)!important;
+    box-shadow: 0 0 0 2px var(--highlight-colour) !important;
 }
 
 .skills-filter__input {
