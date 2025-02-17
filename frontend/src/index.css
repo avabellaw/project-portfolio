@@ -26,7 +26,7 @@ body {
     body {
         /* Stops project previews affecting content height */
         overflow: hidden;
-        padding: 2em;
+        padding: calc(0.3em + 1vh + 1vw);
     }
 }
 

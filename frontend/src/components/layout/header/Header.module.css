@@ -5,7 +5,7 @@
     padding: 0.2em;
 }
 
-a {
+#header-link {
     text-decoration: none;
     width: fit-content;
     display: inline-block;
