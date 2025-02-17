@@ -45,7 +45,7 @@ const ProjectView = ({ projects, setProjects }) => {
                                     width: '100%',
                                 }}
                                 animate={{
-                                    y: !isMobile && `${(i - scrollY) * 120}%`,
+                                    y: !isMobile && `${(i - scrollY) * 115}%`,
                                     transition: springConfig,
                                 }}
                                 transition={{ duration: 1 }}
