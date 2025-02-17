@@ -22,7 +22,7 @@ const Filter = ({ ALL_PROJECTS, setProjects }) => {
 
                 setSkills(options)
             })
-    }, [])
+    }, [API_URL])
 
 
     const selectOption = (skillId) => {
