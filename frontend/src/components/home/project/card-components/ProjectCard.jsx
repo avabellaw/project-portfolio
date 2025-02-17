@@ -1,12 +1,16 @@
 import styles from './ProjectCard.module.css';
 import { motion } from 'motion/react';
 
-const ProjectCard = ({ project, preview }) => {
+const ProjectCard = ({ project, preview, filterProjectsBySkill }) => {
 
     const contentVariants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 }
     };
+
+    const onSkillTagClick = (skill) => {
+        filterProjectsBySkill(skill);
+    }
 
     return (
         <div className={`${styles['project-card']} ${preview ? styles[preview] : ''}`}>
@@ -34,7 +38,7 @@ const ProjectCard = ({ project, preview }) => {
 
                     <div className={styles['skill-tags']}>
                         {project.skills.map(skill => (
-                            <span key={skill.id} className={styles['skill']}>{skill.name}</span>
+                            <span key={skill.id} className={styles['skill']} onClick={() => onSkillTagClick(skill)}>{skill.name}</span>
                         ))}
                     </div>
                 </div>

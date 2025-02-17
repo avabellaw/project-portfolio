@@ -88,6 +88,11 @@ h2 {
     padding: 0 1em;
 }
 
+.skill-tags > .skill:hover {
+    border-color: var(--highlight-colour);
+    cursor: pointer;
+} 
+
 .skill {
     padding: 0.5em 0.7em;
     background-color: var(--secondary-colour);

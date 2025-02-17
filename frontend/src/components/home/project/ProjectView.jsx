@@ -13,6 +13,8 @@ import { motion } from "motion/react";
 
 const ProjectView = ({ projects, setProjects }) => {
     const { setColours } = useContext(ColourSchemeContext);
+    
+    const [skillFilter, setSkillFilter] = useState(null);
 
     const [scrollY, setScrollY] = useState(0);
 
@@ -36,6 +38,33 @@ const ProjectView = ({ projects, setProjects }) => {
         const clone = rfdc();
         return clone(projects);
     }, []);
+
+    const filterProjectsBySkill = (skill) => {
+        /**
+         * Filters the projects based on the selected skill
+         * @param {Object} skill - Skill object
+         */
+
+        if (!skill) {
+            setSkillFilter(null);
+            setProjects(ALL_PROJECTS);
+            return
+        }
+
+        const filteredProjects = ALL_PROJECTS.filter(project =>
+            project.skills.some(projectSkill => projectSkill.id === skill.id)
+        );
+
+        if (filteredProjects.length === 0) {
+            // If no projects have the selected skill, show all projects
+            setProjects(ALL_PROJECTS);
+            setSkillFilter(null);
+            return;
+        }
+
+        setSkillFilter({ value: skill.id, label: skill.name });
+        setProjects(filteredProjects);
+    }
 
     // Determine whether screen is under 768px
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -71,14 +100,16 @@ const ProjectView = ({ projects, setProjects }) => {
 
     return (
         <div id={styles["project-view"]}>
-            <Filter setProjects={setProjects} ALL_PROJECTS={ALL_PROJECTS} />
+            <Filter selectedValue={skillFilter} filterProjectsBySkill={filterProjectsBySkill} />
             <ProjectNav viewControls={viewControls} projects={projects} />
 
             <div id={styles["project-card-container"]}>
 
                 {/* If mobile, only render one project card */}
                 {isMobile ? (
-                        <ProjectCard project={projects[scrollY]} preview="current" />
+                        <ProjectCard project={projects[scrollY]}
+                        preview="current"
+                        filterProjectsBySkill={filterProjectsBySkill} />
                 ) :
                     // Else render all project cards, hides the ones not in view in css
                     (
@@ -98,6 +129,7 @@ const ProjectView = ({ projects, setProjects }) => {
                                 <ProjectCard
                                     project={project}
                                     preview={i !== scrollY ? i === scrollY + 1 ? 'next' : 'prev' : 'current'}
+                                    filterProjectsBySkill={filterProjectsBySkill}
                                 />
                             </motion.div>
                         ))

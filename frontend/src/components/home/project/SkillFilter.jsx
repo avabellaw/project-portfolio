@@ -4,13 +4,11 @@ import Select from 'react-select'
 import styles from './SkillFilter.module.css'
 import './SkillFilter.css'
 
-const Filter = ({ ALL_PROJECTS, setProjects }) => {
+const Filter = ({ selectedValue, filterProjectsBySkill }) => {
     const API_URL = process.env.REACT_APP_API_URL
 
     const [skills, setSkills] = useState();
-    const [selectedValue, setSelectedValue] = useState(null);
     const [inputValue, setInputValue] = useState('');
-
 
     useEffect(() => {
         fetch(`${API_URL}/skills`)
@@ -23,23 +21,7 @@ const Filter = ({ ALL_PROJECTS, setProjects }) => {
                 setSkills(options)
             })
     }, [API_URL])
-
-
-    const selectOption = (skillId) => {
-        const filteredProjects = ALL_PROJECTS.filter(project =>
-            project.skills.some(skill => skill.id === skillId)
-        );
-
-        if (filteredProjects.length === 0) {
-            // If no projects have the selected skill, show all projects
-            setProjects(ALL_PROJECTS);
-            setSelectedValue(null);
-            return;
-        }
-
-        setSelectedValue({ value: skillId, label: skills.find(skill => skill.value === parseInt(skillId)).label });
-        setProjects(filteredProjects);
-    }
+        
 
     const handleChange = (option, actionMeta) => {
         /**
@@ -48,12 +30,11 @@ const Filter = ({ ALL_PROJECTS, setProjects }) => {
         switch (actionMeta.action) {
             case 'select-option':
                 // Skill was selected
-                selectOption(option.value);
+                filterProjectsBySkill({id: option.value, name: option.label});
                 break;
             case 'clear':
                 // Clear button was clicked
-                setSelectedValue(null);
-                setProjects(ALL_PROJECTS);
+                filterProjectsBySkill(null);
                 break;
             default:
                 break;
@@ -82,7 +63,7 @@ const Filter = ({ ALL_PROJECTS, setProjects }) => {
         setInputValue(input);
         const matchedSkill = skills.find(skill => skill.label.toLowerCase() === input.toLowerCase());
         if (matchedSkill) {
-            selectOption(matchedSkill.value);
+            filterProjectsBySkill(matchedSkill);
             setInputValue('');
             document.querySelector('.skills-filter__input').blur();
         }
