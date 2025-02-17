@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import Select from 'react-select'
 
 import styles from './SkillFilter.module.css'
-import './SkillFilter.css'
+import './ReactSelectOverrides.css'
+
 const Filter = ({ selectedValue, filterProjectsBySkill }) => {
     const API_URL = process.env.REACT_APP_API_URL
 
