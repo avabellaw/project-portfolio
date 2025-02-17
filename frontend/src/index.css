@@ -29,3 +29,15 @@ body {
         padding: 2em;
     }
 }
+
+@media screen and (min-width: 1600px) {
+    body {
+        font-size: 1.1em;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    body {
+        font-size: 1.2em;
+    }
+}
