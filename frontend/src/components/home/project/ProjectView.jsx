@@ -1,70 +1,18 @@
-import { useState, useEffect, useContext, useCallback, useMemo, use } from "react";
+import { useState, useEffect, useCallback } from "react";
+
+import { motion } from "motion/react";
 
 import ProjectCard from "./card-components/ProjectCard";
 import ProjectNav from "./card-components/ProjectNav";
 import Filter from './SkillFilter';
 
+import useProjectViewControls from "./utilities/useProjectViewControls";
+
 import styles from "./ProjectView.module.css";
-import { ColourSchemeContext } from "../../layout/ColourSchemeContext";
-
-import rfdc from 'rfdc';
-
-import { motion } from "motion/react";
 
 const ProjectView = ({ projects, setProjects }) => {
-    const { setColours } = useContext(ColourSchemeContext);
-    
-    const [skillFilter, setSkillFilter] = useState(null);
-
-    const [scrollY, setScrollY] = useState(0);
-
-    const viewControls = useMemo(() => ({
-        nextProject: () => {
-            setScrollY((prevScroll) => Math.min(prevScroll + 1, projects.length - 1));
-        },
-        prevProject: () => {
-            setScrollY((prevScroll) => Math.max(prevScroll - 1, 0));
-        },
-        setIndex: (i) => {
-            setScrollY(i);
-        },
-        getIndex: () => {
-            return scrollY;
-        }
-    }), [projects.length, setScrollY, scrollY]);
-
-    const [ALL_PROJECTS] = useState(() => {
-        // Clone the projects array for filtering
-        const clone = rfdc();
-        return clone(projects);
-    }, []);
-
-    const filterProjectsBySkill = (skill) => {
-        /**
-         * Filters the projects based on the selected skill
-         * @param {Object} skill - Skill object
-         */
-
-        if (!skill) {
-            setSkillFilter(null);
-            setProjects(ALL_PROJECTS);
-            return
-        }
-
-        const filteredProjects = ALL_PROJECTS.filter(project =>
-            project.skills.some(projectSkill => projectSkill.id === skill.id)
-        );
-
-        if (filteredProjects.length === 0) {
-            // If no projects have the selected skill, show all projects
-            setProjects(ALL_PROJECTS);
-            setSkillFilter(null);
-            return;
-        }
-
-        setSkillFilter({ value: skill.id, label: skill.name });
-        setProjects(filteredProjects);
-    }
+    // Get the controls for the project view from utilities/ProjectViewControls
+    const {viewControls, filterProjectsBySkill, skillFilter, scrollY} = useProjectViewControls(projects, setProjects);
 
     // Determine whether screen is under 768px
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -79,17 +27,6 @@ const ProjectView = ({ projects, setProjects }) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [handleResize]);
-
-    useEffect(() => {
-        // Reset the scroll position when projects change
-        setScrollY(0);
-    }, [projects]);
-
-    useEffect(() => {
-        if (projects.length === 0 || scrollY > projects.length-1) return;
-        // Set the colours scheme using context API
-        setColours(projects[scrollY].colour_scheme);
-    }, [scrollY, projects, setColours]);
 
     const springConfig = {
         type: "spring",

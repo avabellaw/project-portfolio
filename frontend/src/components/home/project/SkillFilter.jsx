@@ -3,7 +3,6 @@ import Select from 'react-select'
 
 import styles from './SkillFilter.module.css'
 import './SkillFilter.css'
-
 const Filter = ({ selectedValue, filterProjectsBySkill }) => {
     const API_URL = process.env.REACT_APP_API_URL
 
@@ -63,7 +62,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
         setInputValue(input);
         const matchedSkill = skills.find(skill => skill.label.toLowerCase() === input.toLowerCase());
         if (matchedSkill) {
-            filterProjectsBySkill(matchedSkill);
+            filterProjectsBySkill({ id: matchedSkill.value, name: matchedSkill.label });
             setInputValue('');
             document.querySelector('.skills-filter__input').blur();
         }
