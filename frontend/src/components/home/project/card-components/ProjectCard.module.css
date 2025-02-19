@@ -115,7 +115,7 @@ h2 {
     padding: 0.5em 0.7em;
     background-color: var(--secondary-colour);
     color: var(--highlight-colour);
-    --darker-highlight-colour: hsl(from var(--highlight-colour) h calc(s - 10) calc(l - 10));
+    --darker-highlight-colour: rgb(from var(--highlight-colour) r g b / 0.6);
     border: 2px solid var(--darker-highlight-colour);
     border-radius: 2em;
     font-size: 0.85em;
