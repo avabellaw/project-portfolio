@@ -114,7 +114,7 @@ h2 {
 .skill {
     padding: 0.5em 0.7em;
     background-color: var(--secondary-colour);
-    color: var(--highlight-colour);
+    color: var(--text-colour);
     --darker-highlight-colour: rgb(from var(--highlight-colour) r g b / 0.6);
     border: 2px solid var(--darker-highlight-colour);
     border-radius: 2em;
