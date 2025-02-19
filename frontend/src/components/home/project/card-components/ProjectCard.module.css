@@ -103,7 +103,7 @@ h2 {
     flex-wrap: wrap;
     column-gap: 0.5em;
     row-gap: 0.5em;
-    padding: 0 1em;
+    padding: 0 1.5em;
 }
 
 .skill-tags>.skill:hover {
@@ -164,7 +164,7 @@ h2 {
     }
 
     .card-content p {
-        padding: 0 0.5em;
+        padding: 0 1.5em;
         max-width: 750px;
         margin-top: 0;
     }
