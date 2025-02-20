@@ -170,3 +170,10 @@ h2 {
     }
 
 }
+
+@media screen and (min-width: 1200px) {
+    .project-card p{
+        padding: 0 3em;
+    }
+    
+}
