@@ -1,8 +1,13 @@
 import styles from './ProjectCard.module.css';
 
-const ProjectCard = ({ project, preview, filterProjectsBySkill }) => {
+const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) => {
 
     const onSkillTagClick = (skill) => {
+        // If skill already filtered, remove filter
+        if (skillFilter && skillFilter.value === skill.id) {
+            filterProjectsBySkill(null);
+            return;
+        }
         filterProjectsBySkill(skill);
     }
 
@@ -25,7 +30,13 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill }) => {
 
                 <div className={styles['skill-tags']}>
                     {project.skills.map(skill => (
-                        <span key={skill.id} className={styles['skill']} onClick={() => onSkillTagClick(skill)}>{skill.name}</span>
+                        <span key={skill.id}
+                            className={styles['skill']}
+                            onClick={() => onSkillTagClick(skill)}
+                            data-selected={skillFilter ? skillFilter.value === skill.id ? 'true' : 'false': 'false'}
+                        >
+                            {skill.name}
+                        </span>
                     ))}
                 </div>
             </div>

@@ -42,7 +42,9 @@ const ProjectView = ({ projects, setProjects }) => {
                 {isMobile ? (
                     <ProjectCard project={projects[scrollY]}
                         preview="current"
-                        filterProjectsBySkill={filterProjectsBySkill} />
+                        filterProjectsBySkill={filterProjectsBySkill}
+                        skillFilter={skillFilter}
+                    />
                 ) :
                     // Else render all project cards, hides the ones not in view in css
                     (
@@ -63,6 +65,7 @@ const ProjectView = ({ projects, setProjects }) => {
                                     project={project}
                                     preview={i !== scrollY ? i === scrollY + 1 ? 'next' : 'prev' : 'current'}
                                     filterProjectsBySkill={filterProjectsBySkill}
+                                    skillFilter={skillFilter}
                                 />
                             </motion.div>
                         ))
