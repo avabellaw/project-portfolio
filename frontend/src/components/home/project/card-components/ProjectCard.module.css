@@ -1,3 +1,18 @@
+@keyframes subtleMove {
+    /* Sublte animation for image container on project card */
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-8px) scale(1.009);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
 h2 {
     font-size: 1.7em;
     color: var(--highlight-colour);
@@ -33,16 +48,27 @@ h2 {
 }
 
 .card-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     height: 100%;
     overflow: hidden;
     aspect-ratio: 1/1;
     max-height: 40vh;
+    animation: subtleMove 5s infinite;
 }
 
 .card-img>img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: width 0.5s, height 0.5s;
+}
+
+.project-card:not(.current) >.card-img > img {
+    width: 90%;
+    height: 90%
 }
 
 .card-links {
@@ -69,7 +95,7 @@ h2 {
     transition: opacity 0.5s;
 }
 
-.card-links>a:hover + a,
+.card-links>a:hover+a,
 .card-links>a:has(+ a:hover) {
     /* Grey out the opposite link */
     opacity: 0.50;
@@ -176,8 +202,8 @@ h2 {
 }
 
 @media screen and (min-width: 1200px) {
-    .project-card p{
+    .project-card p {
         padding: 0 3em;
     }
-    
+
 }
