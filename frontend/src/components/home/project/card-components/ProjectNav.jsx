@@ -9,6 +9,8 @@ const Nav = ({ viewControls, projects }) => {
     const handleScroll = useCallback((event) => {
         if (disableScroll) return;
 
+        setDisableScroll(true);
+
         if (event.deltaY > 0) {
             // Scrolling down
             viewControls.nextProject();
@@ -17,8 +19,6 @@ const Nav = ({ viewControls, projects }) => {
             if (viewControls.index === 0) return;
             viewControls.prevProject();
         }
-
-        setDisableScroll(true);
 
         const timeOut = setTimeout(() => {
             setDisableScroll(false);

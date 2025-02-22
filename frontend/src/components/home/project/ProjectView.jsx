@@ -20,7 +20,7 @@ const ProjectView = ({ projects, setProjects }) => {
         type: "spring",
         stiffness: 200, // Lower value for smoother motion
         damping: 30,    // Balanced damping for smooth settling
-        mass: 1        // Add mass for more natural physics
+        mass: 1,        // Add mass for more natural physics
     };
 
     const handleTouchscreenSwipe = useSwipeable({
@@ -59,7 +59,6 @@ const ProjectView = ({ projects, setProjects }) => {
                                     y: !isMobile && `${(i - scrollY) * 115}%`,
                                     transition: springConfig,
                                 }}
-                                transition={{ duration: 1 }}
                             >
                                 <ProjectCard
                                     project={project}
