@@ -26,6 +26,11 @@
     #project-card-container {
         /* Has to be set for project card too */
         --project-card-height: 50vh;
-        height: var(--project-card-height);
+        height: 100vh;
+        
+        scrollbar-width: none;
+        --webkit-scrollbar-width: none;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
     } 
 }

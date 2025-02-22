@@ -16,6 +16,9 @@ nav {
     align-items: center;
     padding: var(--nav-indicator-padding);
     column-gap: 0.6em;
+
+    height: 50vh;
+    margin: auto;
 }
 
 .project-nav-button {
@@ -52,6 +55,7 @@ nav {
 
 #nav-container {
     display: flex;
+    align-items: center;
 }
 
 #nav-link-names {

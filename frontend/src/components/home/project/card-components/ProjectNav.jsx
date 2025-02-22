@@ -3,40 +3,6 @@ import { useEffect, useCallback, useState } from 'react'
 import styles from './ProjectNav.module.css';
 
 const Nav = ({ viewControls, projects }) => {
-    const [scrollTimeout, setScrollTimeout] = useState(null);
-    const [disableScroll, setDisableScroll] = useState(false);
-
-    const handleScroll = useCallback((event) => {
-        if (disableScroll) return;
-
-        setDisableScroll(true);
-
-        if (event.deltaY > 0) {
-            // Scrolling down
-            viewControls.nextProject();
-        } else {
-            // Scrolling up
-            if (viewControls.index === 0) return;
-            viewControls.prevProject();
-        }
-
-        const timeOut = setTimeout(() => {
-            setDisableScroll(false);
-            setScrollTimeout(null);
-        }, 1000)
-
-        setScrollTimeout(timeOut);
-        
-    }, [viewControls, disableScroll, setDisableScroll]);
-
-    useEffect(() => {
-        // Passive event listener to improve scrolling performance, as not calling preventDefault
-        window.addEventListener('wheel', handleScroll, { passive: true });
-        return () => {
-            window.removeEventListener('wheel', handleScroll)
-            clearTimeout(scrollTimeout);
-        };
-    }, [handleScroll, scrollTimeout]);
 
     return (
         <nav id={styles['nav-container']}>

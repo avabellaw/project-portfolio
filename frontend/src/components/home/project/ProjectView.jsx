@@ -1,3 +1,4 @@
+import {useEffect, useCallback, useState} from 'react';
 import { motion } from "motion/react";
 import { useSwipeable } from 'react-swipeable';
 
@@ -16,19 +17,30 @@ const ProjectView = ({ projects, setProjects }) => {
 
     const { isMobile } = useViewportSize();
 
-    const springConfig = {
-        type: "spring",
-        stiffness: 200, // Lower value for smoother motion
-        damping: 30,    // Balanced damping for smooth settling
-        mass: 1,        // Add mass for more natural physics
-    };
-
     const handleTouchscreenSwipe = useSwipeable({
         onSwipedLeft: viewControls.nextProject,
         onSwipedRight: viewControls.prevProject,
         preventDefaultTouchmoveEvent: true,
         trackMouse: true
     });
+
+    const projectCardContainer = document.getElementById(styles['project-card-container']);
+
+    const [scrollTimeout, setScrollTimeout] = useState(null);
+    const [disableScroll, setDisableScroll] = useState(false);
+
+    const handleScroll = useCallback((event) => {
+        console.log("scroll");
+        
+    }, [viewControls, disableScroll, setDisableScroll]);
+
+    useEffect(() => {
+        projectCardContainer.addEventListener('scroll', handleScroll);
+        return () => {
+            projectCardContainer.removeEventListener('scroll', handleScroll)
+            clearTimeout(scrollTimeout);
+        };
+    }, [handleScroll, scrollTimeout]);
 
 
     return (
@@ -52,12 +64,15 @@ const ProjectView = ({ projects, setProjects }) => {
                             <motion.div
                                 key={project.id}
                                 style={{
-                                    position: 'absolute',
+                                    // position: 'absolute',
                                     width: '100%',
                                 }}
                                 animate={{
-                                    y: !isMobile && `${(i - scrollY) * 115}%`,
-                                    transition: springConfig,
+                                    // y: !isMobile && `${(i - scrollY) * 115}%`,
+                                }}
+                                transition={{
+                                    damping: 30,
+                                    stiffness: 200,
                                 }}
                             >
                                 <ProjectCard
