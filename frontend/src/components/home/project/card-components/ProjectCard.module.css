@@ -66,11 +66,6 @@ h2 {
     transition: width 0.5s, height 0.5s;
 }
 
-.project-card:not(.current) >.card-img > img {
-    width: 90%;
-    height: 90%
-}
-
 .card-links {
     display: flex;
     flex-wrap: wrap;
@@ -191,6 +186,7 @@ h2 {
 
         /* Has to be set for project card container too */
         height: var(--project-card-height);
+        scroll-snap-align: center;
     }
 
     .card-content p {

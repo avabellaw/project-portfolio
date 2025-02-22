@@ -23,9 +23,6 @@ const ProjectView = ({ projects, setProjects }) => {
         preventDefaultTouchmoveEvent: true,
         trackMouse: true
     });
-
-    const projectCardContainer = document.getElementById(styles['project-card-container']);
-
     const [scrollTimeout, setScrollTimeout] = useState(null);
     const [disableScroll, setDisableScroll] = useState(false);
 
@@ -35,6 +32,9 @@ const ProjectView = ({ projects, setProjects }) => {
     }, [viewControls, disableScroll, setDisableScroll]);
 
     useEffect(() => {
+
+        const projectCardContainer = document.getElementById(styles['project-card-container']);
+    
         projectCardContainer.addEventListener('scroll', handleScroll);
         return () => {
             projectCardContainer.removeEventListener('scroll', handleScroll)
