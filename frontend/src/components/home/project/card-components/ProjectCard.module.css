@@ -30,15 +30,6 @@ h2 {
     white-space: pre-wrap;
 }
 
-.project-card:not(.current) {
-    visibility: hidden;
-}
-
-.project-card.next>.card-content,
-.project-card.prev>.card-content {
-    visibility: hidden;
-}
-
 .project-card.next {
     top: var(--offset);
 }
@@ -155,9 +146,6 @@ h2 {
     }
 
     .card-content {
-        opacity: 0;
-        /* Add transition to visibility to keep visible for animation */
-        transition: visibility 0.5s, opacity 0.5s ease-out;
         width: 50%;
     }
 
@@ -168,8 +156,6 @@ h2 {
     .card-img {
         order: 2;
         max-height: unset;
-        transition: opacity 1s;
-        opacity: 0.5;
         max-height: 100%;
         max-width: 100%;
         width: auto;

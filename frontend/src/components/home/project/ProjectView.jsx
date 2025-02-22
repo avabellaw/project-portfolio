@@ -1,4 +1,4 @@
-import {useEffect, useCallback, useState} from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { motion } from "motion/react";
 import { useSwipeable } from 'react-swipeable';
 
@@ -28,13 +28,13 @@ const ProjectView = ({ projects, setProjects }) => {
 
     const handleScroll = useCallback((event) => {
         console.log("scroll");
-        
+
     }, [viewControls, disableScroll, setDisableScroll]);
 
     useEffect(() => {
 
         const projectCardContainer = document.getElementById(styles['project-card-container']);
-    
+
         projectCardContainer.addEventListener('scroll', handleScroll);
         return () => {
             projectCardContainer.removeEventListener('scroll', handleScroll)
@@ -61,27 +61,12 @@ const ProjectView = ({ projects, setProjects }) => {
                     // Else render all project cards, hides the ones not in view in css
                     (
                         projects.map((project, i) => (
-                            <motion.div
-                                key={project.id}
-                                style={{
-                                    // position: 'absolute',
-                                    width: '100%',
-                                }}
-                                animate={{
-                                    // y: !isMobile && `${(i - scrollY) * 115}%`,
-                                }}
-                                transition={{
-                                    damping: 30,
-                                    stiffness: 200,
-                                }}
-                            >
-                                <ProjectCard
-                                    project={project}
-                                    preview={i !== scrollY ? i === scrollY + 1 ? 'next' : 'prev' : 'current'}
-                                    filterProjectsBySkill={filterProjectsBySkill}
-                                    skillFilter={skillFilter}
-                                />
-                            </motion.div>
+                            <ProjectCard
+                                project={project}
+                                preview={i !== scrollY ? i === scrollY + 1 ? 'next' : 'prev' : 'current'}
+                                filterProjectsBySkill={filterProjectsBySkill}
+                                skillFilter={skillFilter}
+                            />
                         ))
                     )
                 }
