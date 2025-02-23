@@ -35,7 +35,7 @@ const ProjectView = ({ projects, setProjects }) => {
         // Calculate the index of the project card based on the scroll progress
         const one = 1 / (projects.length);
 
-        const nextIndex = Math.floor(progress / one);
+        const nextIndex = Math.min(Math.floor(progress / one), projects.length - 1);
         // Set the index of the project card for nav
         viewControls.setIndex(nextIndex);
     });
@@ -84,7 +84,7 @@ const ProjectView = ({ projects, setProjects }) => {
                                 variants={cardVariants}
                                 initial='notInView'
                                 animate={index === i ? 'inView' : 'notInView'}
-                                transition={{ duration: 0.5 }}
+                                transition={{ duration: 1 }}
                             >
                                 <ProjectCard
                                     project={project}
