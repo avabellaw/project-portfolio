@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useMemo } from 'react';
+import { useState, useContext, useMemo, useCallback } from 'react';
 
 import rfdc from 'rfdc';
 
@@ -10,38 +10,41 @@ export default function useProjectViewControls(projects, setProjects) {
     const [skillFilter, setSkillFilter] = useState(null);
     const { setColours } = useContext(ColourSchemeContext);
     const [index, setIndex] = useState(0);
+    const [autoScroll, setAutoScroll] = useState(false);
+    const [targetIndex, setTargetIndex] = useState(0);
 
 
-    useEffect(() => {
-        if (projects.length === 0 || index > projects.length-1) return;
-        // Set the colours scheme using context API
-        setColours(projects[index].colour_scheme);
-    }, [index, projects, setColours]);
+    const setProjectColourScheme = useCallback((project) => {
+        setColours(project.colour_scheme);
+    }, [setColours]);
 
     const viewControls = useMemo(() => ({
         scrollToProject: (i) => {
+            setTargetIndex(i);
+            setAutoScroll(true);
             // Gets the project card container and sets the scroll position to the selected project card
             const cardContainer = document.getElementById(styles['project-card-container']);
 
-            const scrollHeight = cardContainer.scrollHeight;
-
-            // Calculate the height of each project card
-            const projectCardHeight = scrollHeight / projects.length;
-
-            let options = {
-                // Height of project card * index
-                top: projectCardHeight * i,
-                behavior: 'smooth'
-            }
-            cardContainer.scrollTo(options);
+            const card = cardContainer.children[i];
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
         },
         setIndex: (i) => {
             setIndex(i);
+            if (!autoScroll) {
+                // Set the colour scheme of the project card based on the index
+                setProjectColourScheme(projects[i]);
+            } else {
+                // If autoScroll reached target project index, set colour scheme
+                if (i === targetIndex) {
+                    setAutoScroll(false);
+                    setProjectColourScheme(projects[targetIndex]);
+                }
+            }
         },
         getIndex: () => {
             return index;
         },
-    }), [index, projects.length]);
+    }), [index, projects, setProjectColourScheme, autoScroll, setAutoScroll, targetIndex, setTargetIndex]);
 
     const [ALL_PROJECTS] = useState(() => {
         // Clone the projects array for filtering
