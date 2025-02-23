@@ -16,9 +16,7 @@ nav {
     align-items: center;
     padding: var(--nav-indicator-padding);
     column-gap: 0.6em;
-
-    height: 50vh;
-    margin: auto;
+    height: 100%;
 }
 
 .project-nav-button {
@@ -56,11 +54,14 @@ nav {
 #nav-container {
     display: flex;
     align-items: center;
+    height: 50vh;
+    margin: auto;
 }
 
 #nav-link-names {
     flex-grow: 1;
     display: none;
+    height: 100%;
 }
 
 @media screen and (min-width: 768px) and (max-width: 950px) {
@@ -100,9 +101,6 @@ nav {
     #nav-link-names {
         display: flex;
         flex-direction: column;
-
-        padding: var(--nav-indicator-padding);
-        margin: 1em;
     }
 
     #nav-link-names > * {
