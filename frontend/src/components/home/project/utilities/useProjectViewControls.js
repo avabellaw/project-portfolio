@@ -5,35 +5,26 @@ import rfdc from 'rfdc';
 import { ColourSchemeContext } from "../../../layout/ColourSchemeContext";
 
 export default function useProjectViewControls(projects, setProjects) {
-    const [skillFilter, setSkillFilter] = useState(null); 
-    const [scrollY, setScrollY] = useState(0);
+    const [skillFilter, setSkillFilter] = useState(null);
     const { setColours } = useContext(ColourSchemeContext);
+    const [index, setIndex] = useState(0);
+
+    
 
     useEffect(() => {
-        // Reset the scroll position when projects change
-        setScrollY(0);
-    }, [projects]);
-
-    useEffect(() => {
-        if (projects.length === 0 || scrollY > projects.length-1) return;
+        if (projects.length === 0 || index > projects.length-1) return;
         // Set the colours scheme using context API
-        setColours(projects[scrollY].colour_scheme);
-    }, [scrollY, projects, setColours]);
+        setColours(projects[index].colour_scheme);
+    }, [index, projects, setColours]);
 
     const viewControls = useMemo(() => ({
-        nextProject: () => {
-            setScrollY((prevScroll) => Math.min(prevScroll + 1, projects.length - 1));
-        },
-        prevProject: () => {
-            setScrollY((prevScroll) => Math.max(prevScroll - 1, 0));
-        },
         setIndex: (i) => {
-            setScrollY(i);
+            setIndex(i);
         },
         getIndex: () => {
-            return scrollY;
+            return index;
         }
-    }), [projects.length, setScrollY, scrollY]);
+    }), [index]);
 
     const [ALL_PROJECTS] = useState(() => {
         // Clone the projects array for filtering
@@ -68,5 +59,5 @@ export default function useProjectViewControls(projects, setProjects) {
         setProjects(filteredProjects);
     }
 
-    return { viewControls, filterProjectsBySkill, skillFilter, scrollY };
+    return { viewControls, filterProjectsBySkill, skillFilter, index };
 };

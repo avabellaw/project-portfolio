@@ -30,6 +30,10 @@ h2 {
     white-space: pre-wrap;
 }
 
+.project-card:not(.current){
+    visibility: hidden;
+}
+
 .project-card.next {
     top: var(--offset);
 }
@@ -160,9 +164,15 @@ h2 {
         max-width: 100%;
         width: auto;
     }
+    
+    .project-card.next > .card-img > img,
+    .project-card.prev > .card-img > img {
+        width: 90%;
+        height: 90%;
+    }
 
-    .project-card.current>.card-img {
-        opacity: 1;
+    .project-card:not(.current)>.card-content {
+        visibility: hidden;
     }
 
     .project-card {

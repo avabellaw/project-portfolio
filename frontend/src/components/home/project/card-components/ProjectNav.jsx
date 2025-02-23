@@ -1,5 +1,3 @@
-import { useEffect, useCallback, useState } from 'react'
-
 import styles from './ProjectNav.module.css';
 
 const Nav = ({ viewControls, projects }) => {

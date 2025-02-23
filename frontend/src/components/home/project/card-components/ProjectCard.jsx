@@ -33,7 +33,7 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
                         <span key={skill.id}
                             className={styles['skill']}
                             onClick={() => onSkillTagClick(skill)}
-                            data-selected={skillFilter ? skillFilter.value === skill.id ? 'true' : 'false': 'false'}
+                            data-selected={skillFilter ? skillFilter.value === skill.id ? 'true' : 'false' : 'false'}
                         >
                             {skill.name}
                         </span>
