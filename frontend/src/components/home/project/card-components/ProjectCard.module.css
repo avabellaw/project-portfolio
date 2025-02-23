@@ -182,6 +182,7 @@ h2 {
 
         /* Has to be set for project card container too */
         height: var(--project-card-height);
+        
         scroll-snap-align: center;
     }
 

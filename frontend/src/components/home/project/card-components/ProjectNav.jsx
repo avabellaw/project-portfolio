@@ -8,7 +8,7 @@ const Nav = ({ viewControls, projects }) => {
                 {projects.map((project, i) => (
                     <span
                         key={project.title}
-                        onClick={() => viewControls.setIndex(i)}
+                        onClick={() => viewControls.scrollToProject(i)}
                         data-current={viewControls.getIndex() === i ? 'true' : 'false'}
                     >
                         {project.title}
@@ -20,7 +20,7 @@ const Nav = ({ viewControls, projects }) => {
                 {projects.map((project, i) => (
                     <button
                         key={i}
-                        onClick={() => viewControls.setIndex(i)}
+                        onClick={() => viewControls.scrollToProject(i)}
                         className={styles['project-nav-button']}
                         aria-label={`View project ${project.title}`}
                         aria-current={viewControls.getIndex() === i ? 'true' : 'false'}

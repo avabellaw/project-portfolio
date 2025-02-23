@@ -80,7 +80,7 @@ const ProjectView = ({ projects, setProjects }) => {
                     (
                         projects.map((project, i) => (
                             <motion.div
-                                key={project._id}
+                                key={project.id}
                                 variants={cardVariants}
                                 initial='notInView'
                                 animate={index === i ? 'inView' : 'notInView'}
