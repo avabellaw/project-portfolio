@@ -6,7 +6,7 @@ import { ColourSchemeContext } from "../../../layout/ColourSchemeContext";
 
 import styles from '../ProjectView.module.css';
 
-export default function useProjectViewControls(projects, setProjects) {
+export default function useProjectViewControls(projects, setProjects, isMobile) {
     const [skillFilter, setSkillFilter] = useState(null);
     const { setColours } = useContext(ColourSchemeContext);
     const [index, setIndex] = useState(0);
@@ -19,7 +19,24 @@ export default function useProjectViewControls(projects, setProjects) {
     }, [setColours]);
 
     const viewControls = useMemo(() => ({
+        nextProject: () => {
+            if (index === projects.length - 1) {
+                return;
+            }
+            setIndex((prevIndex) => prevIndex + 1);
+        },
+        prevProject: () => {
+            if (index === 0) {
+                return;
+            }
+            setIndex((prevIndex) => prevIndex - 1);
+        },
         scrollToProject: (i) => {
+            if (isMobile) {
+                setIndex(i);
+                setProjectColourScheme(projects[i]);
+                return;
+            }
             setTargetIndex(i);
             setAutoScroll(true);
             // Gets the project card container and sets the scroll position to the selected project card

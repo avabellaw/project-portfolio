@@ -1,5 +1,5 @@
-import { useEffect, useCallback, useState, useRef } from 'react';
-import { motion, useScroll, useMotionValueEvent, whileInView, AnimatePresence, view } from "motion/react";
+import { useRef } from 'react';
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { useSwipeable } from 'react-swipeable';
 
 import ProjectCard from "./card-components/ProjectCard";
@@ -12,10 +12,10 @@ import useViewportSize from "./utilities/useViewportSize";
 import styles from "./ProjectView.module.css";
 
 const ProjectView = ({ projects, setProjects }) => {
-    // Get the controls for the project view from utilities/ProjectViewControls
-    const { viewControls, filterProjectsBySkill, skillFilter, index } = useProjectViewControls(projects, setProjects);
-
     const { isMobile } = useViewportSize();
+
+    // Get the controls for the project view from utilities/ProjectViewControls
+    const { viewControls, filterProjectsBySkill, skillFilter, index } = useProjectViewControls(projects, setProjects, isMobile);
 
     const handleTouchscreenSwipe = useSwipeable({
         onSwipedLeft: viewControls.nextProject,
@@ -62,11 +62,16 @@ const ProjectView = ({ projects, setProjects }) => {
         }
     }
     return (
-        <div id={styles["project-view"]}>
+        <div
+            id={styles["project-view"]}
+            {...(isMobile ? handleTouchscreenSwipe : {})}
+        >
             <Filter selectedValue={skillFilter} filterProjectsBySkill={filterProjectsBySkill} />
             <ProjectNav viewControls={viewControls} projects={projects} />
 
-            <div ref={cardContainerRef} id={styles["project-card-container"]}>
+            <div
+                ref={cardContainerRef}
+                id={styles["project-card-container"]}>
 
                 {/* If mobile, only render one project card */}
                 {isMobile ? (
