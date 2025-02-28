@@ -35,5 +35,6 @@
         --webkit-scrollbar-width: none;
         overflow-y: scroll;
         scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
     } 
 }

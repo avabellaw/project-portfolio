@@ -53,14 +53,6 @@ const ProjectView = ({ projects, setProjects }) => {
         }
     }
 
-    const cardVariants = {
-        notInView: {
-            opacity: 0.5,
-        },
-        inView: {
-            opacity: 1,
-        }
-    }
     return (
         <div
             id={styles["project-view"]}
@@ -84,20 +76,13 @@ const ProjectView = ({ projects, setProjects }) => {
                     // Else render all project cards, hides the ones not in view in css
                     (
                         projects.map((project, i) => (
-                            <motion.div
-                                key={project.id}
-                                variants={cardVariants}
-                                initial='notInView'
-                                animate={index === i ? 'inView' : 'notInView'}
-                                transition={{ duration: 1 }}
-                            >
-                                <ProjectCard
-                                    project={project}
-                                    filterProjectsBySkill={filterProjectsBySkill}
-                                    skillFilter={skillFilter}
-                                    preview={getProjectCardPosition(i)}
-                                />
-                            </motion.div>
+                            <ProjectCard
+                                key={i}
+                                project={project}
+                                filterProjectsBySkill={filterProjectsBySkill}
+                                skillFilter={skillFilter}
+                                preview={getProjectCardPosition(i)}
+                            />
                         ))
                     )
                 }
