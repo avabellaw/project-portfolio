@@ -13,7 +13,6 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
     const [autoScroll, setAutoScroll] = useState(false);
     const [targetIndex, setTargetIndex] = useState(0);
 
-
     const setProjectColourScheme = useCallback((project) => {
         setColours(project.colour_scheme);
     }, [setColours]);
@@ -24,12 +23,14 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
                 return;
             }
             setIndex((prevIndex) => prevIndex + 1);
+            setProjectColourScheme(projects[index]);
         },
         prevProject: () => {
             if (index === 0) {
                 return;
             }
             setIndex((prevIndex) => prevIndex - 1);
+            setProjectColourScheme(projects[index]);
         },
         scrollToProject: (i) => {
             if (isMobile) {
