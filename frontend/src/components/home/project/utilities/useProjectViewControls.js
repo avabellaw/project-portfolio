@@ -42,6 +42,10 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
             setAutoScroll(true);
             // Gets the project card container and sets the scroll position to the selected project card
             const cardContainer = document.getElementById(styles['project-card-container']);
+            cardContainer.style.scrollSnapType = 'none';
+            cardContainer.addEventListener('scrollend', () => {
+                cardContainer.style.scrollSnapType = 'y mandatory';
+            }, { once: true });
 
             const card = cardContainer.children[i];
             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
