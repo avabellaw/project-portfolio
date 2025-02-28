@@ -152,7 +152,7 @@ h2 {
     .card-content {
         width: 50%;
         opacity: 0;
-        transition: opacity 0.25s;
+        transition: opacity 0.15s;
     }
 
     .project-card.current>.card-content {
