@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useRef } from 'react';
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { useSwipeable } from 'react-swipeable';
 
 import ProjectCard from "./card-components/ProjectCard";
@@ -11,17 +12,10 @@ import useViewportSize from "./utilities/useViewportSize";
 import styles from "./ProjectView.module.css";
 
 const ProjectView = ({ projects, setProjects }) => {
-    // Get the controls for the project view from utilities/ProjectViewControls
-    const { viewControls, filterProjectsBySkill, skillFilter, scrollY } = useProjectViewControls(projects, setProjects);
-
     const { isMobile } = useViewportSize();
 
-    const springConfig = {
-        type: "spring",
-        stiffness: 200, // Lower value for smoother motion
-        damping: 30,    // Balanced damping for smooth settling
-        mass: 1,        // Add mass for more natural physics
-    };
+    // Get the controls for the project view from utilities/ProjectViewControls
+    const { viewControls, filterProjectsBySkill, skillFilter, index } = useProjectViewControls(projects, setProjects, isMobile);
 
     const handleTouchscreenSwipe = useSwipeable({
         onSwipedLeft: viewControls.nextProject,
@@ -30,17 +24,50 @@ const ProjectView = ({ projects, setProjects }) => {
         trackMouse: true
     });
 
+    const cardContainerRef = useRef(null);
+
+    const { scrollYProgress } = useScroll({
+        // Sets the scroll container to the card container
+        container: cardContainerRef
+    });
+
+    useMotionValueEvent(scrollYProgress, "change", (progress) => {
+        // Calculate the index of the project card based on the scroll progress
+        const one = 1 / (projects.length);
+
+        const nextIndex = Math.min(Math.floor(progress / one), projects.length - 1);
+        // Set the index of the project card for nav
+        viewControls.setIndex(nextIndex);
+    });
+
+    const getProjectCardPosition = (i) => {
+        switch (i) {
+            case index - 1:
+                return 'prev';
+            case index:
+                return 'current';
+            case index + 1:
+                return 'next';
+            default:
+                return '';
+        }
+    }
 
     return (
-        <div id={styles["project-view"]}>
+        <div
+            id={styles["project-view"]}
+            {...(isMobile ? handleTouchscreenSwipe : {})}
+        >
             <Filter selectedValue={skillFilter} filterProjectsBySkill={filterProjectsBySkill} />
             <ProjectNav viewControls={viewControls} projects={projects} />
 
-            <div {...handleTouchscreenSwipe} id={styles["project-card-container"]}>
+            <div
+                ref={cardContainerRef}
+                id={styles["project-card-container"]}>
 
                 {/* If mobile, only render one project card */}
                 {isMobile ? (
-                    <ProjectCard project={projects[scrollY]}
+                    <ProjectCard project={projects[index]}
                         preview="current"
                         filterProjectsBySkill={filterProjectsBySkill}
                         skillFilter={skillFilter}
@@ -49,24 +76,13 @@ const ProjectView = ({ projects, setProjects }) => {
                     // Else render all project cards, hides the ones not in view in css
                     (
                         projects.map((project, i) => (
-                            <motion.div
-                                key={project.id}
-                                style={{
-                                    position: 'absolute',
-                                    width: '100%',
-                                }}
-                                animate={{
-                                    y: !isMobile && `${(i - scrollY) * 115}%`,
-                                    transition: springConfig,
-                                }}
-                            >
-                                <ProjectCard
-                                    project={project}
-                                    preview={i !== scrollY ? i === scrollY + 1 ? 'next' : 'prev' : 'current'}
-                                    filterProjectsBySkill={filterProjectsBySkill}
-                                    skillFilter={skillFilter}
-                                />
-                            </motion.div>
+                            <ProjectCard
+                                key={i}
+                                project={project}
+                                filterProjectsBySkill={filterProjectsBySkill}
+                                skillFilter={skillFilter}
+                                preview={getProjectCardPosition(i)}
+                            />
                         ))
                     )
                 }

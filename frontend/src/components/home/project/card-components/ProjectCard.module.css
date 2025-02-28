@@ -30,12 +30,7 @@ h2 {
     white-space: pre-wrap;
 }
 
-.project-card:not(.current) {
-    visibility: hidden;
-}
-
-.project-card.next>.card-content,
-.project-card.prev>.card-content {
+.project-card:not(.current){
     visibility: hidden;
 }
 
@@ -56,7 +51,6 @@ h2 {
     overflow: hidden;
     aspect-ratio: 1/1;
     max-height: 40vh;
-    animation: subtleMove 5s infinite;
 }
 
 .card-img>img {
@@ -64,11 +58,6 @@ h2 {
     height: 100%;
     object-fit: cover;
     transition: width 0.5s, height 0.5s;
-}
-
-.project-card:not(.current) >.card-img > img {
-    width: 90%;
-    height: 90%
 }
 
 .card-links {
@@ -157,31 +146,35 @@ h2 {
     .project-card.prev,
     .project-card.next {
         visibility: visible;
+        transition: visibility 1s;
     }
 
     .card-content {
-        opacity: 0;
-        /* Add transition to visibility to keep visible for animation */
-        transition: visibility 0.5s, opacity 0.5s ease-out;
         width: 50%;
+        opacity: 0;
+        transition: opacity 0.15s;
     }
 
     .project-card.current>.card-content {
         opacity: 1;
+        transition: opacity 1s;
     }
 
     .card-img {
         order: 2;
         max-height: unset;
-        transition: opacity 1s;
-        opacity: 0.5;
         max-height: 100%;
         max-width: 100%;
         width: auto;
+        animation: subtleMove 5s infinite;
     }
-
-    .project-card.current>.card-img {
-        opacity: 1;
+    
+    .project-card.next > .card-img > img,
+    .project-card.prev > .card-img > img {
+        width: 90%;
+        height: 90%;
+        opacity: 0.5;
+        transition: width 0.6s, height 0.6s;
     }
 
     .project-card {
@@ -191,6 +184,8 @@ h2 {
 
         /* Has to be set for project card container too */
         height: var(--project-card-height);
+        
+        scroll-snap-align: center;
     }
 
     .card-content p {

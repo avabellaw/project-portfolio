@@ -1,39 +1,72 @@
-import { useState, useEffect, useContext, useMemo } from 'react';
+import { useState, useContext, useMemo, useCallback } from 'react';
 
 import rfdc from 'rfdc';
 
 import { ColourSchemeContext } from "../../../layout/ColourSchemeContext";
 
-export default function useProjectViewControls(projects, setProjects) {
-    const [skillFilter, setSkillFilter] = useState(null); 
-    const [scrollY, setScrollY] = useState(0);
+import styles from '../ProjectView.module.css';
+
+export default function useProjectViewControls(projects, setProjects, isMobile) {
+    const [skillFilter, setSkillFilter] = useState(null);
     const { setColours } = useContext(ColourSchemeContext);
+    const [index, setIndex] = useState(0);
+    const [autoScroll, setAutoScroll] = useState(false);
 
-    useEffect(() => {
-        // Reset the scroll position when projects change
-        setScrollY(0);
-    }, [projects]);
-
-    useEffect(() => {
-        if (projects.length === 0 || scrollY > projects.length-1) return;
-        // Set the colours scheme using context API
-        setColours(projects[scrollY].colour_scheme);
-    }, [scrollY, projects, setColours]);
+    const setProjectColourScheme = useCallback((project) => {
+        setColours(project.colour_scheme);
+    }, [setColours]);
 
     const viewControls = useMemo(() => ({
         nextProject: () => {
-            setScrollY((prevScroll) => Math.min(prevScroll + 1, projects.length - 1));
+            if (index === projects.length - 1) {
+                return;
+            }
+            setIndex((prevIndex) => prevIndex + 1);
+            setProjectColourScheme(projects[index]);
         },
         prevProject: () => {
-            setScrollY((prevScroll) => Math.max(prevScroll - 1, 0));
+            if (index === 0) {
+                return;
+            }
+            setIndex((prevIndex) => prevIndex - 1);
+            setProjectColourScheme(projects[index]);
+        },
+        scrollToProject: (i) => {
+            setProjectColourScheme(projects[i]);
+
+            if (isMobile) {
+                setIndex(i);
+                return;
+            }
+            setAutoScroll(true);
+            // Gets the project card container and sets the scroll position to the selected project card
+            const cardContainer = document.getElementById(styles['project-card-container']);
+
+            /* 
+                Disable scroll snapping while scrolling to the selected project
+                This prevents scroll snapping from interfering with the scrollIntoView function
+            */
+            cardContainer.style.scrollSnapType = 'none';
+            cardContainer.addEventListener('scrollend', () => {
+                // Re-enable scroll snapping and set autoScroll to false to enable colour scheme changes
+                cardContainer.style.scrollSnapType = 'y mandatory';
+                setAutoScroll(false);
+            }, { once: true });
+
+            const card = cardContainer.children[i];
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
         },
         setIndex: (i) => {
-            setScrollY(i);
+            setIndex(i);
+            if (!autoScroll) {
+                // Set the colour scheme of the project card based on the index
+                setProjectColourScheme(projects[i]);
+            }
         },
         getIndex: () => {
-            return scrollY;
-        }
-    }), [projects.length, setScrollY, scrollY]);
+            return index;
+        },
+    }), [index, projects, setProjectColourScheme, autoScroll, setAutoScroll, isMobile]);
 
     const [ALL_PROJECTS] = useState(() => {
         // Clone the projects array for filtering
@@ -68,5 +101,5 @@ export default function useProjectViewControls(projects, setProjects) {
         setProjects(filteredProjects);
     }
 
-    return { viewControls, filterProjectsBySkill, skillFilter, scrollY };
+    return { viewControls, filterProjectsBySkill, skillFilter, index };
 };

@@ -4,6 +4,7 @@ nav {
 }
 
 #nav-indicator {
+    transition: background-color 0.5s;
     width: 100%;
 
     flex-shrink: 1;
@@ -52,11 +53,15 @@ nav {
 
 #nav-container {
     display: flex;
+    align-items: center;
+    margin: auto;
+    width: 100%;
 }
 
 #nav-link-names {
     flex-grow: 1;
     display: none;
+    height: 100%;
 }
 
 @media screen and (min-width: 768px) and (max-width: 950px) {
@@ -72,6 +77,7 @@ nav {
         row-gap: 0.6em;
         margin: 1em 0;
         width: var(--nav-indicator-padding);
+        height: 100%;
     }
     .project-nav-button {
         width: 0.35em;
@@ -89,6 +95,7 @@ nav {
     
     #nav-container {
         flex-basis: fit-content;
+        height: 50vh;
     }
 }
 
@@ -96,9 +103,6 @@ nav {
     #nav-link-names {
         display: flex;
         flex-direction: column;
-
-        padding: var(--nav-indicator-padding);
-        margin: 1em;
     }
 
     #nav-link-names > * {
