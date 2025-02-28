@@ -11,7 +11,6 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
     const { setColours } = useContext(ColourSchemeContext);
     const [index, setIndex] = useState(0);
     const [autoScroll, setAutoScroll] = useState(false);
-    const [targetIndex, setTargetIndex] = useState(0);
 
     const setProjectColourScheme = useCallback((project) => {
         setColours(project.colour_scheme);
@@ -33,18 +32,25 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
             setProjectColourScheme(projects[index]);
         },
         scrollToProject: (i) => {
+            setProjectColourScheme(projects[i]);
+
             if (isMobile) {
                 setIndex(i);
-                setProjectColourScheme(projects[i]);
                 return;
             }
-            setTargetIndex(i);
             setAutoScroll(true);
             // Gets the project card container and sets the scroll position to the selected project card
             const cardContainer = document.getElementById(styles['project-card-container']);
+
+            /* 
+                Disable scroll snapping while scrolling to the selected project
+                This prevents scroll snapping from interfering with the scrollIntoView function
+            */
             cardContainer.style.scrollSnapType = 'none';
             cardContainer.addEventListener('scrollend', () => {
+                // Re-enable scroll snapping and set autoScroll to false to enable colour scheme changes
                 cardContainer.style.scrollSnapType = 'y mandatory';
+                setAutoScroll(false);
             }, { once: true });
 
             const card = cardContainer.children[i];
@@ -55,18 +61,12 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
             if (!autoScroll) {
                 // Set the colour scheme of the project card based on the index
                 setProjectColourScheme(projects[i]);
-            } else {
-                // If autoScroll reached target project index, set colour scheme
-                if (i === targetIndex) {
-                    setAutoScroll(false);
-                    setProjectColourScheme(projects[targetIndex]);
-                }
             }
         },
         getIndex: () => {
             return index;
         },
-    }), [index, projects, setProjectColourScheme, autoScroll, setAutoScroll, targetIndex, setTargetIndex]);
+    }), [index, projects, setProjectColourScheme, autoScroll, setAutoScroll, isMobile]);
 
     const [ALL_PROJECTS] = useState(() => {
         // Clone the projects array for filtering
