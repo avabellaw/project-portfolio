@@ -32,6 +32,13 @@ const ProjectView = ({ projects, setProjects }) => {
     });
 
     useMotionValueEvent(scrollYProgress, "change", (progress) => {
+        // If mobile, this handler is only called on load
+        if (isMobile) {
+            // Set the index of the project card for nav
+            viewControls.setIndex(0);
+            return;
+        }
+
         // Calculate the index of the project card based on the scroll progress
         const one = 1 / (projects.length);
 
