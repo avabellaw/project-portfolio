@@ -20,6 +20,7 @@ function Home() {
 
             const data = await response.json();
 
+            // If error in response, throw error to be caught by catch block
             if (!response.ok) {
                 throw new Error(data.message);
             }
@@ -27,6 +28,7 @@ function Home() {
             setProjects(data);
 
         } catch (error) {
+            // If fetch fails, try again up to 3 times
             const msg = `Unable to fetch projects (attempt: ${fetchAttempts.current})`
             console.error(msg);
             fetchAttempts.current += 1;
@@ -34,9 +36,11 @@ function Home() {
                 loadProjects();
                 return;
             } else {
+                // After final attempt, set error state
                 setError("Unable to fetch projects.");
             }
         } finally {
+            // Set loading to false regardless of success or error
             setLoading(false);
         }
     }, [fetchAttempts, setError, setLoading]);
