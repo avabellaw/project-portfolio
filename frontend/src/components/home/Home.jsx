@@ -26,6 +26,7 @@ function Home() {
             }
 
             setProjects(data);
+            setLoading(false);
 
         } catch (error) {
             // If fetch fails, try again up to 3 times
@@ -34,15 +35,12 @@ function Home() {
             fetchAttempts.current += 1;
             if (fetchAttempts.current < 3) {
                 loadProjects();
-                return;
             } else {
                 // After final attempt, set error state
                 setError("Unable to fetch projects.");
+                setLoading(false);
             }
-        } finally {
-            // Set loading to false regardless of success or error
-            setLoading(false);
-        }
+        } 
     }, [fetchAttempts, setError, setLoading]);
 
     useEffect(() => {
@@ -52,9 +50,9 @@ function Home() {
     if (loading) return <ClipLoader
         size={150}
         aria-label="Loading Spinner"
-        data-testid="loader"
-    />
-    if (error) return (
+        data-testid="loader"/>
+
+    else if (error) return (
         <>
             <h2>Error: {error}</h2>
             <p>
@@ -62,8 +60,8 @@ function Home() {
             </p>
         </>
     )
-
-    if (projects.length === 0) return <p>No projects found</p>
+    
+    else if (projects.length === 0) return <p>No projects found</p>
 
     return (
         <>
