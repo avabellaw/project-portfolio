@@ -1,3 +1,4 @@
+from app import db
 import json
 
 from models.project import Project
@@ -30,3 +31,16 @@ def test_get_project(client):
 
     assert project['title'] == 'Test Project'
     assert res.status_code == 200
+
+
+def test_return_error_msg_on_db_connection_lost(client):
+    headers = {
+        'Origin': HOST_REACT,
+    }
+
+    db.engine.dispose()
+
+    res = client.get('/api/projects', headers=headers)
+
+    assert res.status_code == 500
+    assert b'Database error' in res.data
