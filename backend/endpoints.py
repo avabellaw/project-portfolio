@@ -11,8 +11,20 @@ from reponse_schemas import project_fields, skill_fields
 api = Api()
 
 
+def error_handler(function):
+    '''Decorator to handle exceptions in API endpoints'''
+    def add_error_handling(*args, **kwargs):
+        try:
+            return function(*args, **kwargs)
+        except Exception as e:
+            abort(500, message=f'Database error: {e}')
+
+    return add_error_handling
+
+
 # API RESTful endpoints
 class Projects(Resource):
+    @error_handler
     @marshal_with(project_fields)
     def get(self):
         '''Get all projects'''
@@ -20,6 +32,7 @@ class Projects(Resource):
 
 
 class Project(Resource):
+    @error_handler
     @marshal_with(project_fields)
     def get(self, project_id):
         '''Get project by ID'''
@@ -31,6 +44,7 @@ class Project(Resource):
 
 
 class Skills(Resource):
+    @error_handler
     @marshal_with(skill_fields)
     def get(self):
         '''Get all skills'''
@@ -38,6 +52,7 @@ class Skills(Resource):
 
 
 class Skill(Resource):
+    @error_handler
     @marshal_with(skill_fields)
     def get(self, skill_id):
         skill = db.session.get(SkillModel, skill_id)
@@ -49,6 +64,7 @@ class Skill(Resource):
 class ProjectsBySkill(Resource):
     '''Endpoint to get projects by skill'''
 
+    @error_handler
     @marshal_with(project_fields)
     def get(self, skill_id):
         '''Get projects by skill'''
