@@ -1,11 +1,13 @@
+Hosts a portfolio of my projects, built using React and a Flask API.
+
+[View the live project](https://project-portfolio-one-jade.vercel.app/)
+
 # Technology stack
 
 ## Languages and frameworks
 
 * Flask
   * Faster than Django and I only need what the microframework offers
-* flask-admin
-  * A CMS for Flask
 * React
   * Advanced frontend features
 * Python
@@ -17,6 +19,8 @@
 
 * python-dotenv 
   * Allows you to set enviroment variables in root .env.py
+* flask-admin
+  * A CMS for Flask
 * flask_restful
 * Thunder client - To test restful endpoints
 * rfdc
