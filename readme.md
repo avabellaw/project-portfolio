@@ -109,7 +109,7 @@ Hosts a portfolio of my projects, built using React and a Flask API.
 
 Future sprints:
 
-# Sprint 8: Add project details
+## Sprint 8: Add project details
 - Create develop branch
 - Set up React Router for project details
 - Create project details page
