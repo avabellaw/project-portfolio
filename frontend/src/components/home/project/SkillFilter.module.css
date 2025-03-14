@@ -41,7 +41,7 @@
     }
 }
 
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 1200px) {
     #skill-filter-container {
         min-width: fit-content;
         width: 21%;
