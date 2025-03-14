@@ -24,7 +24,7 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
                 <p>{project.description}</p>
 
                 <div className={styles['card-links']}>
-                    <a href={project.live_url} target="_blank" rel="noreferrer">Live Project</a>
+                    {project.live_url && <a href={project.live_url} target="_blank" rel="noreferrer">Live Project</a>}
                     <a href={project.github_url} target="_blank" rel="noreferrer">Github Repo</a>
                 </div>
 
