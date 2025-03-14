@@ -10,7 +10,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(400), nullable=False)
-    live_url = db.Column(db.String(255), nullable=False)
+    live_url = db.Column(db.String(255), nullable=True)
     github_url = db.Column(db.String(255), nullable=False)
     image_url = db.Column(db.String(255), nullable=False)
     view_order = db.Column(db.SmallInteger, nullable=False, unique=True)
