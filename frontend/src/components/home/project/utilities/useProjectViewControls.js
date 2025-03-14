@@ -21,15 +21,17 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
             if (index === projects.length - 1) {
                 return;
             }
-            setIndex((prevIndex) => prevIndex + 1);
-            setProjectColourScheme(projects[index]);
+            let nextIndex = index + 1;
+            setProjectColourScheme(projects[nextIndex])
+            setIndex(nextIndex);
         },
         prevProject: () => {
             if (index === 0) {
                 return;
             }
-            setIndex((prevIndex) => prevIndex - 1);
-            setProjectColourScheme(projects[index]);
+            let nextIndex = index - 1;
+            setProjectColourScheme(projects[nextIndex])
+            setIndex(nextIndex);
         },
         scrollToProject: (i) => {
             setProjectColourScheme(projects[i]);
