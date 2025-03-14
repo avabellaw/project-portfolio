@@ -116,8 +116,8 @@ h2 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    column-gap: 0.5em;
-    row-gap: 0.5em;
+    column-gap: 0.4em;
+    row-gap: 0.4em;
     padding: 0 1.5em;
 }
 
@@ -127,13 +127,13 @@ h2 {
 }
 
 .skill {
-    padding: 0.5em 0.7em;
+    padding: 0.35em 0.55em;
     background-color: var(--secondary-colour);
     color: var(--text-colour);
     --darker-highlight-colour: rgb(from var(--highlight-colour) r g b / 0.6);
     border: 2px solid var(--darker-highlight-colour);
     border-radius: 2em;
-    font-size: 0.85em;
+    font-size: 0.8em;
     font-weight: 500;
 }
 
@@ -196,7 +196,14 @@ h2 {
 
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .card-content {
+        font-size: calc(0.3em + 0.65vw + 0.6vh);
+    }
+    
+}
+
+@media screen and (min-width: 1350px) {
     .project-card p {
         padding: 0 3em;
     }
