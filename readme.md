@@ -3,8 +3,8 @@
 ## Languages and frameworks
 
 * Flask
-  * I chose Flask for speed as I only need what the microframework offers
-* ButterCMS
+  * Faster than Django and I only need what the microframework offers
+* flask-admin
   * A CMS for Flask
 * React
   * Advanced frontend features
@@ -23,6 +23,17 @@
   * An npm library for deep cloning the projects array
 * react-select
   * For project filtering
+
+# Hosting
+
+* Heroku
+  * Flask API
+* Vercel 
+  * React app
+* Supabase 
+  * Postgres SQL database
+* Cloudinary
+  * Images
 
 # Design
 
