@@ -115,6 +115,12 @@ Future sprints:
 - Create project details page
 - Style project details page
 
+## Wireframe
+
+I created the wireframe diagram for the project on Figma.
+
+[Click here to view the wireframe](https://www.figma.com/design/RQI3SNLhB5i5NXzg3RbKSy/PortfolioWebsite?node-id=15-452&t=wJiPIKaUM2A38NNX-1)
+
 ## Enitity relationship diagram
 
 [View ERD on lucidchart](https://lucid.app/lucidchart/fc35cf54-f85c-4fa3-a637-8f530bfa80d1/edit?viewport_loc=-617%2C-101%2C2399%2C1058%2C0_0&invitationId=inv_0e8624ce-216d-4796-a3dd-6dde92d8ba15)
