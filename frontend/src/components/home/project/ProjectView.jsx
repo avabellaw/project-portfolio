@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useScroll, useMotionValueEvent } from "motion/react";
+import { useScroll, useMotionValueEvent } from "motion/react";
 import { useSwipeable } from 'react-swipeable';
 
 import ProjectCard from "./card-components/ProjectCard";
