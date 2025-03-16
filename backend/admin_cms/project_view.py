@@ -134,8 +134,11 @@ class ProjectView(ModelView):
                 ).order_by(Project.view_order.desc()).first()
 
                 if prev_project:
-                    prev_project.view_order += 1
+                    prev_project_order = prev_project.view_order + 1
+                    prev_project.view_order = -1
                     project.view_order -= 1
+                    db.session.flush()
+                    prev_project.view_order = prev_project_order
                     db.session.commit()
 
     @action('move_down', 'Move Down')
@@ -150,6 +153,9 @@ class ProjectView(ModelView):
             ).order_by(Project.view_order).first()
 
             if next_project:
-                next_project.view_order -= 1
+                next_project_order = next_project.view_order - 1
+                next_project.view_order = -1
                 project.view_order += 1
+                db.session.flush()
+                next_project.view_order = next_project_order
                 db.session.commit()
