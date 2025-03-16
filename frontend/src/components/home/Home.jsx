@@ -14,6 +14,16 @@ function Home() {
 
     const { loading, setLoading } = useContext(LoadingContext);
 
+    const projectImgPreloaded = useRef({})
+        
+    const preloadProjectImage = (prefetch, project) => {
+        const link = document.createElement('link');
+        link.rel = prefetch ? 'prefetch': 'preload';
+        link.as = 'image';
+        link.href = project.image_url;
+        document.head.appendChild(link);
+    }
+
     const loadProjects = useCallback(async () => {
         try {
             const response = await fetch(`${API_URL}/projects`);
@@ -24,10 +34,18 @@ function Home() {
             if (!response.ok) {
                 throw new Error(data.message);
             }
+            
+            for (let i = 0; i < data.length; i++) {
+                let project = data[i]
+                let isPreloaded = projectImgPreloaded[project.id]
+                if (isPreloaded) continue;
+
+                preloadProjectImage(i >= 2, project)
+                projectImgPreloaded[project.id] = true
+            }
 
             setProjects(data);
             setLoading(false);
-
         } catch (error) {
             // If fetch fails, try again up to 3 times
             const msg = `Unable to fetch projects (attempt: ${fetchAttempts.current})`
