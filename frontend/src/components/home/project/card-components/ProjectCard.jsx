@@ -19,7 +19,7 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
             return;
         }
         let imgEl = document.getElementById(`${project.id}-img`)
-        imgEl.src = imgEl.dataset.src;
+        imgEl.src = project.image_url;
         imageLoaded.current = true;
     }, [imageLoaded, project])
 
@@ -33,7 +33,7 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
         <div className={`${styles['project-card']} ${preview ? styles[preview] : ''}`}>
 
             <div className={styles['card-img']}>
-                <img id={`${project.id}-img`} data-src={project.image_url} alt={`Project: ${project.title}`} />
+                <img id={`${project.id}-img`} alt={`Project: ${project.title}`} />
             </div>
             <div className={styles['card-content']}>
 
