@@ -7,6 +7,14 @@
     <br>
     <p>Total Projects: {{ total_projects }}</p>
     <p>Total Skills: {{ total_skills }}</p>
+    {% if orphaned_skills %}
+        <p><strong>Some skills aren't associated with a project:</strong></p>
+        <ul>
+            {% for skill in orphaned_skills %}
+                <li>{{skill}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <hr>
     <h2>Projects</h2>

@@ -25,9 +25,12 @@ class AdminIndexView(AdminIndexView):
         projects = Project.query
         total_projects = projects.count()
         total_skills = Skill.query.count()
+        orphaned_skills = [skill for skill in Skill.query.all()
+                           if not skill.projects]
         return self.render('admin/index.html',
                            total_projects=total_projects,
                            total_skills=total_skills,
+                           orphaned_skills=orphaned_skills,
                            projects=projects)
 
     def is_accessible(self):
