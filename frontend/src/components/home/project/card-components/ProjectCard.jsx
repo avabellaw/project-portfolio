@@ -1,6 +1,9 @@
+import { useCallback, useEffect, useRef } from 'react';
 import styles from './ProjectCard.module.css';
 
-const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) => {
+const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) => { 
+
+    const imageLoaded = useRef(false)
 
     const onSkillTagClick = (skill) => {
         // If skill already filtered, remove filter
@@ -11,11 +14,26 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
         filterProjectsBySkill(skill);
     }
 
+    const loadProjectImage = useCallback(() => {
+        if (imageLoaded.current) {
+            return;
+        }
+        let imgEl = document.getElementById(`${project.id}-img`)
+        imgEl.src = imgEl.dataset.src;
+        imageLoaded.current = true;
+    }, [imageLoaded, project])
+
+    useEffect(() => {
+        if (!imageLoaded.current && (preview === 'current' || preview === 'next')){
+            loadProjectImage();
+        }
+    }, [loadProjectImage, preview])
+
     return (
         <div className={`${styles['project-card']} ${preview ? styles[preview] : ''}`}>
 
             <div className={styles['card-img']}>
-                <img src={project.image_url} alt={`Project: ${project.title}`} />
+                <img id={`${project.id}-img`} data-src={project.image_url} alt={`Project: ${project.title}`} />
             </div>
             <div className={styles['card-content']}>
 
