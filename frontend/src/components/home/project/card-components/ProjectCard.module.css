@@ -169,10 +169,10 @@ h2 {
         max-height: unset;
         max-height: 100%;
         max-width: 100%;
-        width: auto;
+        width: var(--project-card-height);
         animation: subtleMove 5s infinite;
     }
-    
+
     .project-card.next > .card-img > img,
     .project-card.prev > .card-img > img {
         width: 90%;
