@@ -3,7 +3,7 @@ import styles from './ProjectCard.module.css';
 
 const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) => { 
 
-    const imageLoaded = useRef(false)
+    const imageLoaded = useRef(false);
 
     const onSkillTagClick = (skill) => {
         // If skill already filtered, remove filter
@@ -15,15 +15,24 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
     }
 
     const loadProjectImage = useCallback(() => {
-        if (imageLoaded.current) {
-            return;
-        }
         let imgEl = document.getElementById(`${project.id}-img`)
+        // Uses the preloaded or prefetched image url
         imgEl.src = project.image_url;
+
+        // Stops image url being reset everytime user scrolls
         imageLoaded.current = true;
-    }, [imageLoaded, project])
+    }, [imageLoaded, project]);
 
     useEffect(() => {
+        // Project changed -> update image urls (will use cached versions)
+        // Only update if there is a loaded image to update
+        if(imageLoaded.current) {
+            loadProjectImage();
+        }
+    }, [loadProjectImage, project])
+
+    useEffect(() => {
+        // Load the current and next image as user scrolls until all are loaded.
         if (!imageLoaded.current && (preview === 'current' || preview === 'next')){
             loadProjectImage();
         }
