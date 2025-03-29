@@ -48,7 +48,6 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
                 Disable scroll snapping while scrolling to the selected project
                 This prevents scroll snapping from interfering with the scrollIntoView function
             */
-            cardContainer.style.scrollSnapType = 'none';
             cardContainer.addEventListener('scrollend', () => {
                 // Re-enable scroll snapping and set autoScroll to false to enable colour scheme changes
                 cardContainer.style.scrollSnapType = 'y mandatory';
