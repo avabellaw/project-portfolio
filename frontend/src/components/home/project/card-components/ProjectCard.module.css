@@ -137,8 +137,12 @@ h2 {
     font-weight: 500;
 }
 
+.skill-tags:has(.skill[data-selected="true"]) .skill[data-selected="false"] {
+    opacity: 0.5;
+}
+
 .skill[data-selected="true"] {
-    border-color: var(--highlight-colour);
+    border-color: rgb(from var(--highlight-colour) r g b / 0.75);
 }
 
 @media screen and (min-width: 768px) {
