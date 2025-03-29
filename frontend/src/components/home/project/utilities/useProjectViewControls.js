@@ -40,6 +40,11 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
                 setIndex(i);
                 return;
             }
+
+            // Cancel if already at specified index
+            if (viewControls.getIndex() === i){
+                return;
+            }
             setAutoScroll(true);
             // Gets the project card container and sets the scroll position to the selected project card
             const cardContainer = document.getElementById(styles['project-card-container']);
@@ -47,7 +52,7 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
             /* 
                 Disable scroll snapping while scrolling to the selected project
                 This prevents scroll snapping from interfering with the scrollIntoView function
-            */
+            */                                                                                                                                                  
             cardContainer.addEventListener('scrollend', () => {
                 // Re-enable scroll snapping and set autoScroll to false to enable colour scheme changes
                 cardContainer.style.scrollSnapType = 'y mandatory';
@@ -75,6 +80,20 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
         return clone(projects);
     }, []);
 
+    /**
+     * Apply the filtered projects. No args will clear the filter.
+     * @param {Skill} skill 
+     * @param filteredProjects 
+     */
+    const applyFilter = (skill = null, filteredProjects = ALL_PROJECTS) => {
+        if (skill !== null) {
+            skill = { value: skill.id, label: skill.name }
+        }
+        setSkillFilter(skill);
+        setProjects(filteredProjects);
+        viewControls.scrollToProject(0);
+    }
+
     const filterProjectsBySkill = (skill) => {
         /**
          * Filters the projects based on the selected skill
@@ -82,8 +101,7 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
          */
 
         if (!skill) {
-            setSkillFilter(null);
-            setProjects(ALL_PROJECTS);
+            applyFilter();
             return
         }
 
@@ -93,13 +111,11 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
 
         if (filteredProjects.length === 0) {
             // If no projects have the selected skill, show all projects
-            setProjects(ALL_PROJECTS);
-            setSkillFilter(null);
+            applyFilter();
             return;
         }
 
-        setSkillFilter({ value: skill.id, label: skill.name });
-        setProjects(filteredProjects);
+        applyFilter(skill, filteredProjects)
     }
 
     return { viewControls, filterProjectsBySkill, skillFilter, index };
