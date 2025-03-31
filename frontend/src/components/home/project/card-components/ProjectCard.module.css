@@ -1,4 +1,5 @@
 @keyframes subtleMove {
+
     /* Sublte animation for image container on project card */
     0% {
         transform: translateY(0) scale(1);
@@ -30,7 +31,7 @@ h2 {
     white-space: pre-wrap;
 }
 
-.project-card:not(.current){
+.project-card:not(.current) {
     visibility: hidden;
 }
 
@@ -112,6 +113,18 @@ h2 {
     margin: 1rem 0;
 }
 
+@media screen and (min-width:768px) and (max-width:1500px) {
+    .card-content> :first-child,
+    .card-content> :last-child,
+    .card-content p {
+        margin: 0;
+    }
+
+    .card-content > :first-child {
+        margin-bottom: 0.2em;
+    }
+}
+
 .skill-tags {
     display: flex;
     justify-content: center;
@@ -173,8 +186,8 @@ h2 {
         animation: subtleMove 5s infinite;
     }
 
-    .project-card.next > .card-img > img,
-    .project-card.prev > .card-img > img {
+    .project-card.next>.card-img>img,
+    .project-card.prev>.card-img>img {
         width: 90%;
         height: 90%;
         opacity: 0.5;
@@ -188,7 +201,7 @@ h2 {
 
         /* Has to be set for project card container too */
         height: var(--project-card-height);
-        
+
         scroll-snap-align: center;
     }
 
@@ -204,7 +217,7 @@ h2 {
     .card-content {
         font-size: calc(0.3em + 0.65vw + 0.6vh);
     }
-    
+
 }
 
 @media screen and (min-width: 1350px) {
