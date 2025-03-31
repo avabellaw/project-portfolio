@@ -1,8 +1,15 @@
-import styles from './ProjectNav.module.css';
+import { useContext } from 'react';
 
 import { AnimatePresence, motion } from 'motion/react'
 
+import styles from './ProjectNav.module.css';
+
+import { ViewportSizeContext } from '../../../layout/ViewportSizeContext';
+
+
 const Nav = ({ viewControls, projects }) => {
+    const { isFullLayout } = useContext(ViewportSizeContext);
+
     // Nav-link names animation
     const navNameAnimation = {
         initial: { x: -200, opacity: 0 },
@@ -14,7 +21,7 @@ const Nav = ({ viewControls, projects }) => {
     const navButtonAnimation = {
         initial: { height: 0},
         animate: {height: 100},
-        exit: {height: 0, scale: 0, marginTop: 0, flexGrow: 0, transition: {delay: 0.3/* Wait for name animation */}}
+        exit: {height: 0, scale: 0, marginTop: 0, flexGrow: 0, transition: {delay: isFullLayout ? 0.3 : 0/* Wait for name animation */}}
     }
 
     return (
