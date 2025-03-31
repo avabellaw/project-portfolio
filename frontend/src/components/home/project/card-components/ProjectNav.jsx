@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { AnimatePresence, motion } from 'motion/react'
+import { animate, AnimatePresence, motion } from 'motion/react'
 
 import styles from './ProjectNav.module.css';
 
@@ -19,9 +19,9 @@ const Nav = ({ viewControls, projects }) => {
 
     // Nav-link buttons animation
     const navButtonAnimation = {
-        initial: { height: 0},
-        animate: {height: 100},
-        exit: {height: 0, scale: 0, marginTop: 0, flexGrow: 0, transition: {delay: isFullLayout ? 0.3 : 0/* Wait for name animation */}}
+        initial: {flexGrow: 0},
+        animate: {flexGrow: 1},
+        exit: { marginTop: 0, flexGrow: 0, transition: { delay: isFullLayout ? 0.3 : 0/* Wait for name animation */}}
     }
 
     return (

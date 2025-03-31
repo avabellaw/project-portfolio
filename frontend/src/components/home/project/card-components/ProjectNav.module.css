@@ -28,6 +28,7 @@ nav {
 
 .project-nav-button {
     height: 0.35em;
+    width: 0;
     flex-grow: 1;
     background-color: var(--highlight-colour);
     border: none;
@@ -97,6 +98,7 @@ nav {
 
     .project-nav-button {
         width: 0.35em;
+        height: 0;
     }
 
     .project-nav-button::before {
