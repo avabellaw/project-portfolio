@@ -3,7 +3,7 @@ import ProjectView from './project/ProjectView';
 
 import ClipLoader from "react-spinners/ClipLoader";
 
-import { LoadingContext } from '../layout/LoadingProvider';
+import { LoadingContext } from '../layout/LoadingContext';
 
 const API_URL = process.env.REACT_APP_API_URL
 

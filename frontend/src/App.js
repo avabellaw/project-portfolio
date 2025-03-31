@@ -12,7 +12,7 @@ import Home from './components/home/Home'
 import Layout from './components/layout/Layout'
 
 import { ColourSchemeProvider } from './components/layout/ColourSchemeContext'
-import { LoadingProvider } from './components/layout/LoadingProvider'
+import { LoadingProvider } from './components/layout/LoadingContext'
 import { ViewportSizeProvider } from './components/layout/ViewportSizeContext'
 
 function App() {
