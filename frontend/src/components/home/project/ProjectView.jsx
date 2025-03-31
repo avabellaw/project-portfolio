@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 import { useScroll, useMotionValueEvent } from "motion/react";
 import { useSwipeable } from 'react-swipeable';
 
@@ -7,12 +7,12 @@ import ProjectNav from "./card-components/ProjectNav";
 import Filter from './SkillFilter';
 
 import useProjectViewControls from "./utilities/useProjectViewControls";
-import useViewportSize from "./utilities/useViewportSize";
+import { ViewportSizeContext } from '../../layout/ViewportSizeContext';
 
 import styles from "./ProjectView.module.css";
 
 const ProjectView = ({ projects, setProjects }) => {
-    const { isMobile } = useViewportSize();
+    const { isMobile } = useContext(ViewportSizeContext);
 
     // Get the controls for the project view from utilities/ProjectViewControls
     const { viewControls, filterProjectsBySkill, skillFilter, index } = useProjectViewControls(projects, setProjects, isMobile);

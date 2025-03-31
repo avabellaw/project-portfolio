@@ -1,6 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, createContext } from 'react';
 
-export default function useViewportSize() {
+const ViewportSizeContext = createContext();
+
+function ViewportSizeProvider({ children }) {
     // Determine whether screen is under 768px
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -16,5 +18,7 @@ export default function useViewportSize() {
     }, [handleResize]);
 
     // Potential for other viewport size checks
-    return { isMobile };
+    return <ViewportSizeContext.Provider value={isMobile}>{children}</ViewportSizeContext.Provider>;
 }
+
+export {ViewportSizeContext, ViewportSizeProvider}
