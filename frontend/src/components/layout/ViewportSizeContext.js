@@ -3,13 +3,22 @@ import { useState, useEffect, useCallback, createContext } from 'react';
 const ViewportSizeContext = createContext();
 
 function ViewportSizeProvider({ children }) {
+    const getIsMobile = useCallback(() => window.innerWidth < 768, []);
+    const getIsMedium = useCallback(() => window.innerWidth > 768 && window.innerWidth < 1200, []);
+    const getIsFullLayout = useCallback(() => !getIsMobile() && !getIsMedium(), [getIsMobile, getIsMedium]);
+
+
     // Determine whether screen is under 768px
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isMobile, setIsMobile] = useState(getIsMobile());
+    const [isMedium, setIsMedium] = useState(getIsMedium());
+    const [isFullLayout, setIsFullLayout] = useState(getIsFullLayout());
 
     const handleResize = useCallback(() => {
-        // Set the isMobile state based on the window width
-        setIsMobile(window.innerWidth < 768);
-    }, []);
+        // Set states based on the window width
+        setIsMobile(getIsMobile());
+        setIsMedium(getIsMedium());
+        setIsFullLayout(getIsFullLayout());
+    }, [getIsMobile, getIsMedium, getIsFullLayout]);
 
     useEffect(() => {
         // Event listener for resizing the window
@@ -18,7 +27,7 @@ function ViewportSizeProvider({ children }) {
     }, [handleResize]);
 
     // Potential for other viewport size checks
-    return <ViewportSizeContext.Provider value={isMobile}>{children}</ViewportSizeContext.Provider>;
+    return <ViewportSizeContext.Provider value={{ isMobile, isMedium, isFullLayout }}>{children}</ViewportSizeContext.Provider>;
 }
 
-export {ViewportSizeContext, ViewportSizeProvider}
+export { ViewportSizeContext, ViewportSizeProvider }
