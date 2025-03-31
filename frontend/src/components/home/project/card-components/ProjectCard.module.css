@@ -81,7 +81,7 @@ h2 {
     border-bottom: 1px solid #80808080;
     text-decoration: none;
     opacity: 0.8;
-    transition: opacity 0.5s;
+    transition: opacity, border-color 0.5s;
 }
 
 .card-links>a:hover+a,
