@@ -33,7 +33,9 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
 
     useEffect(() => {
         // Load the current and next image as user scrolls until all are loaded.
-        if (!imageLoaded.current && (preview === 'current' || preview === 'next')){
+        // Includes the previous incase user navigates using the nav.
+        let cardsInView = ['prev', 'current', 'next']
+        if (!imageLoaded.current && (cardsInView.includes(preview))){
             loadProjectImage();
         }
     }, [loadProjectImage, preview])
