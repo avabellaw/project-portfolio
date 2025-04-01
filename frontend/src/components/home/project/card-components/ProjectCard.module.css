@@ -168,6 +168,10 @@ h2 {
 
     .card-content {
         width: 50%;
+    }
+
+    .project-card.prev > .card-content,
+    .project-card.next > .card-content{
         opacity: 0;
         transition: opacity 0.15s;
     }
