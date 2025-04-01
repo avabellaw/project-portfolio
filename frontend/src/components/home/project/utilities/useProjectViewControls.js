@@ -1,4 +1,4 @@
-import { useState, useContext, useMemo, useCallback } from 'react';
+import { useState, useContext, useMemo, useEffect } from 'react';
 
 import rfdc from 'rfdc';
 
@@ -12,9 +12,9 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
     const [index, setIndex] = useState(0);
     const [autoScroll, setAutoScroll] = useState(false);
 
-    const setProjectColourScheme = useCallback((project) => {
-        setColours(project.colour_scheme);
-    }, [setColours]);
+    useEffect(() => {
+        if(!autoScroll) setColours(projects[index].colour_scheme)
+    }, [index, projects, autoScroll, setColours])
 
     const viewControls = useMemo(() => ({
         nextProject: () => {
@@ -22,7 +22,6 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
                 return;
             }
             let nextIndex = index + 1;
-            setProjectColourScheme(projects[nextIndex])
             setIndex(nextIndex);
         },
         prevProject: () => {
@@ -30,12 +29,9 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
                 return;
             }
             let nextIndex = index - 1;
-            setProjectColourScheme(projects[nextIndex])
             setIndex(nextIndex);
         },
         scrollToProject: (i) => {
-            setProjectColourScheme(projects[i]);
-
             if (isMobile) {
                 setIndex(i);
                 return;
@@ -65,15 +61,14 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
         },
         setIndex: (i) => {
             setIndex(i);
-            if (!autoScroll) {
-                // Set the colour scheme of the project card based on the index
-                setProjectColourScheme(projects[i]);
-            }
         },
         getIndex: () => {
             return index;
         },
-    }), [index, projects, setProjectColourScheme, autoScroll, setAutoScroll, isMobile]);
+        setColours: (colourScheme) => {
+            setColours(colourScheme)
+        }
+    }), [index, projects, setAutoScroll, isMobile, setColours]);
 
     const [ALL_PROJECTS] = useState(() => {
         // Clone the projects array for filtering
