@@ -44,7 +44,7 @@
 @media screen and (min-width: 1200px) {
     #skill-filter-container {
         min-width: fit-content;
-        width: 21%;
+        width: 18%;
         margin-left: 2%;
     }
 }
