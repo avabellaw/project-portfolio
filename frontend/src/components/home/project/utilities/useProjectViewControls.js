@@ -85,9 +85,22 @@ export default function useProjectViewControls(projects, setProjects, isMobile) 
         if (skill !== null) {
             skill = { value: skill.id, label: skill.name }
         }
+
+        // Get the new index of the current project from the filtered array
+        // let newIndex = filteredProjects.findIndex((p) => p.id === projects[index].id )
+
         setSkillFilter(skill);
+
+        // Set index to 0 before updating projects array so index is inbounds
+        setIndex(0);
         setProjects(filteredProjects);
-        viewControls.scrollToProject(0);
+
+        // If the project now at index 0 wasn't the current project, scroll to it
+        if (filteredProjects.length !== 1){
+            // Set the colour scheme of the project before scrolling to it
+            setColours(filteredProjects[0].colour_scheme);
+            viewControls.scrollToProject(0);
+        } 
     }
 
     const filterProjectsBySkill = (skill) => {
