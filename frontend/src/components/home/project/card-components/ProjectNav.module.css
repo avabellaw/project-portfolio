@@ -6,8 +6,8 @@ nav {
 #nav-container {
     display: flex;
     align-items: center;
-    margin: auto;
     width: 100%;
+    flex-grow: 1;
 }
 
 #nav-indicator {
@@ -134,10 +134,5 @@ nav {
     #nav-link-names>*:hover {
         cursor: pointer;
         filter: brightness(1.15);
-    }
-
-    #nav-container {
-        flex-basis: 24%;
-        flex-shrink: 0.5;
     }
 }

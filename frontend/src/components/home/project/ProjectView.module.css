@@ -37,4 +37,18 @@
         scroll-snap-type: y mandatory;
         scroll-behavior: smooth;
     } 
+
+    #nav-filter-container {
+        display: flex;
+        margin: auto;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #nav-filter-container {
+        flex-basis: 24%;
+        flex-shrink: 0.5;
+        
+        position: relative;
+    }
 }

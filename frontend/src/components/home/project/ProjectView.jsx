@@ -65,8 +65,10 @@ const ProjectView = ({ projects, setProjects }) => {
             id={styles["project-view"]}
             {...(isMobile ? handleTouchscreenSwipe : {})}
         >
-            <Filter selectedValue={skillFilter} filterProjectsBySkill={filterProjectsBySkill} />
-            <ProjectNav viewControls={viewControls} projects={projects} />
+            <div id={styles['nav-filter-container']}>
+                <Filter selectedValue={skillFilter} filterProjectsBySkill={filterProjectsBySkill} />
+                <ProjectNav viewControls={viewControls} projects={projects} />
+            </div>
 
             <div
                 ref={cardContainerRef}

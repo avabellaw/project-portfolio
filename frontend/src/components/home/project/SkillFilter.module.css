@@ -32,20 +32,22 @@
 @media screen and (min-width: 768px) {
     #skill-filter-container {
         position: absolute;
-        transform: translateY(16vh);
+        top: 16vh;
         left: 0;
         z-index: 111;
         color: var(--text-colour);
-        width: calc(50% - 3em);
-        margin: 0 1.5em;
+        width: calc(50% - 1.2em);
+        margin-left: 1.2em;
+        max-width: 400px;
     }
 }
 
 @media screen and (min-width: 1200px) {
     #skill-filter-container {
         min-width: fit-content;
-        width: 18%;
-        margin-left: 2%;
+        width: 90%;
+        margin: 0 5%;
+        top: -3.8em;
     }
 }
 
