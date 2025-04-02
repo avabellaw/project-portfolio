@@ -160,6 +160,7 @@ h2 {
 
     .card-content {
         width: 50%;
+        max-height: 28em;
     }
 
     .project-card.prev > .card-content,
