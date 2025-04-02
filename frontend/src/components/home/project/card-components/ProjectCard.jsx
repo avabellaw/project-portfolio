@@ -44,7 +44,7 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
         <div className={`${styles['project-card']} ${preview ? styles[preview] : ''}`}>
 
             <div className={styles['card-img']}>
-                <img id={`${project.id}-img`} alt={`Project: ${project.title}`} />
+                <img width={300} height={300} id={`${project.id}-img`} alt={`Project: ${project.title}`} />
             </div>
             <div className={styles['card-content']}>
 
