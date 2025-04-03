@@ -28,7 +28,9 @@ class Projects(Resource):
     @marshal_with(project_fields)
     def get(self):
         '''Get all projects'''
-        return ProjectModel.query.order_by(ProjectModel.view_order.asc()).all()
+        live_projects = ProjectModel.query.filter(
+            ProjectModel.is_draft == False)
+        return live_projects.order_by(ProjectModel.view_order.asc()).all()
 
 
 class Project(Resource):
