@@ -98,7 +98,8 @@ class ProjectView(ModelView):
         'image_url',
         'image',
         'skills',
-        'colour_scheme'
+        'colour_scheme',
+        'is_draft',
     ]
 
     column_list = [
@@ -110,6 +111,7 @@ class ProjectView(ModelView):
         'image_url',
         'colour_scheme',
         'skills',
+        'is_draft',
     ]
 
     def on_model_change(self, form, model, is_created):
