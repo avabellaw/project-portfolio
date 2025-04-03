@@ -14,6 +14,7 @@ class Project(db.Model):
     github_url = db.Column(db.String(255), nullable=False)
     image_url = db.Column(db.String(255), nullable=False)
     view_order = db.Column(db.SmallInteger, nullable=False, unique=True)
+    is_draft = db.Column(db.Boolean, default=True)
 
     colour_scheme = db.relationship('ProjectColourScheme',
                                     back_populates='project',
