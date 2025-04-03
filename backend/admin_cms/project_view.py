@@ -34,7 +34,7 @@ class ColourSchemeInlineView(InlineFormAdmin):
     inline_converter = InlineOneToOneModelConverter
 
 
-def max_character_limit(limit):    
+def max_character_limit(limit):
     '''Custom wtforms validator to limit character count'''
     def _max_character_limit(form, field):
         length = len(field.data)
@@ -55,6 +55,16 @@ class ProjectView(ModelView):
         '''Displays projects in order of view_order on list view'''
         return self.session.query(self.model
                                   ).order_by(self.model.view_order.asc())
+
+    column_exclude_list = ['image_url', 'view_order']
+
+    column_formatters = {
+        'description': lambda v, c, m, p: (m.description[:50] + '...')
+        if len(m.description) > 50 else m.description,
+        'live_url': lambda v, c, m, p: bool(m.live_url),
+        'github_url': lambda v, c, m, p: bool(m.github_url),
+        'is_draft': lambda v, c, m, p: False if m.is_draft else 'Live'
+    }
 
     form_extra_fields = {
         'skills': CheckboxListField(
@@ -122,6 +132,24 @@ class ProjectView(ModelView):
             if model.image_url:
                 model.delete_cloudinary_image()
             model.image_url = result['secure_url']
+
+    @action('draft', 'Draft')
+    def action_draft(self, ids):
+        for id in ids:
+            project = Project.query.get(id)
+
+            project.is_draft = True
+
+        db.session.commit()
+
+    @action('undraft', 'Undraft')
+    def action_undraft(self, ids):
+        for id in ids:
+            project = Project.query.get(id)
+
+            project.is_draft = False
+
+        db.session.commit()
 
     @action('move_up', 'Move Up')
     def action_move_up(self, ids):
