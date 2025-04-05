@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Select, {components} from 'react-select'
+import Select from 'react-select'
 
 import styles from './SkillFilter.module.css'
 import './ReactSelectOverrides.css'
@@ -69,11 +69,6 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
         }
     };
 
-    // Custom input component to add aria-labelledby
-    const CustomInput = (props) => (
-        <components.Input {...props} aria-label="Filter by skill" />
-    );
-
     return (
         <div id={styles['skill-filter-container']}>
             <Select
@@ -85,7 +80,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
                 onInputChange={handleInputChanged}
                 value={selectedValue}
                 inputValue={inputValue}
-                components={{ Input: CustomInput }}
+                aria-label='Filter by skill'
             />
         </div>
     )
