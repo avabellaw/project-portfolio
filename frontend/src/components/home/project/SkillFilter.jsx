@@ -112,6 +112,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
                 value={selectedValue}
                 inputValue={inputValue}
                 aria-label='Filter by skill'
+                noOptionsMessage={() => 'No projects match'}
             />
         </div>
     )
