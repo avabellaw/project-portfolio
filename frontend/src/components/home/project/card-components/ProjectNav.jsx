@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 
-import { animate, AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 
 import styles from './ProjectNav.module.css';
 
 import { ViewportSizeContext } from '../../../layout/ViewportSizeContext';
 
 
-const Nav = ({ viewControls, projects }) => {
+const Nav = ({ viewControls, filteredProjects }) => {
     const { isFullLayout } = useContext(ViewportSizeContext);
 
     // Nav-link names animation
@@ -28,11 +28,11 @@ const Nav = ({ viewControls, projects }) => {
         <nav id={styles['nav-container']}>
             <div id={styles['nav-link-names']}>
                 <AnimatePresence>
-                    {projects.map((project, i) => (
+                    {filteredProjects.map((project, i) => (
                         <motion.span
                             key={project.title}
                             onClick={() => {
-                                viewControls.setColours(projects[i].colour_scheme);
+                                viewControls.setColours(filteredProjects[i].colour_scheme);
                                 viewControls.scrollToProject(i);
                             }}
                             data-current={viewControls.getIndex() === i ? 'true' : 'false'}
@@ -48,11 +48,11 @@ const Nav = ({ viewControls, projects }) => {
 
             <div id={styles['nav-indicator']} >
                 <AnimatePresence>
-                    {projects.map((project, i) => (
+                    {filteredProjects.map((project, i) => (
                         <motion.button
                             key={i}
                             onClick={() => {
-                                viewControls.setColours(projects[i].colour_scheme);
+                                viewControls.setColours(filteredProjects[i].colour_scheme);
                                 viewControls.scrollToProject(i);
                             }}
                             className={styles['project-nav-button']}

@@ -1,4 +1,4 @@
-import { useRef, useContext } from 'react';
+import { useRef, useContext, useState } from 'react';
 import { useScroll, useMotionValueEvent } from "motion/react";
 import { useSwipeable } from 'react-swipeable';
 
@@ -11,11 +11,23 @@ import { ViewportSizeContext } from '../../layout/ViewportSizeContext';
 
 import styles from "./ProjectView.module.css";
 
-const ProjectView = ({ projects, setProjects }) => {
+const ProjectView = ({ projects }) => {
+    const [skillFilter, setSkillFilter] = useState(null);
+
+    /**
+     * @param {*} filterBySkill - Optional, skill to filter by instead of using current filter.
+     * @returns An array of projects filtered by skill.
+     */
+    const filteredProjects = (filterBySkill = skillFilter) => filterBySkill ? 
+        projects.filter(
+            (p) => p.skills.some((skill) => skill.id === filterBySkill.value)
+        )
+        : projects;
+    
     const { isMobile } = useContext(ViewportSizeContext);
 
     // Get the controls for the project view from utilities/ProjectViewControls
-    const { viewControls, filterProjectsBySkill, skillFilter, index } = useProjectViewControls(projects, setProjects, isMobile);
+    const { viewControls, filterProjectsBySkill, index } = useProjectViewControls(filteredProjects, skillFilter, setSkillFilter, isMobile);
 
     const handleTouchscreenSwipe = useSwipeable({
         onSwipedLeft: viewControls.nextProject,
@@ -40,9 +52,9 @@ const ProjectView = ({ projects, setProjects }) => {
         }
 
         // Calculate the index of the project card based on the scroll progress
-        const one = 1 / (projects.length);
+        const one = 1 / (filteredProjects().length);
 
-        const nextIndex = Math.min(Math.floor(progress / one), projects.length - 1);
+        const nextIndex = Math.min(Math.floor(progress / one), filteredProjects().length - 1);
         // Set the index of the project card for nav
         viewControls.setIndex(nextIndex);
     });
@@ -67,7 +79,7 @@ const ProjectView = ({ projects, setProjects }) => {
         >
             <div id={styles['nav-filter-container']}>
                 <Filter selectedValue={skillFilter} filterProjectsBySkill={filterProjectsBySkill} />
-                <ProjectNav viewControls={viewControls} projects={projects} />
+                <ProjectNav viewControls={viewControls} filteredProjects={filteredProjects()} />
             </div>
 
             <div
@@ -84,7 +96,7 @@ const ProjectView = ({ projects, setProjects }) => {
                 ) :
                     // Else render all project cards, hides the ones not in view in css
                     (
-                        projects.map((project, i) => (
+                        filteredProjects().map((project, i) => (
                             <ProjectCard
                                 key={i}
                                 project={project}
