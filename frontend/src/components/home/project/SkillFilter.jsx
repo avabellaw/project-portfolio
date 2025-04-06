@@ -10,6 +10,16 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
     const [skills, setSkills] = useState();
     const [inputValue, setInputValue] = useState('');
 
+    const sortedSkills = skills && skills.toSorted((a, b) => {
+        const comparison = a.label.localeCompare(b.label)
+        
+        // If not same position alphabetically
+        if (comparison !== 0) return comparison
+        
+        // 
+        return a.label.length - b.label.length
+    });
+
     useEffect(() => {
         fetch(`${API_URL}/skills`)
             .then(res => res.json())
@@ -93,7 +103,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
     return (
         <div id={styles['skill-filter-container']}>
             <Select
-                options={skills}
+                options={sortedSkills}
                 onChange={handleChange}
                 placeholder={formatPlaceholder()}
                 classNamePrefix="skills-filter"
