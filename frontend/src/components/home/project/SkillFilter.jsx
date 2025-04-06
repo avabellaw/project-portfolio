@@ -10,6 +10,16 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
     const [skills, setSkills] = useState();
     const [inputValue, setInputValue] = useState('');
 
+    const sortedSkills = skills && skills.toSorted((a, b) => {
+        const comparison = a.label.localeCompare(b.label)
+        
+        // If not same position alphabetically
+        if (comparison !== 0) return comparison
+        
+        // 
+        return a.label.length - b.label.length
+    });
+
     useEffect(() => {
         fetch(`${API_URL}/skills`)
             .then(res => res.json())
@@ -21,7 +31,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
                 setSkills(options)
             })
     }, [API_URL])
-        
+
 
     const handleChange = (option, actionMeta) => {
         /**
@@ -30,7 +40,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
         switch (actionMeta.action) {
             case 'select-option':
                 // Skill was selected
-                filterProjectsBySkill({id: option.value, name: option.label});
+                filterProjectsBySkill({ id: option.value, name: option.label });
                 break;
             case 'clear':
                 // Clear button was clicked
@@ -61,9 +71,30 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
          * Otherwise, if not already, reset the selected value and show all projects.
          */
         setInputValue(input);
-        const matchedSkill = skills.find(skill => skill.label.toLowerCase() === input.toLowerCase());
-        if (matchedSkill) {
-            filterProjectsBySkill({ id: matchedSkill.value, name: matchedSkill.label });
+
+        let perfectMatch;
+        // Matches skills that contain the current input text
+        const partialSkillMatches = skills.reduce((matched, skill) => {
+            let lSkill = skill.label.toLowerCase();
+            let lInput = input.toLowerCase();
+
+            // If atleast partial match
+            if (lSkill.includes(lInput)) {
+                if (lSkill === lInput) {
+                    // Variable for skill that perfectly matches the whole string
+                    perfectMatch = skill;
+                } else {
+                    // List for input that partially matches the string
+                    matched.push(skill);
+                }
+            }
+
+            return matched;
+        }, [])
+
+        if (perfectMatch && partialSkillMatches.length === 0) {
+            filterProjectsBySkill({ id: perfectMatch.value, name: perfectMatch.label });
+
             setInputValue('');
             document.querySelector('.skills-filter__input').blur();
         }
@@ -72,7 +103,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
     return (
         <div id={styles['skill-filter-container']}>
             <Select
-                options={skills}
+                options={sortedSkills}
                 onChange={handleChange}
                 placeholder={formatPlaceholder()}
                 classNamePrefix="skills-filter"
@@ -81,6 +112,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
                 value={selectedValue}
                 inputValue={inputValue}
                 aria-label='Filter by skill'
+                noOptionsMessage={() => 'No projects match'}
             />
         </div>
     )
