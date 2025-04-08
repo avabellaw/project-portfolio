@@ -1,6 +1,6 @@
 import { useState, useContext, useMemo, useEffect } from 'react';
 
-import { ColourSchemeContext } from "../../../layout/ColourSchemeContext";
+import { ColourSchemeContext } from "../../../ColourSchemeContext";
 
 import styles from '../ProjectView.module.css';
 

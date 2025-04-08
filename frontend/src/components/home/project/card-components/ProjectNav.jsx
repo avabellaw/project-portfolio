@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'motion/react'
 
 import styles from './ProjectNav.module.css';
 
-import { ViewportSizeContext } from '../../../layout/ViewportSizeContext';
+import { ViewportSizeContext } from '../../../ViewportSizeContext';
 
 
 const Nav = ({ viewControls, filteredProjects }) => {
