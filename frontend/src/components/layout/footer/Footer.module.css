@@ -23,7 +23,8 @@
 #footer>a {
     display: flex;
     width: fit-content;
-    margin: 1em auto;
+    margin: auto;
+    margin-bottom: 1em;
 
     column-gap: var(--github-logo-col-gap);
     color: var(--text-colour);
