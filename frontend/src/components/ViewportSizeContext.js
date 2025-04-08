@@ -3,10 +3,9 @@ import { useState, useEffect, useCallback, createContext } from 'react';
 const ViewportSizeContext = createContext();
 
 function ViewportSizeProvider({ children }) {
-    const viewportWidth = window.innerWidth;
-    const getIsMobile = useCallback(() => viewportWidth < 768, [viewportWidth]);
-    const getIsMedium = useCallback(() => viewportWidth >= 768 && viewportWidth < 1200, [viewportWidth]);
-    const getIsFullLayout = useCallback(() => viewportWidth >= 1200, [viewportWidth]);
+    const getIsMobile = useCallback(() => window.innerWidth < 768, []);
+    const getIsMedium = useCallback(() => window.innerWidth >= 768 && window.innerWidth < 1200, []);
+    const getIsFullLayout = useCallback(() => window.innerWidth >= 1200, []);
 
 
     // Determine whether screen is under 768px
