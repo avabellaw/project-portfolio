@@ -4,8 +4,8 @@ const ViewportSizeContext = createContext();
 
 function ViewportSizeProvider({ children }) {
     const getIsMobile = useCallback(() => window.innerWidth < 768, []);
-    const getIsMedium = useCallback(() => window.innerWidth > 768 && window.innerWidth < 1200, []);
-    const getIsFullLayout = useCallback(() => !getIsMobile() && !getIsMedium(), [getIsMobile, getIsMedium]);
+    const getIsMedium = useCallback(() => window.innerWidth >= 768 && window.innerWidth < 1200, []);
+    const getIsFullLayout = useCallback(() => window.innerWidth >= 1200, []);
 
 
     // Determine whether screen is under 768px

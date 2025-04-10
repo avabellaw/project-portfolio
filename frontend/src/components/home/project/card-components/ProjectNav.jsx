@@ -4,11 +4,12 @@ import { AnimatePresence, motion } from 'motion/react'
 
 import styles from './ProjectNav.module.css';
 
-import { ViewportSizeContext } from '../../../layout/ViewportSizeContext';
+import { ViewportSizeContext } from '../../../ViewportSizeContext';
 
 
 const Nav = ({ viewControls, filteredProjects }) => {
     const { isFullLayout } = useContext(ViewportSizeContext);
+    const navTransitionValues = { duration: 0.3, type:'tween', ease: 'easeInOut'    }
 
     // Nav-link names animation
     const navNameAnimation = {
@@ -21,7 +22,7 @@ const Nav = ({ viewControls, filteredProjects }) => {
     const navButtonAnimation = {
         initial: { flexGrow: 0 },
         animate: { flexGrow: 1 },
-        exit: { marginTop: 0, flexGrow: 0, transition: { delay: isFullLayout ? 0.3 : 0/* Wait for name animation */ } }
+        exit: { marginTop: 0, flexGrow: 0, transition: { delay: isFullLayout ? 0.3 : 0/* Wait for name animation */, ...navTransitionValues } }
     }
 
     return (
@@ -38,7 +39,7 @@ const Nav = ({ viewControls, filteredProjects }) => {
                             data-current={viewControls.getIndex() === i ? 'true' : 'false'}
                             layout='position' // Animations the position changes
                             {...navNameAnimation}
-                            transition={{ duration: 0.3 }}
+                            transition={{ ...navTransitionValues }}
                         >
                             {project.title}
                         </motion.span>
@@ -59,7 +60,7 @@ const Nav = ({ viewControls, filteredProjects }) => {
                             aria-label={`View project ${project.title}`}
                             aria-current={viewControls.getIndex() === i ? 'true' : 'false'}
                             layout // Animation the position and size changes
-                            transition={{ duration: 0.3 }}
+                            transition={{ ...navTransitionValues }}
                             {...navButtonAnimation}
                         >
                         </motion.button>

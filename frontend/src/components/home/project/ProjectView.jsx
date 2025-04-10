@@ -7,7 +7,7 @@ import ProjectNav from "./card-components/ProjectNav";
 import Filter from './SkillFilter';
 
 import useProjectViewControls from "./utilities/useProjectViewControls";
-import { ViewportSizeContext } from '../../layout/ViewportSizeContext';
+import { ViewportSizeContext } from '../../ViewportSizeContext';
 
 import styles from "./ProjectView.module.css";
 

@@ -3,7 +3,8 @@ import ProjectView from './project/ProjectView';
 
 import ClipLoader from "react-spinners/ClipLoader";
 
-import { LoadingContext } from '../layout/LoadingContext';
+import { LoadingContext } from '../LoadingContext';
+import { ViewportSizeContext } from '../ViewportSizeContext';
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -13,6 +14,7 @@ function Home() {
     const fetchAttempts = useRef(1);
 
     const { loading, setLoading } = useContext(LoadingContext);
+    const { isMobile } = useContext(ViewportSizeContext);
 
     const projectImgPreloaded = useRef({})
         
@@ -40,7 +42,8 @@ function Home() {
                 let isPreloaded = projectImgPreloaded[project.id]
                 if (isPreloaded) continue;
 
-                preloadProjectImage(i >= 2, project)
+                // If mobile, preload only first image and prefetch the rest. Otherwise, preload first two.
+                preloadProjectImage(i >= (isMobile ? 1 : 2), project)
                 projectImgPreloaded[project.id] = true
             }
 
@@ -59,7 +62,7 @@ function Home() {
                 setLoading(false);
             }
         } 
-    }, [fetchAttempts, setError, setLoading]);
+    }, [fetchAttempts, setError, setLoading, isMobile]);
 
     useEffect(() => {
         loadProjects();

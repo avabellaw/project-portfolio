@@ -4,8 +4,10 @@ import '../../index.css'
 import styles from './Layout.module.css'
 
 import Header from './header/Header'
-import { ColourSchemeContext } from './ColourSchemeContext'
-import { LoadingContext } from './LoadingContext'
+import Footer from './footer/Footer'
+
+import { ColourSchemeContext } from '../ColourSchemeContext'
+import { LoadingContext } from '../LoadingContext'
 
 const Layout = ({ children }) => {
     const { colours } = useContext(ColourSchemeContext)
@@ -27,6 +29,8 @@ const Layout = ({ children }) => {
             <main id={styles['main-content']}>
                 {children}
             </main>
+
+            {!loading && <Footer />}
         </div>
     )
 }
