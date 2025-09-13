@@ -23,8 +23,8 @@ migrate = Migrate(app, db)
 # Allowed hosts
 
 resources = {
-    r"/api/*": {"origins": str(os.environ.get('ALLOWED_HOSTS_REACT'))},
-    r"/admin/*": {"origins": str(os.environ.get('ALLOWED_HOSTS_API'))},
+    r"/api/*": {"origins": os.environ.get('ALLOWED_HOSTS_REACT').split(',')},
+    r"/admin/*": {"origins": os.environ.get('ALLOWED_HOSTS_API').split(',')},
 }
 
 CORS(app, resources=resources)
