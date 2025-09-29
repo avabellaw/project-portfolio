@@ -15,13 +15,6 @@
 }
 
 #skill-filter-container span {
-    /* Setting height makes a small difference, needs inline-block */
-    display: inline-block; 
-    height: 1.1em; /* set to same height as svg width/height in html */
-
-}
-
-#skill-filter-container span {
     color: var(--filter-colour);
 }
 
