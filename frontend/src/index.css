@@ -8,7 +8,6 @@ body {
     margin: 0;
     box-sizing: border-box;
     padding: 0.5em;
-    background-color: var(--primary-colour);
 }
 
 #root {
@@ -27,12 +26,21 @@ body {
         /* Stops project previews affecting content height */
         overflow: hidden;
         padding: calc(0.3em + 1vh + 1vw);
+
+        background: linear-gradient(to right, var(--primary-colour) 0 1%, white 0 100%);
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    body {
+        background: linear-gradient(to right, var(--primary-colour) 0 24%, hsl(from var(--primary-colour) h s 80%), white 24.15% 100%);
     }
 }
 
 @media screen and (min-width: 1600px) {
     body {
         font-size: 1.1em;
+        line-height: 1.1em;
     }
 }
 
