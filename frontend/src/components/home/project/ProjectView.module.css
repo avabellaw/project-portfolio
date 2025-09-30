@@ -42,12 +42,29 @@
         display: flex;
         margin: auto;
     }
+
+    #project-view {
+        position: absolute;
+        left: calc(-1 * var(--body-padding));
+        right: calc(-1 * var(--body-padding));
+        width: unset;       
+    }
+
+    #project-view, #project-card-container {
+        transition: border-left 0.5s ease-in-out;
+    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
     #project-card-container {
         /* Has to be set for project card too */
         --project-card-height: 45vh;
+    }
+
+    #project-view {
+        background-color: white;
+        padding: 0 var(--body-padding); 
+        border-left: var(--secondary-colour) 2px solid;
     }
 }
 
@@ -57,13 +74,6 @@
         flex-shrink: 0.5;
         
         position: relative;
-    }
-
-    #project-view {
-        position: absolute;
-        left: calc(-1 * var(--body-padding));
-        right: calc(-1 * var(--body-padding));
-        width: unset;
     }
 
     #project-card-container {

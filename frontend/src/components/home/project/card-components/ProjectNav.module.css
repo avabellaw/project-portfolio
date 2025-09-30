@@ -8,8 +8,6 @@ nav {
     align-items: center;
     width: 100%;
     flex-grow: 1;
-
-    padding: var(--body-padding);
 }
 
 #nav-indicator {
@@ -137,5 +135,9 @@ nav {
     #nav-link-names>*:hover {
         cursor: pointer;
         filter: brightness(1.15);
+    }
+
+    #nav-container {
+        padding: var(--body-padding);
     }
 }

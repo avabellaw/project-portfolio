@@ -29,6 +29,7 @@ body {
         /* Stops project previews affecting content height */
         overflow: hidden;
         --body-padding: calc(0.3em + 0.8vh + 0.9vw);
+        background: var(--primary-colour);
     }
 }
 
@@ -36,15 +37,6 @@ body {
     body {
         /* Make space for the project colour stripe on medium screens */
         padding-left: calc(var(--body-padding) + var(--medium-screen-project-stripe-width));
-
-        /* Project colour stripe */
-        background: linear-gradient(to right, var(--primary-colour) 0 1%, white 0 100%);
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    body {
-        background: var(--primary-colour);
     }
 }
 
