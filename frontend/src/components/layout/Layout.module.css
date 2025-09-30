@@ -1,5 +1,7 @@
 :root {
-    --header-padding: 0.2em;    
+    --header-padding: 0.2em;  
+    
+    --darker-highlight-colour: rgb(from var(--highlight-colour) r g b / 0.6);  
 }
 
 body {

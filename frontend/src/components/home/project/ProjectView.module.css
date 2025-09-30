@@ -67,7 +67,7 @@
     }
 
     #project-card-container {
-        border-left: hsl(from var(--primary-colour) h s calc(l * 0.8)) 2px solid;
+        border-left: var(--darker-highlight-colour) 2px solid;
         background-color: white;
     }
 }
