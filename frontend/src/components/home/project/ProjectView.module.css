@@ -44,11 +44,30 @@
     }
 }
 
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    #project-card-container {
+        /* Has to be set for project card too */
+        --project-card-height: 45vh;
+    }
+}
+
 @media screen and (min-width: 1200px) {
     #nav-filter-container {
         flex-basis: 24%;
         flex-shrink: 0.5;
         
         position: relative;
+    }
+
+    #project-view {
+        position: absolute;
+        left: calc(-1 * var(--body-padding));
+        right: calc(-1 * var(--body-padding));
+        width: unset;
+    }
+
+    #project-card-container {
+        border-left: hsl(from var(--primary-colour) h s calc(l * 0.8)) 2px solid;
+        background-color: white;
     }
 }
