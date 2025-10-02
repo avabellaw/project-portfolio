@@ -1,6 +1,6 @@
 #project-view {
-    display: flex;
     width: 100%;
+    display: flex;
     flex-direction: column;
     flex-grow: 1;
     height: 100%;
@@ -11,6 +11,7 @@
 #project-card-container {
     position: relative;
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding-top: var(--project-card-height);
@@ -42,6 +43,30 @@
         display: flex;
         margin: auto;
     }
+
+    #project-view {
+        position: absolute;
+        left: calc(-1 * var(--body-padding));
+        right: calc(-1 * var(--body-padding));
+        width: unset;       
+    }
+
+    #project-view, #project-card-container {
+        transition: border-left 0.5s ease-in-out;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    #project-card-container {
+        /* Has to be set for project card too */
+        --project-card-height: 45vh;
+    }
+
+    #project-view {
+        background-color: white;
+        padding: 0 var(--body-padding); 
+        border-left: var(--secondary-colour) 2px solid;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -50,5 +75,10 @@
         flex-shrink: 0.5;
         
         position: relative;
+    }
+
+    #project-card-container {
+        border-left: var(--darker-highlight-colour) 2px solid;
+        background-color: white;
     }
 }

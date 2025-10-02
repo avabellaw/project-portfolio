@@ -15,13 +15,6 @@
 }
 
 #skill-filter-container span {
-    /* Setting height makes a small difference, needs inline-block */
-    display: inline-block; 
-    height: 1.1em; /* set to same height as svg width/height in html */
-
-}
-
-#skill-filter-container span {
     color: var(--filter-colour);
 }
 
@@ -33,11 +26,10 @@
     #skill-filter-container {
         position: absolute;
         top: 16vh;
-        left: 0;
+        left: var(--body-padding);
         z-index: 111;
         color: var(--text-colour);
         width: calc(50% - 1.2em);
-        margin-left: 1.2em;
         max-width: 400px;
     }
 }
@@ -45,9 +37,10 @@
 @media screen and (min-width: 1200px) {
     #skill-filter-container {
         min-width: fit-content;
-        width: 90%;
-        margin: 0 5%;
+        margin-right: var(--body-padding);
         top: -3.8em;
+        right: 0;
+        width: unset;
     }
 }
 

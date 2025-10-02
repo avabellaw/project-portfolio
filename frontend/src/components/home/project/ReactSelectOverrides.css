@@ -30,9 +30,11 @@
 }
 
 .skills-filter__placeholder {
+    display: flex;
     color: var(--text-colour) !important;
     opacity: 0.7;
     cursor: text !important;
+    font-size: 0.9em;
 }
 
 .skills-filter__placeholder * {

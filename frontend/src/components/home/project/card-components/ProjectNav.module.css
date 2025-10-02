@@ -80,6 +80,7 @@ nav {
 @media screen and (min-width: 768px) and (max-width: 1200px) {
     #nav-container {
         width: 50%;
+        padding: 0;
     }
 }
 
@@ -134,5 +135,9 @@ nav {
     #nav-link-names>*:hover {
         cursor: pointer;
         filter: brightness(1.15);
+    }
+
+    #nav-container {
+        padding: var(--body-padding);
     }
 }

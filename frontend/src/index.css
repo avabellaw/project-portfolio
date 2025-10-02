@@ -7,8 +7,10 @@ body {
     width: 100%;
     margin: 0;
     box-sizing: border-box;
-    padding: 0.5em;
-    background-color: var(--primary-colour);
+    padding: var(--body-padding);
+
+    --body-padding: 0.5em;
+    --medium-screen-project-stripe-width: 0.75em;
 }
 
 #root {
@@ -18,7 +20,7 @@ body {
 
 @media screen and (min-width: 480px) {
     body {
-        padding: 1em;
+        --body-padding: 1em
     }
 }
 
@@ -26,18 +28,20 @@ body {
     body {
         /* Stops project previews affecting content height */
         overflow: hidden;
-        padding: calc(0.3em + 1vh + 1vw);
+        --body-padding: calc(0.3em + 0.8vh + 0.9vw);
+        background: var(--primary-colour);
     }
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
     body {
-        font-size: 1.1em;
+        /* Make space for the project colour stripe on medium screens */
+        padding-left: calc(var(--body-padding) + var(--medium-screen-project-stripe-width));
     }
 }
 
 @media screen and (min-width: 2000px) {
     body {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
 }

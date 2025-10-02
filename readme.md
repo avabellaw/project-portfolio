@@ -175,6 +175,51 @@ React only needs to get project information. Out of interest, I created endpoint
 
 [View additional endpoints](docs/additional-endpoints.md)
 
+# Setup development environment
+
+1. __"Error: pg_config executable not found"__ from psycopg2
+    - Install PostgreSQL development package
+        On debian linux, this is **libpq-dev** package.
+    - Else, simply replace psycopg2 with psycopg2-binary - this is a less desirable solution for production. psycopg2-binary with precompiled binaries is less performant. 
+2. Create a python virtual enviroment (venv)
+
+## Backend
+
+1. cd into /backend
+2. ```python -m pip install -r requirements.txt```
+3. Create **.env** file in root dir of backend
+
+### Environment variables
+
+The **python-dotenv** package installed from requirements.txt will allow enviroment variables to be imported from the root .env file in this format.
+
+```
+ALLOWED_HOSTS_API=
+ALLOWED_HOSTS_REACT=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_FOLDER=project-
+DB_URL=
+DEBUG=
+PROJECT_PATH=    
+SECRET_KEY=
+```
+
+## Frontend
+
+1. cd into /frontend
+2. ```npm install```
+3. Create **.env** file in root dir of frontend
+
+### Environment 
+
+Set the enviroment variable for the url of the backend api in newly created **.env**.
+
+```
+REACT_APP_API_URL=http://[DOMAIN NAME]/api
+```
+
 # Credit
 
 ## Images
