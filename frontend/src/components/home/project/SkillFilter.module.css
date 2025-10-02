@@ -30,7 +30,6 @@
         z-index: 111;
         color: var(--text-colour);
         width: calc(50% - 1.2em);
-        margin-left: 3px;
         max-width: 400px;
     }
 }
@@ -38,7 +37,7 @@
 @media screen and (min-width: 1200px) {
     #skill-filter-container {
         min-width: fit-content;
-        margin: 0 var(--body-padding);
+        margin-right: var(--body-padding);
         top: -3.8em;
         right: 0;
         width: unset;

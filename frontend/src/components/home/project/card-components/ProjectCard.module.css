@@ -77,7 +77,7 @@ h2 {
 }
 
 .card-links>a {
-    color: var(--text-colour);
+    color: inherit;
     padding: 0.4em;
     border-bottom: 1px solid #80808080;
     text-decoration: none;

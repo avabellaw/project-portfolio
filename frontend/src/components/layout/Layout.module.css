@@ -10,7 +10,7 @@ body {
 }
 
 #main-container {
-    color: var(--text-colour);
+    color: black;
     height: 100%;
     display: flex;
     flex-direction: column;
