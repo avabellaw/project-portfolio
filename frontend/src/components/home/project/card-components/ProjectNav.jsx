@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 
 import { AnimatePresence, motion } from 'motion/react'
 
@@ -10,6 +10,8 @@ import { ViewportSizeContext } from '../../../ViewportSizeContext';
 const Nav = ({ viewControls, filteredProjects }) => {
     const { isFullLayout } = useContext(ViewportSizeContext);
     const navTransitionValues = { duration: 0.3, type:'tween', ease: 'easeInOut'    }
+    const navIndicatorRef = useRef(null);
+    const navLinkNamesRef = useRef(null);
 
     // Nav-link names animation
     const navNameAnimation = {
@@ -27,14 +29,21 @@ const Nav = ({ viewControls, filteredProjects }) => {
 
     return (
         <nav id={styles['nav-container']}>
-            <div id={styles['nav-link-names']}>
+            <div id={styles['nav-link-names']} ref={navLinkNamesRef}>
                 <AnimatePresence>
                     {filteredProjects.map((project, i) => (
                         <motion.span
                             key={project.title}
+                            data-index={i}
                             onClick={() => {
                                 viewControls.setColours(filteredProjects[i].colour_scheme);
                                 viewControls.scrollToProject(i);
+                            }}
+                            onHoverStart={() => {
+                                navIndicatorRef.current.querySelector(`[data-index="${i}"]`).classList.add(styles['hover']);
+                            }}
+                            onHoverEnd={() => {
+                                navIndicatorRef.current.querySelector(`[data-index="${i}"]`).classList.remove(styles['hover']);
                             }}
                             data-current={viewControls.getIndex() === i ? 'true' : 'false'}
                             layout='position' // Animations the position changes
@@ -47,14 +56,21 @@ const Nav = ({ viewControls, filteredProjects }) => {
                 </AnimatePresence>
             </div>
 
-            <div id={styles['nav-indicator']} >
+            <div id={styles['nav-indicator']} ref={navIndicatorRef}>
                 <AnimatePresence>
                     {filteredProjects.map((project, i) => (
                         <motion.button
                             key={i}
+                            data-index={i}
                             onClick={() => {
                                 viewControls.setColours(filteredProjects[i].colour_scheme);
                                 viewControls.scrollToProject(i);
+                            }}
+                            onHoverStart={() => {
+                                navLinkNamesRef.current.querySelector(`[data-index="${i}"]`).classList.add(styles['hover']);
+                            }}
+                            onHoverEnd={() => {
+                                navLinkNamesRef.current.querySelector(`[data-index="${i}"]`).classList.remove(styles['hover']);
                             }}
                             className={styles['project-nav-button']}
                             aria-label={`View project ${project.title}`}
