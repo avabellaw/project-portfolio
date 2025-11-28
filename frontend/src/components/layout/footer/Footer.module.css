@@ -24,6 +24,7 @@
     display: flex;
     width: fit-content;
     margin: auto;
+    margin-bottom: 1em;
 
     column-gap: var(--github-logo-col-gap);
     color: var(--text-colour);
@@ -57,5 +58,9 @@
 @media screen and (min-width: 768px) {
     #footer {
         position: absolute;
+    }
+
+    #footer > a {
+        margin: 0;
     }
 }
