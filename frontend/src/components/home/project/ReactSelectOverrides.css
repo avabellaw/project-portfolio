@@ -21,7 +21,7 @@
 
 .skills-filter__control:hover {
     border-color: var(--highlight-colour)!important;
-    box-shadow: 0 0 0 2px var(--highlight-colour) !important;
+    box-shadow: 0 0 0px 1px var(--highlight-colour) !important;
 }
 
 .skills-filter__input {
