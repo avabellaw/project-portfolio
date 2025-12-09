@@ -200,6 +200,8 @@ h2 {
         height: var(--project-card-height);
 
         scroll-snap-align: center;
+
+        scroll-snap-stop: always;
     }
 
     .card-content p {
