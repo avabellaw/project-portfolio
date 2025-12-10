@@ -16,14 +16,14 @@ const Nav = ({ viewControls, filteredProjects }) => {
     // Nav-link names animation
     const navNameAnimation = {
         initial: { x: -200, opacity: 0 },
-        animate: { x: 0, opacity: 1 },
+        animate: { x: 0, opacity: 1, transition: { delay: 0.1, ...navTransitionValues } },
         exit: { x: -200, opacity: 0 },
     };
 
     // Nav-link buttons animation
     const navButtonAnimation = {
         initial: { flexGrow: 0 },
-        animate: { flexGrow: 1 },
+        animate: { flexGrow: 1, transition: { duration: 0.4, ...navTransitionValues } }, /* Extra 0.1 duration to sync with nav name entering */
         exit: { marginTop: 0, flexGrow: 0, transition: { delay: isFullLayout ? 0.3 : 0/* Wait for name animation */, ...navTransitionValues } }
     }
 
@@ -46,11 +46,11 @@ const Nav = ({ viewControls, filteredProjects }) => {
                                 navIndicatorRef.current.querySelector(`[data-index="${i}"]`).classList.remove(styles['hover']);
                             }}
                             data-current={viewControls.getIndex() === i ? 'true' : 'false'}
-                            layout='position' // Animations the position changes
+                            layout // Animations the position changes
                             {...navNameAnimation}
                             transition={{ ...navTransitionValues }}
                         >
-                            {project.title}
+                            <motion.span layout transition={{...navTransitionValues }}>{project.title}</motion.span>
                         </motion.span>
                     ))}
                 </AnimatePresence>
