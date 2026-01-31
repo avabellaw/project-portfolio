@@ -130,7 +130,7 @@ h2 {
 }
 
 .skill-tags>.skill:hover {
-    border-color: var(--highlight-colour);
+    border-color: var(--skill-selected-colour);
     cursor: pointer;
 }
 
@@ -142,6 +142,7 @@ h2 {
     border-radius: 2em;
     font-size: 0.8em;
     font-weight: 500;
+    transition: border 0.03s ease-out, opacity 0.3s;
 }
 
 .skill-tags:has(.skill[data-selected="true"]) .skill[data-selected="false"] {
@@ -149,7 +150,7 @@ h2 {
 }
 
 .skill[data-selected="true"] {
-    border-color: rgb(from var(--highlight-colour) r g b / 0.75);
+    border-color: var(--skill-selected-colour);
 }
 
 @media screen and (min-width: 768px) {

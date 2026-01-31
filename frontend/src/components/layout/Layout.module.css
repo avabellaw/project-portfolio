@@ -1,7 +1,8 @@
 :root {
     --header-padding: 0.2em;  
     
-    --darker-highlight-colour: rgb(from var(--highlight-colour) r g b / 0.6);  
+    --darker-highlight-colour: rgb(from var(--highlight-colour) r g b / 0.1);  
+    --skill-selected-colour: hsl(from var(--secondary-colour) h 50% 80%);  
 }
 
 body {
