@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './ProjectCard.module.css';
 import ImageLoadingIcon from "react-spinners/BeatLoader";
+import DelayedComponent from '../../../DelayedComponent';
 
 const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) => { 
 
@@ -43,7 +44,9 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
 
             <div className={styles['card-img']}>
                 <img width={300} height={300} id={`${project.id}-img`} aria-label={`Project: ${project.title}`} /> 
-                <ImageLoadingIcon className={styles['loading-spinner']} size={13} aria-label="Loading Spinner" data-testid="loader" loading={!isImageLoaded}/>
+                <DelayedComponent wait={200}>
+                    <ImageLoadingIcon className={styles['loading-spinner']} size={13} aria-label="Loading Spinner" data-testid="loader" loading={!isImageLoaded}/>
+                </DelayedComponent>
             </div>
             <div className={styles['card-content']}>
 
