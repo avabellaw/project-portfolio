@@ -11,8 +11,6 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
     const [skills, setSkills] = useState();
     const [inputValue, setInputValue] = useState('');
 
-    const [menuIsOpen, setMenuIsOpen] = useState(false); // Might use in future
-
     // CSS colour variables
     const skillSelectedColour = getComputedStyle(document.documentElement).getPropertyValue('--skill-selected-colour');
     const skillBorderColour = getComputedStyle(document.documentElement).getPropertyValue('--skill-filter-border-colour');
@@ -187,8 +185,6 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
                 aria-label='Filter by skill'
                 noOptionsMessage={() => 'No skills match'}
                 styles={customStyles}
-                onMenuOpen={() => setMenuIsOpen(true)}
-                onMenuClose={() => setMenuIsOpen(false)}
             />
         </div>
     )
