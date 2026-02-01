@@ -10,17 +10,13 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
 
     const [skills, setSkills] = useState();
     const [inputValue, setInputValue] = useState('');
-
-    // CSS colour variables
-    const skillSelectedColour = getComputedStyle(document.documentElement).getPropertyValue('--skill-selected-colour');
-    const skillBorderColour = getComputedStyle(document.documentElement).getPropertyValue('--skill-filter-border-colour');
-    const primaryColour = getComputedStyle(document.documentElement).getPropertyValue('--primary-colour');
-
+    
     // Overrides the CSS for ReactSelect
     const customStyles = {
         container: (baseStyles, state) => ({
             ...baseStyles,
-            border: `2px solid ${state.isFocused ? skillSelectedColour : skillBorderColour}`,
+            borderWidth: '2px',
+            borderStyle: 'solid',
             borderRadius: '10px',
             boxSizing: 'content-box',
             overflow: 'hidden',
@@ -30,7 +26,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
             ...baseStyles,
             position: 'relative',
             margin: '0',
-            borderRadius: '0',
+            borderRadius: '0'
         }),
         menuList: (baseStyles, state) => ({
             ...baseStyles,
@@ -41,14 +37,14 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
             ...baseStyles,
             opacity: state.isFocused ? '1' : '0.7',
             backgroundColor: 'transparent',
-            borderColor: state.isFocused ? skillSelectedColour : primaryColour,
             borderWidth: state.isFocused ? "4px" : '0',
             borderStyle: 'solid',
             borderRight: 'none',
             borderTop: 'none',
             borderBottom: 'none',
-            boxShadow: `inset ${state.isSelected && !state.isFocused ? "4" : "0"}px 0px 0px 0px ${primaryColour}`,
-            cursor: state.isFocused && 'pointer'
+            boxShadow: (!state.isSelected || state.isFocused) && 'none' ,
+            cursor: state.isFocused && 'pointer',
+            color: 'inherit'
         }),
         control: (baseStyles, state) => ({
             ...baseStyles,
