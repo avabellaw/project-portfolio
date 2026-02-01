@@ -1,6 +1,6 @@
 nav {
     --nav-indicator-padding: 0.6em;
-    color: var(--highlight-colour);
+    color: rgba(0, 0, 0, 0.9) !important;
 }
 
 #nav-container {
