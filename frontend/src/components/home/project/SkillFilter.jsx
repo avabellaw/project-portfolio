@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Select from 'react-select'
 
 import styles from './SkillFilter.module.css'
 import './ReactSelectOverrides.css'
 
 const Filter = ({ selectedValue, filterProjectsBySkill }) => {
-    const API_URL = process.env.REACT_APP_API_URL
+    const API_URL = process.env.REACT_APP_API_URL;
+    const max_skills_char_length = useRef(0);
 
     const [skills, setSkills] = useState();
     const [inputValue, setInputValue] = useState('');
@@ -79,9 +80,14 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
         fetch(`${API_URL}/skills`)
             .then(res => res.json())
             .then(data => {
+                let largest_char_count = 0;
+
                 let options = data.map((skill) => {
+                    largest_char_count = Math.max(largest_char_count, skill.name.length);
                     return { value: skill.id, label: skill.name }
                 })
+
+                max_skills_char_length.current = largest_char_count;
 
                 setSkills(options)
             })
@@ -133,6 +139,10 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
          * If it does, select the option.
          * Otherwise, if not already, reset the selected value and show all projects.
          */
+
+        // Do nothing if more chars than possible for match
+        if (input.length > max_skills_char_length.current) return
+
         setInputValue(input);
 
         let perfectMatch;
