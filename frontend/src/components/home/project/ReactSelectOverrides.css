@@ -1,28 +1,20 @@
 /* Important keyword is necessary to overide React-Select styling */
 
 .skills-filter__control {
-    background-color: var(--secondary-colour) !important;
-    border-radius: 1em !important;
-    border-color: var(--highlight-colour) !important;
+    background-color: white !important;
     color: var(--text-colour) !important;
     padding: 0 0.3em;
-    cursor: text !important;
+    /* cursor: text !important; */
+    /* border-radius: 10px !important; */
+    /* padding-bottom: 3px; */
+    /* border-width: 2px !important; */
+    /* border-color: hsl(from var(--primary-colour) h 50% 70%) !important; */
+    opacity: 0.75;
+    border:none !important;
+    border: 0;
 }
 
-.skills-filter__control--is-focused {
-    box-shadow: 0 0 0 1px var(--highlight-colour) !important;
-
-    cursor: text !important;
-}
-
-.skills-filter__control:has(.skills-filter__value-container--has-value) {
-    border-width: 2px;
-}
-
-.skills-filter__control:hover {
-    border-color: var(--highlight-colour)!important;
-    box-shadow: 0 0 0px 1px var(--highlight-colour) !important;
-}
+/* .skills-filter__control--is-focused {} */
 
 .skills-filter__input {
     color: var(--text-colour) !important;
@@ -31,10 +23,9 @@
 
 .skills-filter__placeholder {
     display: flex;
-    color: var(--text-colour) !important;
-    opacity: 0.7;
+    color: var(--secondary-colour) !important;
     cursor: text !important;
-    font-size: 0.9em;
+    font-size: 0.90em;
 }
 
 .skills-filter__placeholder * {
@@ -56,7 +47,6 @@
 
 .skills-filter__menu {
     flex-grow: 1;
-    background-color: var(--secondary-colour) !important;
     color: var(--text-colour) !important;
 }
 
@@ -65,25 +55,20 @@
 }
 
 .skills-filter__option {
-    background-color: var(--secondary-colour);
     color: var(--text-colour) !important; 
+    border-radius: 0 !important;
 }
 
 .skills-filter__option:hover {
-    background-color: var(--secondary-colour) !important;
     cursor: pointer;
 }
 
 .skills-filter__option--is-focused {
-    background-color: var(--secondary-colour) !important;
+    /* background-color: var(--secondary-colour) !important; */
     color: var(--text-colour) !important;
-    border: 2px double var(--highlight-colour);
-    border-top: 0;
-    border-bottom: 0;
 }
 
 .skills-filter__option--is-selected {
-    background-color: var(--secondary-colour) !important;
-    border: 2px double var(--highlight-colour);
+    /* border: 2px double var(--highlight-colour); */
     color: var(--text-colour) !important;
 }

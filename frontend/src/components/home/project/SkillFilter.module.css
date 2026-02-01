@@ -38,9 +38,9 @@
     #skill-filter-container {
         min-width: fit-content;
         margin-right: var(--body-padding);
-        top: -3.8em;
-        right: 0;
-        width: unset;
+        top: -2em;
+        left: 10%;
+        width: 80%;
     }
 }
 

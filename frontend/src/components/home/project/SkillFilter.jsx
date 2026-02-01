@@ -10,6 +10,50 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
     const [skills, setSkills] = useState();
     const [inputValue, setInputValue] = useState('');
 
+    const [menuIsOpen, setMenuIsOpen] = useState(false); // Might use in future
+
+    // CSS colour variables
+    const skillSelectedColour = getComputedStyle(document.documentElement).getPropertyValue('--skill-selected-colour');
+    const skillBorderColour = getComputedStyle(document.documentElement).getPropertyValue('--skill-filter-border-colour');
+    const primaryColour = getComputedStyle(document.documentElement).getPropertyValue('--primary-colour');
+
+    // Overrides the CSS for ReactSelect
+    const customStyles = {
+                    container: (baseStyles, state) => ({
+                        ...baseStyles,
+                        border: `2px solid ${state.isFocused ? skillSelectedColour : skillBorderColour}`,
+                        borderRadius: '10px',
+                        boxSizing: 'content-box',
+                        overflow: 'hidden',
+                    }),
+                    // List of skills that are suggestions when typing
+                    menu: (baseStyles, state) => ({
+                        ...baseStyles,
+                        position: 'relative',
+                        margin: '0',
+                        borderRadius: '0'
+                    }),
+                    // Skill option in menu
+                    option: (baseStyles, state) => ({
+                        ...baseStyles,
+                        opacity: state.isFocused ? '1' : '0.7',
+                        backgroundColor: 'transparent',
+                        borderColor: state.isFocused ? skillSelectedColour : primaryColour,
+                        borderWidth: state.isFocused ? "4px": '0',
+                        borderStyle: 'solid',
+                        borderRight: 'none',
+                        borderTop: 'none',
+                        borderBottom: 'none',
+                        boxShadow: `inset ${state.isSelected && !state.isFocused ? "4" : "0"}px 0px 0px 0px ${primaryColour}`
+                    }),
+                    control: (baseStyles, state) => ({
+                        ...baseStyles,
+                        opacity: state.isFocused ? '1':'0.95',
+                        borderRadius: '0',
+                        cursor: 'text'
+                    })
+                }
+
     const sortedSkills = skills && skills.toSorted((a, b) => {
         const comparison = a.label.localeCompare(b.label)
         
@@ -120,7 +164,10 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
                 value={selectedValue}
                 inputValue={inputValue}
                 aria-label='Filter by skill'
-                noOptionsMessage={() => 'No projects match'}
+                noOptionsMessage={() => 'No skills match'}
+                styles={customStyles}
+                onMenuOpen={() => setMenuIsOpen(true)}
+                onMenuClose={() => setMenuIsOpen(false)}
             />
         </div>
     )
