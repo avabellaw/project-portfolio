@@ -5,6 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import { LoadingContext } from '../LoadingContext';
 import { ViewportSizeContext } from '../ViewportSizeContext';
+import DelayedComponent from '../DelayedComponent';
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -68,10 +69,14 @@ function Home() {
         loadProjects();
     }, [loadProjects]); // Run when the component mounts
 
-    if (loading) return <ClipLoader
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"/>
+    if (loading) return (
+        <DelayedComponent wait={500}>
+            <ClipLoader
+                size={150}
+                aria-label="Loading Spinner"
+                data-testid="loader"/>
+        </DelayedComponent>
+    )
 
     else if (error) return (
         <>

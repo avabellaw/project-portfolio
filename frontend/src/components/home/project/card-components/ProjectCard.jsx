@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './ProjectCard.module.css';
+import ImageLoadingIcon from "react-spinners/BeatLoader";
+import DelayedComponent from '../../../DelayedComponent';
 
 const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) => { 
 
-    const imageLoaded = useRef(false);
+    const isImageUrlSet = useRef(false);
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     const onSkillTagClick = (skill) => {
         // If skill already filtered, remove filter
@@ -14,37 +17,36 @@ const ProjectCard = ({ project, preview, filterProjectsBySkill, skillFilter }) =
         filterProjectsBySkill(skill);
     }
 
-    const loadProjectImage = useCallback(() => {
+    const setImageUrl = useCallback(() => {
         let imgEl = document.getElementById(`${project.id}-img`)
+
+        imgEl.onload = function () {
+            setIsImageLoaded(true);
+        }
         // Uses the preloaded or prefetched image url
         imgEl.src = project.image_url;
 
         // Stops image url being reset everytime user scrolls
-        imageLoaded.current = true;
-    }, [imageLoaded, project]);
-
-    useEffect(() => {
-        // Project changed -> update image urls (will use cached versions)
-        // Only update if there is a loaded image to update
-        if(imageLoaded.current) {
-            loadProjectImage();
-        }
-    }, [loadProjectImage, project])
+        isImageUrlSet.current = true;
+    }, [isImageUrlSet, project]);
 
     useEffect(() => {
         // Load the current and next image as user scrolls until all are loaded.
         // Includes the previous incase user navigates using the nav.
         let cardsInView = ['prev', 'current', 'next']
-        if (!imageLoaded.current && (cardsInView.includes(preview))){
-            loadProjectImage();
+        if (!isImageUrlSet.current && (cardsInView.includes(preview))){
+            setImageUrl();
         }
-    }, [loadProjectImage, preview])
+    }, [setImageUrl, preview])
 
     return (
         <div className={`${styles['project-card']} ${preview ? styles[preview] : ''}`}>
 
             <div className={styles['card-img']}>
-                <img width={300} height={300} id={`${project.id}-img`} alt={`Project: ${project.title}`} />
+                <img width={300} height={300} id={`${project.id}-img`} aria-label={`Project: ${project.title}`} /> 
+                <DelayedComponent wait={200}>
+                    <ImageLoadingIcon className={styles['loading-spinner']} size={13} aria-label="Loading Spinner" data-testid="loader" loading={!isImageLoaded}/>
+                </DelayedComponent>
             </div>
             <div className={styles['card-content']}>
 
