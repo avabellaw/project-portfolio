@@ -8,8 +8,22 @@
 }
 
 .skills-filter__option {
-    box-shadow: inset  4px 0px 0px 0px var(--primary-colour);
+    box-shadow: inset 4px 0px 0px 0px var(--primary-colour);
     border-color: var(--skill-selected-colour);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.skills-filter__menu {
+    animation: fadeIn 0.1s ease-in-out;
+    background-color: hsl(from var(--primary-colour) h 60% 97%) !important;
 }
 
 /* 

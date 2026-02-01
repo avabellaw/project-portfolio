@@ -35,7 +35,7 @@ const Filter = ({ selectedValue, filterProjectsBySkill }) => {
         // Skill option in menu
         option: (baseStyles, state) => ({
             ...baseStyles,
-            opacity: state.isFocused ? '1' : '0.7',
+            opacity: state.isFocused ? '1' : '0.85',
             backgroundColor: 'transparent',
             borderWidth: state.isFocused ? "4px" : '0',
             borderStyle: 'solid',
